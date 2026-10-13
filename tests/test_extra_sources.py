@@ -28,11 +28,9 @@ class ExtraSourceTests(unittest.TestCase):
              "workLocationDicts": [{"name": "深圳"}]}
         ]
         result = normalize_extra("快手", rows, self.today)
-        # The old retention-intern jobs must not pass the daily-only gate.
-        self.assertEqual(result, [])
-        daily = dict(rows[0], id=333, name="【日常实习】AI Agent产品经理")
-        result = normalize_extra("快手", [daily], self.today)
-        self.assertEqual([x["id"] for x in result], ["kuaishou-333"])
+        # Retention internships are valid leads; category remains labeled.
+        self.assertEqual({x["id"] for x in result}, {"kuaishou-11245", "kuaishou-11453"})
+        self.assertTrue(all(x["verify"].startswith("官网API") for x in result))
         self.assertEqual(result[0]["posted"], "2026-03-06")
 
     def test_mihoyo_excludes_algorithm(self):
@@ -45,9 +43,8 @@ class ExtraSourceTests(unittest.TestCase):
              "addressDetailList": [{"addressDetail": "北京"}]}
         ]
         found = normalize_extra("米哈游", rows, self.today)
-        self.assertEqual(found, [])  # Project type is not verified daily.
-        daily = dict(rows[2], projectName="日常实习")
-        self.assertEqual([x["id"] for x in normalize_extra("米哈游", [daily], self.today)], ["mihoyo-3"])
+        self.assertEqual([x["id"] for x in found], ["mihoyo-3"])
+        self.assertNotIn("mihoyo-1", [x["id"] for x in found])
 
     def test_sources_reconcile_counts(self):
         def fetch_json(session, method, url, payload, ref):
