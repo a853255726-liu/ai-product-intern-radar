@@ -14,9 +14,18 @@ PORTALS = {
     "MiniMax": ("https://vrfi1sk8a0.jobs.feishu.cn", "/index/position/list"),
     "智谱": ("https://zhipu-ai.jobs.feishu.cn", "/index/position/list"),
     "RealAI": ("https://realai.jobs.feishu.cn", "/272867/"),
+    "百川智能": ("https://cq6qe6bvfr6.jobs.feishu.cn", "/646926/"),
 }
 JOB_COUNT = re.compile(r"开启新的工作\s*[（(]\s*(\d+)\s*[）)]")
 MAX_PAGES = 50
+
+def list_url(company, page, page_size):
+    base, path = PORTALS[company]
+    url = f"{base}{path}?current={page}&limit={page_size}"
+    if company == "百川智能":
+        # Only this separately published daily internship project, not all portals.
+        url += "&project=7676369353193589042"
+    return url
 
 def parse_list_html(html, base_url):
     soup = BeautifulSoup(html, "html.parser")
@@ -69,7 +78,7 @@ def collect_feishu_browser(company, page_size=10, max_pages=MAX_PAGES):
             page = browser.new_page(locale="zh-CN", viewport={"width": 1250, "height": 900})
             page.set_default_timeout(18000)
             for index in range(1, max_pages + 1):
-                page.goto(f"{base}{path}?current={index}&limit={page_size}",
+                page.goto(list_url(company, index, page_size),
                           wait_until="domcontentloaded", timeout=30000)
                 try:
                     page.locator("a[data-id]").first.wait_for(timeout=18000)
@@ -106,7 +115,7 @@ def collect_feishu(session, company, page_size=10, max_pages=MAX_PAGES):
     base, path = PORTALS[company]
     all_rows, total, sizes = [], None, []
     for page in range(1, max_pages+1):
-        url = f"{base}{path}?current={page}&limit={page_size}"
+        url = list_url(company, page, page_size)
         response = session.get(url, headers={
             "User-Agent": "Mozilla/5.0 (compatible; AIInternshipRadar/1.1)",
             "Accept": "text/html,application/xhtml+xml",
@@ -151,6 +160,9 @@ def normalize_feishu(company, records, today):
         duty = row["description"]
         # First select the company-confirmed internship and Beijing, then PM scope.
         if "北京" not in sub or "实习" not in sub:
+            continue
+        # A city explicitly specified in the job TITLE beats a broad list label.
+        if re.search(r"[-—－]\s*(?:厦门|上海|深圳|广州|杭州|成都|南京)(?:$|[-—（）()\s])", title):
             continue
         if not re.search(r"产品|策略|用户研究|体验研究|体验运营", title):
             continue
