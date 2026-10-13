@@ -5,7 +5,7 @@
 小红书,官网职位API,good,已核查校招目录；实习与正式、专项需要细分,https://job.xiaohongshu.com/campus/intern,21
 百度,招聘官网,partial,职位样本核实；481个实习列表未跑完全量,https://talent.baidu.com/jobs/list?recruitType=INTERN,7
 字节跳动,飞书招聘系统,partial,官网动态接口未完成全量审计,https://jobs.bytedance.com/campus/position,1
-快手,公司AI平台与第三方职位,partial,有北京AI产品线索，未核验具体官方岗位ID,https://campus.kuaishou.cn/,3
+快手,官方校园招聘公开职位 API,complete_api,已核对本接口 228 个唯一职位 ID；企业其他渠道尚未全量核验,https://campus.kuaishou.cn/,6
 京东,官网校招 API,partial,2026-10-13 实测 type=intern 为0条；type=present 为124条，无法认定属于实习。其他入口仍待查。,https://campus.jd.com/,0
 阿里巴巴,集团招聘系统,todo,招聘项目多，需要逐招聘子系统检索,https://talent.alibaba.com/,0
 B站,校园招聘系统,todo,未完成可用职位列表读取,https://jobs.bilibili.com/,0
@@ -52,3 +52,4 @@ DeepSeek,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产
 联想,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.lenovo.com,0
 神州数码,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.digitalchina.com,0
 万兴科技,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.wondershare.cn,0
+米哈游,官方 ATS 公开职位 API,complete_api,已核对本接口 269 个唯一职位 ID；企业其他渠道尚未全量核验,https://jobs.mihoyo.com/,0
