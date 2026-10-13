@@ -119,15 +119,15 @@ def tencent(s):
 def jd(s):
     def one(page):
         return request_json(s, "POST",
-            "https://campus.jd.com/api/wx/position/page?type=intern",
+            "https://campus.jd.com/api/wx/position/page?type=internship",
             {"pageSize": 50, "pageIndex": page - 1,
              "parameter": {"positionName": "", "planIdList": [],
                            "jobDirectionCodeList": [], "workCityCodeList": [],
                            "positionDeptList": []}}, "https://campus.jd.com/")
-    records, meta = collect("京东intern", one,
+    records, meta = collect("京东internship", one,
                            lambda x: (x.get("body", {}).get("items"),
                                       x.get("body", {}).get("totalNumber"), "publishId"))
-    meta["scope"] = "intern 类别，仅此接口；返回 0 不代表所有京东招聘渠道为空"
+    meta["scope"] = "京东官方 type=internship 实习类别（全城市），与正式校招类型不同"
     return records, meta
 
 SOURCES = {"美团": meituan, "小红书": xhs, "腾讯": tencent, "京东": jd}
@@ -175,11 +175,13 @@ def normalize(company, records):
             url = "https://join.qq.com/post_detail.html?postid=" + key
             team = str(r.get("bgs") or "")
         elif company == "京东":
-            name = r.get("positionDept") or r.get("positionName") or ""
-            city = r.get("workCity") or ""
-            key = str(r.get("publishId"))
-            url = "https://campus.jd.com/#/jobs/detail/" + key
+            name = r.get("positionName") or ""
+            city = "/".join(str(x.get("workCity") or "") for x in (r.get("requirementVoList") or []) if isinstance(x, dict))
+            key = str(r.get("publishId") or "")
+            url = "https://campus.jd.com/#/job/detail?publishId=" + key
             team = r.get("jobDirection") or ""
+            duty = r.get("workContent") or ""
+            requirements = r.get("qualification") or ""
             date = r.get("publishTime") or ""
             date_type = "发布日期"
         if "北京" not in str(city):
