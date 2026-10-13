@@ -1,58 +1,89 @@
-"""Daily internship eligibility gate for published Beijing AI product vacancies.
+"""Internship screening: prefer daily internships; exclude explicit graduate-only roles.
 
-Conservative by design: internship != verified day-to-day / rolling internship.
-Only a company-defined daily stream, an official labeled daily posting, or a
-specifically reviewed company daily-intern job can pass.
-Keep excluded/unknown rows in the master database for audit, not on the site.
+Do not treat 'not explicitly daily' as ineligible. Keep the job/project label
+visible for the user, and retain unqualified records in the audit archive.
 """
 
-DAILY_IQIYI = {"iqiyi-A01585", "iqiyi-A10460", "iqiyi-A15887"}
-NON_DAILY_IDS = {
-    "xhs-20413",  # Ace/RPT project rather than daily internship
-    "tencent-1224696104600437761",
-    "tencent-1188988696721092608",
-    "tencent--3",
-    "tencent-1153452731391100929",
-    "tencent-1177660287764272128",
-    "tencent-1212816229455368192",
-    "tencent-1224696067023896576",
-    "tencent-1226957086077102081",
-    "kuaishou-30248",  # 可灵专项, project kind not daily
-}
-NON_DAILY_MARKERS = ("留用实习", "应届实习", "暑期实习", "转正专项", "实习专项", "2028届实习生招聘", "2027届实习项目")
+import re
 
+DAILY_IQIYI = {"iqiyi-A01585", "iqiyi-A10460", "iqiyi-A15887"}
+# Historic Tencent mapping=2 is the graduating-cohort intern route, unlike daily mapping=104.
+TENCENT_GRADUATING_COHORT_IDS = {
+    "tencent-1224696104600437761", "tencent-1188988696721092608",
+    "tencent-1153452731391100929", "tencent-1177660287764272128",
+    "tencent-1212816229455368192", "tencent-1224696067023896576",
+    "tencent-1226957086077102081",
+}
+DAILY_NAMES = {
+    "daily": "日常实习",
+    "general": "普通实习／类型待核",
+    "retention": "留用实习",
+    "special": "专项实习",
+    "unknown": "实习类型待核",
+    "graduate_only": "仅限应届／校招（排除）",
+}
+
+# Explicit exclusivity is the exclusion criterion; preference for graduates
+# or "2027届及以后" is NOT exclusivity.
+GRAD_ONLY = re.compile(
+    r"(?:仅|只)(?:限|招|面向|接受|考虑|招聘).{0,16}(?:应届(?:毕业生)?|毕业生|20\d{2}届)"
+    r"|(?:20\d{2}届|应届(?:毕业生)?).{0,14}(?:限定|专属|仅招|仅限)"
+    r"|(?:校招全职|正式校招|应届生专岗)"
+)
 
 def classify(job):
-    """Return daily, non_daily, or unverified. Never extrapolate from graduation year alone."""
+    """daily / general / retention / special / unknown / graduate_only."""
     key = str(job.get("id", ""))
-    title = str(job.get("title", ""))
-    team = str(job.get("team", ""))
-    company = str(job.get("company", ""))
-    if key in NON_DAILY_IDS or any(p in title for p in NON_DAILY_MARKERS):
-        return "non_daily"
-    if "培训生（Ace）" in title or "产品培训生（Ace）" in title:
-        return "non_daily"
+    title = str(job.get("title") or "")
+    team = str(job.get("team") or "")
+    reqs = " ".join(str(job.get(k) or "") for k in ("graduation", "requirements", "note", "status"))
+    terms = title + " " + team + " " + reqs
+    company = str(job.get("company") or "")
+    if key in TENCENT_GRADUATING_COHORT_IDS or "（应届实习）" in title:
+        return "graduate_only"
+    # Avoid treating a negated phrase or preference as a strict restriction.
+    if GRAD_ONLY.search(terms) and not re.search(r"非应届(?:生)?也可|不限应届|应届(?:生)?优先|20\d{2}届及以后", terms):
+        return "graduate_only"
+    if "校招正式" in title or "全职社招" in title:
+        return "graduate_only"
     if job.get("internship_kind") == "daily" and job.get("daily_evidence"):
         return "daily"
     if "日常实习" in title or "日常实习项目" in team:
         return "daily"
-    if company == "腾讯":
-        # Tencent's "应届实习" and "日常实习" are different official projects.
-        return "unverified"
     if company == "百度" and key.startswith("baidu-J"):
-        # These hand-inspected Baidu INTERN details identify 日常实习项目.
-        return "daily"
-    if company == "美团" and key.startswith("meituan-"):
-        # Meituan official campus internship list classifies these as 日常实习.
-        if "【2027】" in title or "专项" in title:
-            return "unverified"
-        return "daily"
+        return "daily"  # reviewed Baidu INTERN pages
+    if company == "美团" and key.startswith("meituan-") and "【2027】" not in title and "专项" not in title:
+        return "daily"  # previously checked company internship feed
     if key in DAILY_IQIYI:
-        # Verified on official iQIYI "日常实习生招聘" /intern list or detail.
         return "daily"
-    # "实习" alone or third-party unlabeled posting is not enough evidence.
-    return "unverified"
+    if "留用实习" in title or "留用实习" in team:
+        return "retention"
+    if any(k in terms for k in ("专项", "培训生（Ace）", "RPT 产品培训", "暑期实习", "2028届实习生招聘", "【2027】")):
+        return "special"
+    if "实习" in terms or job.get("source") or job.get("verify"):
+        return "general"
+    return "unknown"
 
+def is_product_candidate(job):
+    """Keep the curated PM list broad, but not standalone technical engineers."""
+    title = str(job.get("title") or "")
+    if "工程师" in title and not re.search(r"产品经理|产品实习", title):
+        return False
+    return True
 
+def eligible_jobs(jobs):
+    """Published job pool: every candidate except explicitly graduation-only roles."""
+    result = []
+    for job in jobs:
+        tag = classify(job)
+        if tag == "graduate_only" or not is_product_candidate(job):
+            continue
+        row = dict(job)
+        row["internship_scope"] = tag
+        row["internship_label"] = DAILY_NAMES[tag]
+        result.append(row)
+    return result
+
+# Old entry point still used by publishing and CSV scripts.
 def daily_jobs(jobs):
-    return [j for j in jobs if classify(j) == "daily"]
+    return eligible_jobs(jobs)
