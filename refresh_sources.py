@@ -116,6 +116,30 @@ def tencent(s):
             "scope": "仅北京日常实习项目 mapping=104，不包括应届实习/青云/部门直招"}
     return all_records, meta
 
+def baidu(s):
+    """Baidu internship vacancies, form-encoded public API with 10 records per page."""
+    def one(page):
+        form = {"recruitType": "INTERN", "pageSize": "10", "keyWord": "",
+                "curPage": str(page), "projectType": "", "workPlace": "1100",
+                "postType": "2"}
+        headers = dict(HEADERS)
+        headers.update({"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+                        "Origin": "https://talent.baidu.com",
+                        "Referer": "https://talent.baidu.com/jobs/intern-list?dev=0"})
+        response = s.post("https://talent.baidu.com/httservice/getPostListNew",
+                          data=form, headers=headers, timeout=22)
+        response.raise_for_status()
+        reply = response.json()
+        if reply.get("status") != "ok":
+            raise ValueError("Baidu response status is not ok")
+        return reply
+    records, meta = collect("百度INTERN北京产品", one,
+        lambda x: ((x.get("data") or {}).get("list"),
+                   int((x.get("data") or {}).get("total", -1)), "postId"))
+    meta.update(scope="仅 INTERN，北京市 workPlace=1100，产品类别 postType=2",
+                capture="百度官网表单职位 API")
+    return records, meta
+
 def jd(s):
     def one(page):
         return request_json(s, "POST",
@@ -130,9 +154,9 @@ def jd(s):
     meta["scope"] = "京东官方 type=internship 实习类别（全城市），与正式校招类型不同"
     return records, meta
 
-SOURCES = {"美团": meituan, "小红书": xhs, "腾讯": tencent, "京东": jd}
+SOURCES = {"美团": meituan, "小红书": xhs, "腾讯": tencent, "京东": jd, "百度": baidu}
 SOURCES.update(make_sources(request_json, collect, TODAY))
-KEYS = {"meituan": "美团", "xhs": "小红书", "tencent": "腾讯", "jd": "京东", "kuaishou": "快手", "mihoyo": "米哈游", "xiaomi": "小米"}
+KEYS = {"meituan": "美团", "xhs": "小红书", "tencent": "腾讯", "jd": "京东", "baidu": "百度", "kuaishou": "快手", "mihoyo": "米哈游", "xiaomi": "小米"}
 
 def normalize(company, records):
     if company in ('快手', '米哈游', '小米'):
@@ -174,6 +198,16 @@ def normalize(company, records):
             key = str(r.get("postId"))
             url = "https://join.qq.com/post_detail.html?postid=" + key
             team = str(r.get("bgs") or "")
+        elif company == "百度":
+            name = r.get("name") or ""
+            city = r.get("workPlace") or ""
+            key = str(r.get("postId") or "")
+            url = "https://talent.baidu.com/jobs/detail/INTERN/" + key + "?dev=0"
+            team = str(r.get("orgName") or r.get("bgShortName") or "")
+            duty = r.get("workContent") or ""
+            requirements = r.get("serviceCondition") or ""
+            date = r.get("publishDate") or ""
+            date_type = "发布日期"
         elif company == "京东":
             name = r.get("positionName") or ""
             city = "/".join(str(x.get("workCity") or "") for x in (r.get("requirementVoList") or []) if isinstance(x, dict))
@@ -198,7 +232,7 @@ def normalize(company, records):
         if isinstance(date, (int, float)):
             date = datetime.fromtimestamp(date / 1000, ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d")
         date = str(date or "")[:10]
-        ident = {"美团": "meituan", "小红书": "xhs", "腾讯": "tencent", "京东": "jd"}[company] + "-" + key
+        ident = {"美团": "meituan", "小红书": "xhs", "腾讯": "tencent", "京东": "jd", "百度": "baidu"}[company] + "-" + key
         out.append({"id": ident, "company": company, "title": name, "link": url,
             "posted": date, "date_type": date_type, "group": "大厂",
             "track": "AI 产品/策略" if ai else "相邻产品",
@@ -212,7 +246,7 @@ def normalize(company, records):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--sources", nargs="+", choices=["meituan", "xhs", "tencent", "jd", "kuaishou", "mihoyo", "xiaomi", "all"],
+    ap.add_argument("--sources", nargs="+", choices=["meituan", "xhs", "tencent", "jd", "baidu", "kuaishou", "mihoyo", "xiaomi", "all"],
                     default=["meituan", "xhs", "tencent"])
     ap.add_argument("--audit-only", action="store_true")
     args = ap.parse_args()
