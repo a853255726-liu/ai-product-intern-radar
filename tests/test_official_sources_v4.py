@@ -2,7 +2,7 @@
 import unittest
 from unittest.mock import patch
 from refresh_sources import jd, baidu, normalize
-from feishu_sources import parse_list_html, collect_feishu, normalize_feishu
+from feishu_sources import parse_list_html, collect_feishu, normalize_feishu, list_url
 
 def feishu_fixture(total, *jobs):
     cards = ""
@@ -84,6 +84,20 @@ class OfficialSourcesTests(unittest.TestCase):
             collect_feishu(Session(),"MiniMax",max_pages=2)
         with self.assertRaises(ValueError):
             parse_list_html("<html>开启新的工作（0）</html>", "https://01ai.jobs.feishu.cn")
+
+    def test_feishu_baichuan_project_and_city_label_conflict(self):
+        self.assertIn("project=7676369353193589042",
+            list_url("百川智能", 1, 10))
+        rows=[{"id":"7595519424645400842",
+               "title":"AI产品经理/解决方案实习生-厦门",
+               "subtitle":"北京 / 实习 / 产品",
+               "description":"AI Agent 企业产品需求与评测",
+               "url":"https://zhipu-ai.jobs.feishu.cn/index/position/7595519424645400842/detail"}]
+        self.assertEqual(normalize_feishu("智谱",rows,lambda:"2026-10-13"),[])
+        rows[0]["title"]="AI产品实习生-北京"
+        out=normalize_feishu("智谱",rows,lambda:"2026-10-13")
+        self.assertEqual(len(out),1)
+        self.assertEqual(out[0]["id"],"feishu-zhipu-7595519424645400842")
 
     def test_feishu_no_external_links(self):
         html='<html>开启新的工作（1）<a data-id="123" href="https://evil.example/position/123/detail"><span class="positionItem-title-text">AI产品实习</span><div class="positionItem-subTitle">北京 实习</div></a></html>'
