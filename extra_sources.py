@@ -69,6 +69,10 @@ def normalize_extra(company, rows, today):
             if x.get("positionNatureCode") != "intern" or x.get("positionStatusCode") != "Release":
                 continue
             title = str(x.get("name") or "").strip()
+            # Daily-only scope: 留用实习 and other projects are NOT interchangeable.
+            # The current campus API returned only 留用实习 AI-PM candidates.
+            if "日常实习" not in (title + " " + str(x.get("projectName") or "")):
+                continue
             cities = "/".join(str(z.get("name") or "") for z in (x.get("workLocationDicts") or []) if isinstance(z, dict))
             summary = str(x.get("description") or "")
             req = str(x.get("positionDemand") or "")
