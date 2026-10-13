@@ -2457,24 +2457,25 @@
     {
       "id": "zeroone-tob-agent-20260907",
       "company": "零一万物",
-      "title": "产品实习生（ToB 企业 Agent Builder）",
-      "link": "https://agechild.com/job/4c2f81c76a9cbec6010a0a75711716de",
+      "title": "产品实习生（ToB AI Agent 产品）",
+      "link": "https://01ai.jobs.feishu.cn/index/position/7640037085303474458/detail",
       "posted": "2026-09-07",
       "date_type": "第三方更新时间",
       "group": "AI创业公司",
       "track": "AI Agent",
-      "fit": "优先关注",
+      "fit": "优先投递",
       "days": "≥4天",
       "duration": "≥3个月",
-      "verify": "第三方来源（待官网复核）",
-      "status": "第三方公开JD，官方公司招聘门户存在但岗位详情未独立比对",
-      "team": "ToB Agent 产品设计团队",
-      "summary": "参与企业 Agent 需求调研、业务流程/能力边界分析、PRD和原型设计，建立 Agent 效果评测场景、测试集与指标、用户反馈归因并推动迭代。",
-      "requirements": "JD写2027届本科及以上在读，AI Agent/企业级产品、Vibe Coding和结构化表达，4天/周、3个月以上。",
-      "note": "JD写2027届在读，尚不清楚是否接受其他毕业年份。因为未写『仅限』而暂列资格待核，不应当按2028届确定可投。",
-      "source": "松鼠实习／名企速投第三方聚合",
-      "graduation": "写2027届在读，非2027届资格待确认",
-      "checked": "2026-10-13"
+      "verify": "官网详情",
+      "status": "零一万物飞书官方职位页显示实习，可投递状态和具体名额仍需HR确认",
+      "team": "ToB AI Agent 产品设计团队",
+      "summary": "深入企业级 Agent 业务场景，参与客户需求调研、用户访谈、竞品分析、Agent 能力边界设计、产品原型/PRD，以及 Agent 评测场景、测试集和产品效果数据归因。",
+      "requirements": "官网写2027届本科及以上在读，计算机/AI优先；Vibe Coding生成原型能力；每周4天以上、3个月以上优先。",
+      "note": "2026-10-13直接核验公司官方JD；原第三方日期2026-09-07并非官网首次发布日期；非2027届资格不确定。",
+      "source": "零一万物官网飞书招聘详情",
+      "graduation": "官网写2027届在读；其他届次是否可投需与HR确认",
+      "checked": "2026-10-13",
+      "source_post_id": "7640037085303474458"
     },
     {
       "id": "shengshu-vidu-ai-pm-10917",
@@ -2496,6 +2497,50 @@
       "note": "第三方网站标注社会招聘分类，但职位名称明确实习；不可视作正式社招。官方发布渠道和名额待复核。",
       "source": "名企速投第三方招聘档案",
       "graduation": "未核实",
+      "checked": "2026-10-13"
+    },
+    {
+      "id": "zeroone-7667504757090732298",
+      "company": "零一万物",
+      "title": "产品实习生（产品研究与用户体验方向）",
+      "link": "https://01ai.jobs.feishu.cn/index/position/7667504757090732298/detail",
+      "posted": "",
+      "date_type": "未公布",
+      "group": "AI创业公司",
+      "track": "AI应用/体验",
+      "fit": "优先投递",
+      "days": "≥4天",
+      "duration": "≥3个月",
+      "verify": "官网详情",
+      "status": "零一万物官方招聘中实习职位（HC未确认）",
+      "team": "企业AI软件 · 产品研究与用户体验",
+      "summary": "需求与用户场景研究、访谈和数据分析，定位产品流程/交互问题，辅助产品经理做原型、PRD、版本验收和质量提升，接触企业软件与AI产品。",
+      "requirements": "本科/研究生在读，产品设计、交互、计算机、信息管理、心理学等优先；熟悉Figma/Axure、用户研究及文档；每周至少4天、连续至少3个月。",
+      "note": "官网未限定毕业届次；AI产品属于感兴趣/接触方向，非全职责都需大模型，仍应视为产品/用研相邻岗位。",
+      "source": "零一万物飞书招聘官方详情",
+      "graduation": "本科或研究生在读（不限专业）",
+      "checked": "2026-10-13"
+    },
+    {
+      "id": "realai-7208016656676669707",
+      "company": "RealAI",
+      "title": "AI 产品经理实习生（AI 治理／伪造内容检测）",
+      "link": "https://realai.jobs.feishu.cn/272867/position/7208016656676669707/detail",
+      "posted": "",
+      "date_type": "未提供",
+      "group": "AI创业公司",
+      "track": "AI应用/体验",
+      "fit": "优先关注",
+      "days": "未注明",
+      "duration": "未注明",
+      "verify": "官网列表（需核对详情）",
+      "status": "RealAI官方校园招聘列表收录，单条完整JD仍需二次核对",
+      "team": "AI治理与伪造内容检测产品",
+      "summary": "调研伪造内容检测及AI治理市场、用户需求与创新场景，参与规划和产品文档；开展算法效果测试、制定迭代策略，并参与项目标准化材料。",
+      "requirements": "实习具体到岗天数、专业和届次未在公开列表摘要中给出，需打开职位或联系招聘人员确认。",
+      "note": "官方校园招聘列表共11条，本职位为北京实习；单条详情有时因前端渲染暂不能抓取，故不标为已读完整JD。",
+      "source": "RealAI飞书官方校园职位列表",
+      "graduation": "未注明",
       "checked": "2026-10-13"
     }
   ],
@@ -2729,16 +2774,16 @@
       "website": "https://www.kunlun.com"
     },
     "百川智能": {
-      "source": "百川官方招聘入口 + 第三方实习目录",
-      "coverage": "官方设独立日常实习通道；第三方已收录北京医学大模型产品实习。未读取完整职位列表，职位详情需复核",
+      "source": "官方校招日常实习列表",
+      "coverage": "指定日常实习项目列出6条，均为算法、工程/Infra等；本项目范围当前未发现AI产品经理，不能证明其他渠道无岗；历史医学产品第三方线索仍待复核。",
       "level": "partial",
-      "website": "https://careers.baichuan-inc.com/"
+      "website": "https://cq6qe6bvfr6.jobs.feishu.cn/646926/"
     },
     "零一万物": {
-      "source": "官方公司飞书门户 + 第三方产品实习JD",
-      "coverage": "发现北京ToB Agent产品实习；JD提示2027届条件、接受其他毕业年份待确认，官方职位详情未匹配",
+      "source": "官方飞书招聘职位列表与详情",
+      "coverage": "2026-10-13核对官方列表51条（6页，去重51）；其中2条北京产品实习JD核实。此为页面级完整分页检查，不是自动API。",
       "level": "partial",
-      "website": "https://01ai.jobs.feishu.cn/"
+      "website": "https://01ai.jobs.feishu.cn/index/position/list"
     },
     "硅基流动": {
       "source": "牛客企业HR在招信息（官网未核实）",
@@ -2829,6 +2874,12 @@
       "level": "partial",
       "coverage": "发现北京视频生成Agent产品实习，工作流、模型评测和PRD相关；尚未核验官方职位详情、在招状态",
       "website": "https://mqjob.cn/jobs/10917"
+    },
+    "RealAI": {
+      "source": "官方飞书校园招聘列表",
+      "level": "partial",
+      "coverage": "官方校园岗位共11条，已识别北京AI治理产品实习；详情与职位期限待复核。未接入自动采集。",
+      "website": "https://realai.jobs.feishu.cn/272867/?current=1&limit=10"
     }
   },
   "quality": {
@@ -3020,5 +3071,29 @@
     ],
     "complete_company_coverage": false,
     "notes": "按官方、招聘平台企业HR、第三方线索分级；非此日首次发布，未做全量API校验"
+  },
+  "manual_source_checks": {
+    "零一万物": {
+      "date": "2026-10-13",
+      "pages": 6,
+      "total": 51,
+      "unique": 51,
+      "intern_pm_verified": 2,
+      "auto": false
+    },
+    "百川智能": {
+      "date": "2026-10-13",
+      "pages": 1,
+      "total": 6,
+      "scope": "日常实习招聘项目",
+      "intern_pm_verified": 0,
+      "auto": false
+    },
+    "RealAI": {
+      "date": "2026-10-13",
+      "reported": 11,
+      "intern_pm_listed": 1,
+      "auto": false
+    }
   }
 }
