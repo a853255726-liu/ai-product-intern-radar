@@ -36,8 +36,16 @@ def classify(job):
     key = str(job.get("id", ""))
     title = str(job.get("title") or "")
     team = str(job.get("team") or "")
-    reqs = " ".join(str(job.get(k) or "") for k in ("graduation", "requirements", "note", "status"))
-    terms = title + " " + team + " " + reqs
+    # Only the job title and substantive eligibility fields may establish
+    # graduating-only restrictions. Reviewer notes like "未见仅限应届" must
+    # NOT be parsed as positive evidence of a restriction.
+    qualifications = []
+    for field in ("graduation", "requirements"):
+        value = str(job.get(field) or "")
+        if re.search(r"未见|未明确|不确定|不限应届|并非仅限|不是仅限|无需应届|尚未核实", value):
+            continue
+        qualifications.append(value)
+    terms = title + " " + team + " " + " ".join(qualifications)
     company = str(job.get("company") or "")
     if key in TENCENT_GRADUATING_COHORT_IDS or "（应届实习）" in title:
         return "graduate_only"
