@@ -98,6 +98,10 @@ def normalize_extra(company, rows, today):
         elif company == "米哈游":
             if x.get("jobNatureId") != 3:
                 continue
+            # Some official internship projects are training/specialty cohorts.
+            # Do not claim they are daily interns without an explicit daily marker.
+            if "日常实习" not in str(x.get("projectName") or ""):
+                continue
             title = str(x.get("title") or "").strip()
             cities = "/".join(str(z.get("addressDetail") or "") for z in (x.get("addressDetailList") or []) if isinstance(z, dict))
             if "北京" not in cities or not re.search(r"产品经理|产品实习|用户研究", title):
