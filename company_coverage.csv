@@ -1,7 +1,8 @@
-企业,来源,覆盖状态,检查结果,网址,候选数量
-腾讯,官网职位API,good,已核查若干实习项目；还需检查全部团队直招,https://join.qq.com/post.html,6
-美团,官网职位API,good,已核查一次实习分页；仍需核查其他项目和职位下架,https://zhaopin.meituan.com/web/campus,8
-小红书,官网职位API,good,已核查校招目录；实习与正式、专项需要细分,https://job.xiaohongshu.com/campus/intern,16
+﻿企业,来源,覆盖状态,检查结果,网址,候选数量
+360,官网及第三方职位列表,partial,第三方有AI产品运营；官网实习申请需复核,https://360campus.zhiye.com/,1
+腾讯,官网职位API,good,已核查若干实习项目；还需检查全部团队直招,https://join.qq.com/post.html,12
+美团,官网职位API,good,已核查一次实习分页；仍需核查其他项目和职位下架,https://zhaopin.meituan.com/web/campus,35
+小红书,官网职位API,good,已核查校招目录；实习与正式、专项需要细分,https://job.xiaohongshu.com/campus/intern,21
 百度,招聘官网,partial,职位样本核实；481个实习列表未跑完全量,https://talent.baidu.com/jobs/list?recruitType=INTERN,7
 字节跳动,飞书招聘系统,partial,官网动态接口未完成全量审计,https://jobs.bytedance.com/campus/position,1
 快手,公司AI平台与第三方职位,partial,有北京AI产品线索，未核验具体官方岗位ID,https://campus.kuaishou.cn/,3
@@ -13,7 +14,6 @@ B站,校园招聘系统,todo,未完成可用职位列表读取,https://jobs.bili
 贝壳,贝壳校招门户,partial,只拿到相邻交互岗位，未完成AI产品细分,https://ke.zhiye.com/jobs,1
 同道猎聘,实习僧/猎聘转发,partial,有AI招聘和企业效率岗线索，待确认HC,https://www.liepin.com/,2
 牛客,LinkedIn/猎聘转发,partial,有AI产品实习岗位线索，尚无官网职位ID,https://www.nowcoder.com/,1
-360,官网及第三方职位列表,partial,第三方有AI产品运营；官网实习申请需复核,https://360campus.zhiye.com/,1
 智谱,官方飞书招聘门户,partial,官网找到产品助理；尚未确认AI产品经理实习,https://zhipu-ai.jobs.feishu.cn/,1
 MiniMax,官方飞书招聘门户,partial,已找到模型资源运营；AI产品PM方向尚未核实,https://vrfi1sk8a0.jobs.feishu.cn/379481/,1
 阶跃星辰,第三方岗位来源,partial,GUI Agent岗位尚未确认官网申请入口,https://www.stepfun.com/,1
