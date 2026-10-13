@@ -2,7 +2,7 @@
 import csv
 import json
 from pathlib import Path
-from daily_scope import daily_jobs
+from daily_scope import eligible_jobs
 
 ROOT = Path(__file__).resolve().parent
 dbpath = ROOT / "jobs.json"
@@ -35,12 +35,12 @@ with (ROOT / "company_coverage.csv").open("w", encoding="utf-8-sig", newline="")
     for name, info in coverage.items():
         writer.writerow([name, info.get("source", ""), info.get("level", ""),
                          info.get("coverage", ""), info.get("website", ""),
-                         sum(row["company"] == name for row in daily_jobs(db.get("jobs", [])))])
+                         sum(row["company"] == name for row in eligible_jobs(db.get("jobs", [])))])
 with (ROOT / "jobs.csv").open("w", encoding="utf-8-sig", newline="") as stream:
     cols = ["company","title","group","track","fit","days","duration","posted",
             "date_type","verify","checked","team","summary","requirements",
             "note","link","id"]
     writer = csv.DictWriter(stream, fieldnames=cols, extrasaction="ignore")
     writer.writeheader()
-    writer.writerows(daily_jobs(db.get("jobs", [])))
-print(len(coverage), "companies;", len(daily_jobs(db.get("jobs", []))), "daily-scope jobs")
+    writer.writerows(eligible_jobs(db.get("jobs", [])))
+print(len(coverage), "companies;", len(eligible_jobs(db.get("jobs", []))), "eligible internship leads")
