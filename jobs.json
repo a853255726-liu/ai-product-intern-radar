@@ -2343,6 +2343,160 @@
       "checked": "2026-10-13",
       "internship_kind": "daily",
       "daily_evidence": "第三方JD明确描述日常实习，官网岗位所属项目尚未复核"
+    },
+    {
+      "id": "siliconflow-nowcoder-456133",
+      "company": "硅基流动",
+      "title": "产品实习生（AIGC 增长 / ComfyUI 工作流）",
+      "link": "https://www.nowcoder.com/jobs/detail/456133",
+      "posted": "",
+      "date_type": "未披露",
+      "group": "AI创业公司",
+      "track": "AI应用/体验",
+      "fit": "可以尝试",
+      "days": "≥4天",
+      "duration": "≥3个月",
+      "verify": "招聘平台企业HR（官网待复核）",
+      "status": "牛客企业HR职位页当前展示；独立官方招聘入口未核对",
+      "team": "多模态创作产品 · ComfyUI插件/Web平台",
+      "summary": "作为深度用户体验 ComfyUI 及多模态创作平台，分析任务路径、工作流使用障碍和交互问题，开展同类 SaaS 竞品研究并提交产品改进建议。偏产品体验研究而非完整PRD/规划岗。",
+      "requirements": "熟悉 ComfyUI 工作流及多模态图像生成，能清楚描述问题与用户路径，最少3个月、每周4天；特别优秀者可北京远程。",
+      "note": "牛客展示企业 HR 本周在线。需要较重的 ComfyUI 实操经验；JD 真实性以企业招聘确认。官网尚未独立核实，不算近期新增。",
+      "source": "牛客企业HR职位页",
+      "graduation": "本科在读；未见只招应届",
+      "checked": "2026-10-13"
+    },
+    {
+      "id": "baichuan-med-pm-20260831",
+      "company": "百川智能",
+      "title": "医学大模型产品实习生（日常实习）",
+      "link": "https://agechild.com/company/%E7%99%BE%E5%B7%9D%E6%99%BA%E8%83%BD",
+      "posted": "2026-08-31",
+      "date_type": "第三方记录日期",
+      "group": "AI创业公司",
+      "track": "AI 原生产品",
+      "fit": "优先关注",
+      "days": "未注明",
+      "duration": "未注明",
+      "verify": "第三方来源（待官网复核）",
+      "status": "第三方实习目录列出此岗位；官方单条详情未核实",
+      "team": "医疗大模型与 AI 医疗产品",
+      "summary": "医疗大模型产品的需求/反馈收集与产品流程推进，参与设计、开发、测试及运营协同，关注医学AI用户场景和效果优化。",
+      "requirements": "在校实习岗位；具体毕业届次、到岗天数与医学背景条件待向官方核对。",
+      "note": "松鼠实习页面列出『日常实习』，另有招聘平台同类医学大模型产品岗位信息；不能确认当前剩余 HC。",
+      "source": "松鼠实习 + 招聘平台公开信息",
+      "graduation": "未明确",
+      "checked": "2026-10-13"
+    },
+    {
+      "id": "xiaomi-voice-A65601A",
+      "company": "小米",
+      "title": "语音识别产品经理实习生（A65601A）",
+      "link": "https://www.shixiseng.com/intern/inn_hhk90g88rgiu?pcm=pc_SearchList",
+      "posted": "2026-10-09",
+      "date_type": "更新时间",
+      "group": "大厂",
+      "track": "AI应用/体验",
+      "fit": "优先关注",
+      "days": "≥5天",
+      "duration": "≥3个月",
+      "verify": "第三方招聘平台（待官网复核）",
+      "status": "实习僧职位展示投递入口；需进一步核对小米招聘原始岗位",
+      "team": "智能语音 / ASR 产品",
+      "summary": "分析语音识别效果与 Badcase，为研发提出数据支持和算法改进建议，收集语音数据与用户反馈，开展智能语音竞品研究。",
+      "requirements": "本科及以上，对 AI 语音交互和智能硬件有基础认知，具备 SQL 和数据分析能力；5天/周，至少3个月。",
+      "note": "实习僧2026-10-09为刷新时间而非首次发布。每周5天与你4天稳定出勤存在冲突；不排除沟通弹性。",
+      "source": "实习僧",
+      "graduation": "未见仅限应届",
+      "checked": "2026-10-13"
+    },
+    {
+      "id": "xiaomi-ux-A85827",
+      "company": "小米",
+      "title": "体验运营实习生（AI 产品评测与用户研究，A85827）",
+      "link": "https://www.shixiseng.com/intern/inn_xjlxseqs6gjs?pcm=pc_SearchList",
+      "posted": "2026-09-07",
+      "date_type": "更新时间",
+      "group": "大厂",
+      "track": "AI数据/评测",
+      "fit": "可以尝试",
+      "days": "≥5天",
+      "duration": "≥3个月",
+      "verify": "第三方招聘平台（待官网复核）",
+      "status": "实习僧展示岗位与投递信息；官方原始JD待查",
+      "team": "用户体验运营 / AI 产品人工评测",
+      "summary": "收集用户反馈、开展定性定量体验研究、整理运营数据，参与 AI 产品人工测评与质量评估，协助持续提升 AI 产品智能化水平。",
+      "requirements": "心理学、人因工程、社会学、统计等背景；熟悉访谈、问卷、焦点小组、可用性测试及定量研究方法；每周5天、至少3个月。",
+      "note": "心理学与模型评测背景相关性高，但岗位属于体验运营/用研而非核心PM，并且5天到岗。",
+      "source": "实习僧",
+      "graduation": "未见仅限应届",
+      "checked": "2026-10-13"
+    },
+    {
+      "id": "zhipu-ai-pm-datahub-20260522",
+      "company": "智谱",
+      "title": "AI 产品实习生（B端 Agent 解决方案）",
+      "link": "https://datahub.ac.cn/ai-jobs/jobs/job_0a6a663e8fc8.html",
+      "posted": "2026-05-22",
+      "date_type": "第三方记录日期",
+      "group": "AI创业公司",
+      "track": "AI Agent",
+      "fit": "优先关注",
+      "days": "未注明",
+      "duration": "未注明",
+      "verify": "第三方来源（待官网复核）",
+      "status": "第三方岗位档案仍可读，官方招募状态/原始职位ID未核实",
+      "team": "B端客户方案 / Agent产品落地",
+      "summary": "调研客户业务场景，设计大模型产品解决方案，参与 AI Agent 的 Prompt、Coding、评测与优化，承担产品模块规划与交付协作。",
+      "requirements": "本科及以上，Python、Agent/Workflow、Prompt评测与需求分析，B端产品或原型落地经验加分。",
+      "note": "职位线索发布较早，2026年5月记录并非最近新增。当前官网未查到可对应的职位ID，先置于待复核，禁止声称仍在招聘。",
+      "source": "DataHub 招聘聚合",
+      "graduation": "未见仅限应届",
+      "checked": "2026-10-13"
+    },
+    {
+      "id": "zeroone-tob-agent-20260907",
+      "company": "零一万物",
+      "title": "产品实习生（ToB 企业 Agent Builder）",
+      "link": "https://agechild.com/job/4c2f81c76a9cbec6010a0a75711716de",
+      "posted": "2026-09-07",
+      "date_type": "第三方更新时间",
+      "group": "AI创业公司",
+      "track": "AI Agent",
+      "fit": "优先关注",
+      "days": "≥4天",
+      "duration": "≥3个月",
+      "verify": "第三方来源（待官网复核）",
+      "status": "第三方公开JD，官方公司招聘门户存在但岗位详情未独立比对",
+      "team": "ToB Agent 产品设计团队",
+      "summary": "参与企业 Agent 需求调研、业务流程/能力边界分析、PRD和原型设计，建立 Agent 效果评测场景、测试集与指标、用户反馈归因并推动迭代。",
+      "requirements": "JD写2027届本科及以上在读，AI Agent/企业级产品、Vibe Coding和结构化表达，4天/周、3个月以上。",
+      "note": "JD写2027届在读，尚不清楚是否接受其他毕业年份。因为未写『仅限』而暂列资格待核，不应当按2028届确定可投。",
+      "source": "松鼠实习／名企速投第三方聚合",
+      "graduation": "写2027届在读，非2027届资格待确认",
+      "checked": "2026-10-13"
+    },
+    {
+      "id": "shengshu-vidu-ai-pm-10917",
+      "company": "生数科技",
+      "title": "AI 产品实习生（视频生成 Agent / Vidu）",
+      "link": "https://mqjob.cn/jobs/10917",
+      "posted": "2026-03-11",
+      "date_type": "第三方记录发布日期",
+      "group": "AI创业公司",
+      "track": "AI 原生产品",
+      "fit": "优先关注",
+      "days": "未注明",
+      "duration": "未注明",
+      "verify": "第三方来源（待官网复核）",
+      "status": "名企速投展示社会招聘渠道下的产品实习岗位，官方详情和仍在招需验证",
+      "team": "AI视频生成 Agent 产品",
+      "summary": "设计面向电商、内容及视频制作场景的多 Agent 视频生成产品，参与需求、PRD、原型、研发协作、测试验收和模型评测追踪，提升工作流与用户体验。",
+      "requirements": "具体学历、到岗天数、毕业届次未在公开摘要列明；需登录官方招聘确认。",
+      "note": "第三方网站标注社会招聘分类，但职位名称明确实习；不可视作正式社招。官方发布渠道和名额待复核。",
+      "source": "名企速投第三方招聘档案",
+      "graduation": "未核实",
+      "checked": "2026-10-13"
     }
   ],
   "company_coverage": {
@@ -2401,8 +2555,8 @@
       "website": "https://talent.alibaba.com/"
     },
     "B站": {
-      "source": "校园招聘入口",
-      "coverage": "站点招聘接口依赖动态会话/CSRF，当前静态采集显示0不能推断无岗位；日常实习AI产品未确证",
+      "source": "官网招聘入口",
+      "coverage": "动态招聘接口尚无法稳定复核；本轮没有可验证的北京AI产品实习岗位，不等于零岗位",
       "level": "blocked",
       "website": "https://jobs.bilibili.com/campus/positions"
     },
@@ -2437,16 +2591,16 @@
       "website": "https://www.nowcoder.com/"
     },
     "智谱": {
-      "source": "飞书官方招聘门户",
-      "coverage": "浏览部分北京实习职位，但产品助理属内部信息系统且日常项目类型未明确；本轮无新增确定日常AI产品岗",
+      "source": "智谱官方飞书入口 + DataHub第三方岗位",
+      "coverage": "发现B端Agent产品实习第三方记录，官方暂无对应ID；已找到的内部信息化产品助理和AI PM不是同一岗位",
       "level": "partial",
-      "website": "https://zhipu-ai.jobs.feishu.cn/"
+      "website": "https://zhipu-ai.jobs.feishu.cn/index/"
     },
     "MiniMax": {
-      "source": "官方招聘官网 + 飞书招聘门户",
-      "coverage": "官网单独设日常实习与2028届实习项目；暂未核实北京日常AI产品经理，拒绝将2028届与算法实习混入",
+      "source": "官方飞书校园招聘门户",
+      "coverage": "核验大模型产品经理-Top Talent实习历史记录；第三方已显示截止，不当作当前在招候选；持续监控其他实习项目",
       "level": "partial",
-      "website": "https://minimax.cn/careers"
+      "website": "https://vrfi1sk8a0.jobs.feishu.cn/379481/"
     },
     "阶跃星辰": {
       "source": "第三方岗位来源",
@@ -2545,16 +2699,16 @@
       "website": "https://iq.jobs.feishu.cn/intern/m/"
     },
     "金山办公": {
-      "source": "公司网站（招聘接口尚未定位）",
-      "coverage": "尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索",
-      "level": "todo",
-      "website": "https://www.wps.cn"
+      "source": "招聘平台岗位与官网",
+      "coverage": "找到WPS Agent/Skills AI产品实习，但职位工作地为珠海，因北京限定未入库",
+      "level": "partial",
+      "website": "https://www.wps.cn/"
     },
     "小米": {
-      "source": "公司网站（招聘接口尚未定位）",
-      "coverage": "尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索",
-      "level": "todo",
-      "website": "https://www.mi.com"
+      "source": "小米校招官网 + 实习僧招聘",
+      "coverage": "已核对小米在校实习项目及北京语音产品、AI用户研究实习线索；官方对应招聘ID与全量API待打通",
+      "level": "partial",
+      "website": "https://hr.xiaomi.com/website/opportunities.html"
     },
     "蚂蚁集团": {
       "source": "公司网站（招聘接口尚未定位）",
@@ -2575,22 +2729,22 @@
       "website": "https://www.kunlun.com"
     },
     "百川智能": {
-      "source": "公司网站（招聘接口尚未定位）",
-      "coverage": "尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索",
-      "level": "todo",
-      "website": "https://www.baichuan-ai.com"
+      "source": "百川官方招聘入口 + 第三方实习目录",
+      "coverage": "官方设独立日常实习通道；第三方已收录北京医学大模型产品实习。未读取完整职位列表，职位详情需复核",
+      "level": "partial",
+      "website": "https://careers.baichuan-inc.com/"
     },
     "零一万物": {
-      "source": "公司网站（招聘接口尚未定位）",
-      "coverage": "尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索",
-      "level": "todo",
-      "website": "https://www.lingyiwanwu.com"
+      "source": "官方公司飞书门户 + 第三方产品实习JD",
+      "coverage": "发现北京ToB Agent产品实习；JD提示2027届条件、接受其他毕业年份待确认，官方职位详情未匹配",
+      "level": "partial",
+      "website": "https://01ai.jobs.feishu.cn/"
     },
     "硅基流动": {
-      "source": "公司网站（招聘接口尚未定位）",
-      "coverage": "尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索",
-      "level": "todo",
-      "website": "https://siliconflow.cn"
+      "source": "牛客企业HR在招信息（官网未核实）",
+      "coverage": "发现北京AIGC产品体验实习，明确4天/周；公司招聘官方全量接口未核对",
+      "level": "partial",
+      "website": "https://www.nowcoder.com/jobs/detail/456133"
     },
     "DeepSeek": {
       "source": "公司网站（招聘接口尚未定位）",
@@ -2669,6 +2823,12 @@
       "level": "complete_api",
       "coverage": "已核对本接口 269 个唯一职位 ID；企业其他渠道尚未全量核验",
       "website": "https://jobs.mihoyo.com/"
+    },
+    "生数科技": {
+      "source": "第三方职位聚合页面",
+      "level": "partial",
+      "coverage": "发现北京视频生成Agent产品实习，工作流、模型评测和PRD相关；尚未核验官方职位详情、在招状态",
+      "website": "https://mqjob.cn/jobs/10917"
     }
   },
   "quality": {
@@ -2845,5 +3005,20 @@
       "unique_ids": 269
     }
   },
-  "search_scope": "仅北京 AI 产品相关日常实习；其他实习项目与未证实日常属性职位保留在主库，不在默认网页展示"
+  "search_scope": "仅北京 AI 产品相关日常实习；其他实习项目与未证实日常属性职位保留在主库，不在默认网页展示",
+  "latest_expansion": {
+    "date": "2026-10-13",
+    "batch": "新增AI应用公司与中厂",
+    "records_added": 7,
+    "companies_added": [
+      "硅基流动",
+      "百川智能",
+      "小米",
+      "智谱",
+      "零一万物",
+      "生数科技"
+    ],
+    "complete_company_coverage": false,
+    "notes": "按官方、招聘平台企业HR、第三方线索分级；非此日首次发布，未做全量API校验"
+  }
 }
