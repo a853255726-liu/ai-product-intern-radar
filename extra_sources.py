@@ -26,7 +26,7 @@ def make_sources(fetch_json, paginate, today):
             "kuaishou-intern", one,
             lambda x: ((x.get("result") or {}).get("list"),
                        (x.get("result") or {}).get("total"),
-                       lambda y: y.get("id"))
+                       "id")
         )
         audit.update(
             capture="官方校园招聘公开职位 API",
@@ -51,7 +51,7 @@ def make_sources(fetch_json, paginate, today):
             "mihoyo-campus", one,
             lambda x: ((x.get("data") or {}).get("list"),
                        (x.get("data") or {}).get("total"),
-                       lambda y: y.get("id"))
+                       "id")
         )
         audit.update(
             capture="官方 ATS 公开职位 API",
