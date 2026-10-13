@@ -29,7 +29,7 @@ const scopeBadge=j=>badge(j.internship_label||'实习类型待核',j.internship_
 const fitOrder={'优先投递':4,'优先关注':3,'可以尝试':2,'相关岗位':1};
 const badge=(s,kind)=>`<span class="pill ${kind||'grey'}">${enc(s)}</span>`;
 const fitBadge=s=>badge(s,({'优先投递':'green','优先关注':'aqua','可以尝试':'blue','相关岗位':'grey'})[s]||'grey');
-const verifyBadge=j=>badge(j.verify.startsWith('第三方')?'第三方待复核':j.verify.includes('API')?'官网API未核JD':j.verify.includes('列表')?'官网列表':'官网详情',j.verify.startsWith('第三方')?'orange':j.verify.includes('API')?'aqua':j.verify.includes('列表')?'blue':'green');
+const verifyBadge=j=>badge(j.verify.startsWith('第三方')?'第三方待复核':j.verify.includes('含JD')?'官网API含职责':j.verify.includes('API')?'官网API未核JD':j.verify.includes('列表')?'官网列表':'官网详情',j.verify.startsWith('第三方')?'orange':j.verify.includes('API')?'aqua':j.verify.includes('列表')?'blue':'green');
 function showPage(p,el){$('jobsPanel').style.display=p==='jobs'?'block':'none';$('coveragePanel').classList.toggle('visible',p==='coverage');if(el){document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));el.classList.add('active')}}
 function setTab(tab){TAB=tab;document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('active',x.dataset.tab===tab));render()}
 function setGroup(g){$('group').value=g;setTab('all')}
