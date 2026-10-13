@@ -1,49 +1,63 @@
-# 北京 AI 产品实习机会雷达 · V3.3
+# 北京 AI 产品实习机会雷达
 
-网站：https://a853255726-liu.github.io/ai-product-intern-radar/
+在线网站：https://a853255726-liu.github.io/ai-product-intern-radar/
 
-## 当前范围（2026-10-13 更新）
+## 目标与筛选
 
-**北京 AI 产品相关岗位，日常实习优先，但不是日常实习限定。**
+**仅北京的 AI 产品及相邻产品方向，日常实习优先，但不排除普通、留用和专项实习。**
+只有明确仅面向应届毕业生的实习/正式校招、社招全职，以及纯算法/工程岗位会被排除。
+如果职位仅写“2027届”“2027届及以后”或者届次不明，不擅自认定满足条件，保留资格备注。
+工作地点优先使用 JD 明确的职位地点，遇到标题“厦门”但列表泛称北京的冲突，暂不纳入北京看板。
 
-- 优先展示有明确日常实习项目证据的岗位。
-- 允许普通实习、留用实习、暑期或专项实习，以及类别未标明但有具体岗位证据的实习；明确标注其性质与待确认项。
-- **只排除明确仅招聘应届毕业生的岗位／正式校招全职岗位**（包括腾讯应届实习通道的已识别候选）；“2027届及以后”“应届优先”不自动排除。
-- 北京现场、混合、明确允许北京远程的岗位才应入库，岗位职责要与 AI 产品或相邻产品方向有关；工程/算法纯技术岗不作为产品经理候选。
-- “已核验官网详情”不等于 HR 已确认名额，第三方或接口原始记录要标记待复核。
+官网职位有记录 **不等于目前仍有招聘名额**。应当区分官网详情、官方 API/职位列表、第三方线索和最后验证日期。
 
-## 界面和数据
+## 数据源状态（2026-10-14，按北京时间）
 
-- 默认进入“全部候选”，**排序先看日常实习，再看普通、留用、专项与项目类型待核**。顶部可以选择“仅看日常实习”、官网已读 JD 或待复核。
-- 表格和岗位详情会显示“日常实习 / 普通实习／类型待核 / 留用实习 / 专项实习”等标签。
-- `jobs.json` 是包含历史线索的主候选档案。不可明确为产品岗位或明确毕业生专属的岗位不会发布；被过滤的候选仍保留在仓库中用于审计。
-- `daily_scope.py` 保存条件判定和显示标签；`rebuild.py` 用这些规则构建网页；`expand_companies.py` 导出和网页一致的 `jobs.csv`。
-- 采集器不再因为找不到“日常实习”字样就放弃官方接口里证实的其他实习项目，但仍严格校验分页总数、唯一 ID、城市及岗位方向。
+目前 GitHub Actions 每天北京时间约 09:17 自动刷新下面 **12 个有明确范围的公开查询源**，并执行全量分页及 ID 对账。
+数量为公开入口返回的**原始职位记录**，不是最终 AI 产品岗位数量，不可跨公司简单相加。
 
-## 自动更新
+| 公司 | 最近确认的入口查询范围 | 原始记录 | 自动化 |
+| --- | --- | ---: | --- |
+| 腾讯 | `join.qq.com` 北京日常实习 `projectMappingIdList=104` | 25 | 成功 |
+| 美团 | `zhaopin.meituan.com` 校招实习类别，所有城市 | 约371 | 成功 |
+| 小红书 | `job.xiaohongshu.com` 校招混合目录 | 约492 | 成功 |
+| 京东 | `campus.jd.com/api/wx/position/page?type=internship` 全部城市 | 102 | 成功，已修正错误的 `intern` 参数 |
+| 百度 | `talent.baidu.com/httservice/getPostListNew` 北京/产品/实习 | 184 | 成功，已用 form-encoded 和 `curPage` 修复分页 |
+| 快手 | `campus.kuaishou.cn` 实习项目 | 228 | 成功 |
+| 米哈游 | `ats.openout.mihoyo.com` 校招混合入口 | 269 | 成功 |
+| 零一万物 | `01ai.jobs.feishu.cn/index/position/list` 全类别 | 51 | 公开浏览器页面，成功 |
+| MiniMax | `vrfi1sk8a0.jobs.feishu.cn/index/position/list` 全类别 | 197 | 公开浏览器页面，成功 |
+| 智谱 | `zhipu-ai.jobs.feishu.cn/index/position/list` 全类别 | 222 | 公开浏览器页面，成功 |
+| RealAI | `realai.jobs.feishu.cn/272867/` 全类别 | 11 | 公开浏览器页面，成功 |
+| 百川智能 | `cq6qe6bvfr6.jobs.feishu.cn/646926/` 的日常实习项目 | 6 | 公开浏览器页面，成功；此项目目前无 AI PM |
 
-GitHub Actions 每天北京时间约 **09:17** 检查公开招聘来源，运行时间可能浮动。每天自动采集腾讯、美团、小红书、京东、快手、米哈游的指定公开接口。**小米官方职位 API 在普通公开浏览入口能返回数据，但 GitHub Actions 请求收到 HTTP 403，因此暂不在云端自动执行**；已将其 2026-10-13 完整核验的岗位制作为可审计快照。零一万物、百川智能、RealAI 的官方列表也为人工核查，暂未实现每日自动检查。
+以上数字是首次修复和测试时的证据快照。往后请以 `jobs.json.source_audits`、`jobs.json.source_attempts` 和 `data/last_errors.json` 的最近结果为准。页面不展示所有原始记录；只有“北京+产品相关+实习”筛查后留下的候选才入库。
+
+### 尚未每日自动核验
+
+- **小米**：官网公开 API 已核对北京实习334条、27条AI产品相关候选，并存为 `data/xiaomi_official_20261013.json`。GitHub Actions 请求会返回403，因此该来源是带日期的官网人工快照，**没有每日自动更新**。
+- **腾讯其他通道**：另核查了北京应届实习51、青云计划实习134条。应届实习不属于本版优先渠道；青云计划主要为科研课题，没有明确AI产品经理岗，所以未并入每日主采集。
+- **字节跳动、B站、阿里及其他企业**：仍存在接口和公司覆盖缺口；不因空列表推断企业没有在招。
+
+## 工程实现
+
+- `refresh_sources.py`：多个招聘站点 API，京东/百度修复，主数据更新、失败保留和去重。
+- `extra_sources.py`：快手、米哈游、小米来源的适配代码。
+- `feishu_sources.py`：可复用的飞书招聘适配器，**先尝试公开 HTML/SSR，再用普通 Chromium 正常渲染网站职位列表**；不绕过登录、验证码或签名限制。检查总数、分页、唯一职位ID，再筛北京实习和产品方向。
+- `daily_scope.py`：日常实习优先、应届资格筛查。
+- `rebuild.py`、`expand_companies.py`：生成独立 `index.html`、岗位/企业 CSV。
+- `tests/`：离线测试 JD/Baidu 请求契约、飞书列表、城市冲突、校验失败等。
+- `SOURCE_REPAIR_FEISHU_AUDIT.md`：问题复现、接口参数和查询边界。
 
 本地运行：
 
 ```bash
 python -m pip install -r requirements.txt
-python refresh_sources.py --sources meituan xhs tencent jd kuaishou mihoyo
+python -m playwright install chromium
 python -m unittest discover -s tests -p 'test_*.py' -v
+python refresh_sources.py --sources meituan xhs tencent jd baidu kuaishou mihoyo feishu-zeroone feishu-minimax feishu-zhipu feishu-realai feishu-baichuan
 python expand_companies.py
 python rebuild.py
 ```
 
-细节见 `DAILY_BATCH2_AUDIT.md`（记录的是上版严格日常检索的历史过程，**不是当前筛选政策**）。
-
-**覆盖限制：** 公司核查名单中所有企业，不等于全部打通。来源日期不等于首次发布或新招名额；采集失败、接口返回空数据不能推断公司没有岗位。
-
-## 小米官方接口与新公司覆盖（2026-10-13）
-
-小米官网公开 JS `https://hr.xiaomi.com/website/assets/js/jobs.js` 指向职位 API：`https://hr.xiaomi.com/website/api/agent/searchJobPage`，查询条件 `cityZhNames=北京&type=3&pageSize=100&pageNum=N`。2026-10-13 读取北京实习分类334个岗位，4页与334个唯一ID对账一致，筛出2026年AI产品/策略/用研相关27条。其中**26条新增、1条按职位编号合并升级旧记录**。完整原始候选及分页核对保存于 [`data/xiaomi_official_20261013.json`](data/xiaomi_official_20261013.json)。由于GitHub Actions云端 API 请求403，**这是带时间戳的人工采集官方快照，不会每天自动刷新**，不能把日期当作实时在招证明。
-
-- **零一万物**：官网飞书列表51条6页经逐页核对，已核实2条北京产品实习，其中ToB Agent岗位要求2027届在读（其他届次待HR确认），产品研究与用户体验岗明确每周4天/至少3个月。职位详情保存官方直达链接，暂无每日自动采集。
-- **RealAI**：校园岗位目录列出11条，其中北京AI治理/伪造内容检测产品实习明确列在官方职位列表。单条详情有时无法抓取，标注为官网列表待复核。
-- **百川智能**：特定日常实习招聘项目官网6条当前主要为算法/Infra，无对应AI PM；过去发现的医学AI产品岗仍为第三方待确认，不能将其算作该官方项目目前在招。
-
-`jobs.json.manual_source_checks` 保存人工范围和日期，与真正每天复查的 `source_audits` 分开。不存在零岗位的判断依据时，请查看 `company_coverage` 的覆盖边界。
+GitHub Actions 配置：`.github/workflows/site.yml`；每日自动更新和网页部署按一条工作流执行。任一数据源失败时不删除历史岗位，只保留上一次核验数据并标记源失败。
