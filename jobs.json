@@ -2202,7 +2202,8 @@
       "note": "官网列示岗位不等于剩余招聘名额；请确认届次、到岗要求和投递状态",
       "source": "快手官方校园招聘 API（实习类别）",
       "graduation": "未核实",
-      "checked": "2026-10-13"
+      "checked": "2026-10-13",
+      "last_seen": "2026-10-13"
     },
     {
       "id": "kuaishou-11453",
@@ -2224,7 +2225,8 @@
       "note": "官网列示岗位不等于剩余招聘名额；请确认届次、到岗要求和投递状态",
       "source": "快手官方校园招聘 API（实习类别）",
       "graduation": "未核实",
-      "checked": "2026-10-13"
+      "checked": "2026-10-13",
+      "last_seen": "2026-10-13"
     },
     {
       "id": "kuaishou-11245",
@@ -2246,7 +2248,8 @@
       "note": "官网列示岗位不等于剩余招聘名额；请确认届次、到岗要求和投递状态",
       "source": "快手官方校园招聘 API（实习类别）",
       "graduation": "未核实",
-      "checked": "2026-10-13"
+      "checked": "2026-10-13",
+      "last_seen": "2026-10-13"
     },
     {
       "id": "baidu-J103757",
@@ -2909,16 +2912,16 @@
       "scope": "仅北京日常实习项目 mapping=104，不包括应届实习/青云/部门直招"
     },
     "美团": {
-      "reported": 370,
-      "raw_records": 370,
-      "unique_ids": 370,
+      "reported": 371,
+      "raw_records": 371,
+      "unique_ids": 371,
       "pages": 4,
       "failed_pages": 0,
       "page_sizes": [
         100,
         100,
         100,
-        70
+        71
       ],
       "status": "分页数量一致",
       "last_checked": "2026-10-13",
@@ -3022,8 +3025,8 @@
     "美团": {
       "status": "成功（当前接口）",
       "checked": "2026-10-13",
-      "reported": 370,
-      "unique_ids": 370
+      "reported": 371,
+      "unique_ids": 371
     },
     "小红书": {
       "status": "成功（当前接口）",
@@ -3054,6 +3057,11 @@
       "checked": "2026-10-13",
       "reported": 269,
       "unique_ids": 269
+    },
+    "小米": {
+      "status": "失败；保留上次完整快照",
+      "checked": "2026-10-13",
+      "error": "403 Client Error:  for url: https://hr.xiaomi.com/website/api/agent/searchJobPage?keyword=&cityZhNames=%E5%8C%97%E4%BA%AC&pageSize=100&pageNum=1&type=3"
     }
   },
   "search_scope": "仅北京 AI 产品相关日常实习；其他实习项目与未证实日常属性职位保留在主库，不在默认网页展示",
