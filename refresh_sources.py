@@ -1,0 +1,260 @@
+"""Audit official recruitment APIs and append Beijing AI/product internship candidates.
+An incomplete source never removes or overwrites existing manually verified jobs.
+Run: python refresh_sources.py --sources meituan xhs tencent jd
+"""
+import argparse
+import json
+import re
+import time
+from datetime import datetime
+from pathlib import Path
+from zoneinfo import ZoneInfo
+
+import requests
+
+ROOT = Path(__file__).resolve().parent
+TODAY = lambda: datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d")
+HEADERS = {"user-agent": "Mozilla/5.0 (compatible; PersonalInternshipRadar/1.0)",
+           "accept": "application/json,text/plain,*/*", "content-type": "application/json;charset=UTF-8"}
+
+def request_json(session, method, url, payload=None, referer=None):
+    headers = dict(HEADERS)
+    if referer:
+        headers["Referer"] = referer
+        headers["Origin"] = "/".join(referer.split("/")[:3])
+    for attempt in range(3):
+        try:
+            res = session.request(method, url, json=payload, headers=headers, timeout=22)
+            if res.status_code in (429, 500, 502, 503, 504) and attempt < 2:
+                time.sleep(2 * (attempt + 1))
+                continue
+            res.raise_for_status()
+            return res.json()
+        except (requests.Timeout, requests.ConnectionError):
+            if attempt == 2:
+                raise
+            time.sleep(2 * (attempt + 1))
+
+def collect(label, page_request, unpack, max_pages=200):
+    result, total, seen_pages = [], None, []
+    for page in range(1, max_pages + 1):
+        raw = page_request(page)
+        records, count, id_field = unpack(raw)
+        if not isinstance(records, list) or not isinstance(count, int) or count < 0:
+            raise ValueError(label + ": missing list or valid reported count")
+        if total is None:
+            total = count
+        if total != count:
+            raise ValueError(label + ": count changed during pagination")
+        if any(not isinstance(x, dict) or not x.get(id_field) for x in records):
+            raise ValueError(label + ": records without stable job ID")
+        result.extend(records)
+        seen_pages.append(len(records))
+        if len(result) >= total:
+            break
+        if not records:
+            raise ValueError(label + ": early empty page")
+        time.sleep(0.55)
+    ids = [str(x[id_field]) for x in result]
+    if len(result) != total or len(set(ids)) != total:
+        raise ValueError("%s: reported=%s retrieved=%s unique=%s" %
+                         (label, total, len(result), len(set(ids))))
+    return result, {"reported": total, "raw_records": len(result), "unique_ids": len(set(ids)),
+                    "pages": len(seen_pages), "failed_pages": 0, "page_sizes": seen_pages,
+                    "status": "分页数量一致", "last_checked": TODAY()}
+
+def meituan(s):
+    def one(page):
+        return request_json(s, "POST", "https://zhaopin.meituan.com/api/official/job/getJobList",
+            {"page": {"pageNo": page, "pageSize": 100}, "jobShareType": "1",
+             "keywords": "", "cityList": [], "department": [], "jfJgList": [],
+             "jobType": [{"code": "2", "subCode": []}], "typeCode": [], "specialCode": []},
+            "https://zhaopin.meituan.com/web/campus")
+    records, meta = collect("美团", one,
+                           lambda x: (x.get("data", {}).get("list"),
+                                      x.get("data", {}).get("page", {}).get("totalCount"), "jobUnionId"))
+    meta["scope"] = "官网校招实习类别，不代表其他渠道"
+    return records, meta
+
+def xhs(s):
+    def one(page):
+        return request_json(s, "POST",
+            "https://job.xiaohongshu.com/websiterecruit/position/pageQueryPosition",
+            {"recruitType": "campus", "positionName": "", "pageNum": page, "pageSize": 100},
+            "https://job.xiaohongshu.com/campus/position")
+    records, meta = collect("小红书", one,
+                           lambda x: (x.get("data", {}).get("list"),
+                                      x.get("data", {}).get("total"), "positionId"))
+    meta["scope"] = "校园招聘混合目录，含非实习职位"
+    return records, meta
+
+def tencent(s):
+    all_records, segments, sub = [], {}, []
+    for mapping, name in ((104, "日常实习"), (2, "应届实习"), (20, "青云计划实习")):
+        def one(page):
+            body = {"projectIdList": [], "projectMappingIdList": [mapping], "keyword": "",
+                    "bgList": [], "workCountryType": 1, "workCityList": ["2"],
+                    "recruitCityList": [], "positionFidList": [],
+                    "pageIndex": page, "pageSize": 20}
+            return request_json(s, "POST",
+                "https://join.qq.com/api/v1/position/searchPosition?timestamp=" +
+                str(round(time.time() * 1000)), body, "https://join.qq.com/post.html")
+        records, audit = collect("腾讯" + name, one,
+                                lambda x: (x.get("data", {}).get("positionList"),
+                                           x.get("data", {}).get("count"), "postId"))
+        all_records.extend(records)
+        segments[name] = audit["reported"]
+        sub.append(audit)
+    ids = [str(x["postId"]) for x in all_records]
+    if len(ids) != len(set(ids)):
+        raise ValueError("腾讯招聘项目间发现重复职位 ID")
+    meta = {"reported": sum(segments.values()), "raw_records": len(ids),
+            "unique_ids": len(set(ids)), "pages": sum(x["pages"] for x in sub),
+            "failed_pages": 0, "by_project": segments,
+            "status": "分页数量一致", "last_checked": TODAY(),
+            "scope": "北京三种实习项目，不包括部门直招"}
+    return all_records, meta
+
+def jd(s):
+    def one(page):
+        return request_json(s, "POST",
+            "https://campus.jd.com/api/wx/position/page?type=intern",
+            {"pageSize": 50, "pageIndex": page - 1,
+             "parameter": {"positionName": "", "planIdList": [],
+                           "jobDirectionCodeList": [], "workCityCodeList": [],
+                           "positionDeptList": []}}, "https://campus.jd.com/")
+    records, meta = collect("京东intern", one,
+                           lambda x: (x.get("body", {}).get("items"),
+                                      x.get("body", {}).get("totalNumber"), "publishId"))
+    meta["scope"] = "intern 类别，仅此接口；返回 0 不代表所有京东招聘渠道为空"
+    return records, meta
+
+SOURCES = {"美团": meituan, "小红书": xhs, "腾讯": tencent, "京东": jd}
+KEYS = {"meituan": "美团", "xhs": "小红书", "tencent": "腾讯", "jd": "京东"}
+
+def normalize(company, records):
+    out = []
+    for r in records:
+        name, city, key, url, team, date, date_type, duty, requirements = (
+            "", "", "", "", "", "", "未提供", "", "")
+        if company == "美团":
+            name = r.get("name") or ""
+            city = "/".join(x.get("name", "") for x in (r.get("cityList") or []) if isinstance(x, dict))
+            key = str(r.get("jobUnionId"))
+            url = "https://zhaopin.meituan.com/web/position/detail?highlightType=campus&jobUnionId=" + key
+            team = r.get("jobFamily") or ""
+            date = r.get("refreshTime") or ""
+            date_type = "更新时间"
+            if team != "产品类" and not re.search("AI.{0,4}产品", name, re.I):
+                continue
+        elif company == "小红书":
+            name = r.get("positionName") or ""
+            city = r.get("workplace") or ""
+            key = str(r.get("positionId"))
+            url = "https://job.xiaohongshu.com/campus/position/" + key
+            team = r.get("jobProjectName") or ""
+            date = r.get("publishTime") or ""
+            date_type = "发布日期"
+            duty, requirements = r.get("duty") or "", r.get("qualification") or ""
+            if r.get("recruitStatus") != "in_recruitment":
+                continue
+            if "实习" not in name and "实习" not in team:
+                continue
+            if "校招" in team and "实习" not in team:
+                continue
+        elif company == "腾讯":
+            name = r.get("positionTitle") or ""
+            city = r.get("workCities") or ""
+            key = str(r.get("postId"))
+            url = "https://join.qq.com/post_detail.html?postid=" + key
+            team = str(r.get("bgs") or "")
+        elif company == "京东":
+            name = r.get("positionDept") or r.get("positionName") or ""
+            city = r.get("workCity") or ""
+            key = str(r.get("publishId"))
+            url = "https://campus.jd.com/#/jobs/detail/" + key
+            team = r.get("jobDirection") or ""
+            date = r.get("publishTime") or ""
+            date_type = "发布日期"
+        if "北京" not in str(city):
+            continue
+        if re.search("工程师|算法|人力资源|招聘专员|招聘HR|数据标注", name, re.I):
+            continue
+        if not re.search("产品|用户研究|策略|AI运营|Agent运营", name, re.I):
+            continue
+        if "运营" in name and not re.search("AI|Agent|产品|大模型", name, re.I):
+            continue
+        content = " ".join([name, duty, requirements])
+        ai = bool(re.search("AI|Agent|智能|大模型|LLM|RAG|MCP|AIGC|模型|推荐|搜索|评测|数据产品",
+                            content, re.I))
+        if isinstance(date, (int, float)):
+            date = datetime.fromtimestamp(date / 1000, ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d")
+        date = str(date or "")[:10]
+        ident = {"美团": "meituan", "小红书": "xhs", "腾讯": "tencent", "京东": "jd"}[company] + "-" + key
+        out.append({"id": ident, "company": company, "title": name, "link": url,
+            "posted": date, "date_type": date_type, "group": "大厂",
+            "track": "AI 产品/策略" if ai else "相邻产品",
+            "fit": "优先关注" if ai else "可以尝试", "days": "未注明",
+            "duration": "未注明", "verify": "官网API（详情待复核）", "status": "接口有记录",
+            "team": team, "summary": duty[:1400] if duty else "官方列表已有职位，详情尚待核验",
+            "requirements": requirements[:1000] if requirements else "需打开官网 JD 核对",
+            "note": "当前 API 记录不等于独立 HC；需要核对毕业届次、工作城市和投递状态",
+            "source": "企业招聘官网公开 API", "graduation": "未核实", "checked": TODAY()})
+    return out
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--sources", nargs="+", choices=["meituan", "xhs", "tencent", "jd", "all"],
+                    default=["meituan", "xhs", "tencent"])
+    ap.add_argument("--audit-only", action="store_true")
+    args = ap.parse_args()
+    selected = list(SOURCES) if "all" in args.sources else [KEYS[k] for k in args.sources]
+    dbpath = ROOT / "jobs.json"
+    data = json.loads(dbpath.read_text(encoding="utf-8"))
+    all_jobs = {str(x["id"]): x for x in data["jobs"]}
+    audits = data.setdefault("source_audits", {})
+    attempts = data.setdefault("source_attempts", {})
+    errors, successes = [], 0
+    rawdir = ROOT / "data" / "raw"
+    rawdir.mkdir(parents=True, exist_ok=True)
+    for company in selected:
+        try:
+            with requests.Session() as session:
+                records, meta = SOURCES[company](session)
+            (rawdir / (company + "_latest.json")).write_text(
+                json.dumps({"checked": TODAY(), "records": records}, ensure_ascii=False), encoding="utf-8")
+            audits[company] = meta
+            attempts[company] = {"status": "成功（当前接口）", "checked": TODAY(),
+                                 "reported": meta["reported"], "unique_ids": meta["unique_ids"]}
+            successes += 1
+            found, new = normalize(company, records), 0
+            if not args.audit_only:
+                for job in found:
+                    ident = job["id"]
+                    if ident not in all_jobs:
+                        all_jobs[ident] = job
+                        new += 1
+                    else:
+                        all_jobs[ident]["checked"] = TODAY()
+                        all_jobs[ident]["last_seen"] = TODAY()
+            print(company, "reported", meta["reported"], "unique", meta["unique_ids"],
+                  "candidates", len(found), "new", new)
+        except Exception as exc:
+            message = company + ": " + type(exc).__name__ + ": " + str(exc)
+            errors.append(message)
+            attempts[company] = {"status": "失败；保留上次完整快照",
+                                 "checked": TODAY(), "error": str(exc)[:320]}
+            print("FAIL:", message)
+    (ROOT / "data").mkdir(exist_ok=True)
+    (ROOT / "data" / "last_errors.json").write_text(
+        json.dumps({"date": TODAY(), "errors": errors}, ensure_ascii=False, indent=2), encoding="utf-8")
+    data["jobs"] = list(all_jobs.values())
+    data["snapshot"] = TODAY()
+    dbpath.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    if not successes:
+        raise SystemExit("No sources completed; retain previous published site")
+    if errors:
+        print("WARNING: partial failures, no delisting inferred.")
+
+if __name__ == "__main__":
+    main()
