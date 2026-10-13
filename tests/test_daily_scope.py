@@ -28,6 +28,22 @@ class ScopeTests(unittest.TestCase):
             self.assertNotEqual(classify({"id":"x","title":"产品实习生",
                 "requirements":req}),"graduate_only")
 
+    def test_negative_eligibility_notes_cannot_exclude(self):
+        # The record saying "no graduate-only requirement seen" is not such a requirement.
+        from daily_scope import eligible_jobs
+        examples=[
+            {"id":"xiaomi-a","company":"小米","title":"语音产品实习生",
+             "graduation":"未见仅限应届", "verify":"第三方招聘平台"},
+            {"id":"siliconflow-a","company":"硅基流动","title":"AIGC产品实习生",
+             "graduation":"本科在读；未见只招应届",
+             "note":"是否接受其他毕业年份需复核"},
+            {"id":"zeroone-a","company":"零一万物","title":"Agent产品实习生",
+             "graduation":"写2027届在读，非2027届资格待确认",
+             "requirements":"2027届本科及以上在读",
+             "note":"未写『仅限』，需联系HR"},
+        ]
+        self.assertEqual(len(eligible_jobs(examples)),3)
+
     def test_curated_visibility_and_technical_filter(self):
         rows=[
             {"id":"1","title":"AI 产品（日常实习）","company":"腾讯"},
