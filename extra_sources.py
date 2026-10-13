@@ -69,10 +69,8 @@ def normalize_extra(company, rows, today):
             if x.get("positionNatureCode") != "intern" or x.get("positionStatusCode") != "Release":
                 continue
             title = str(x.get("name") or "").strip()
-            # Daily-only scope: 留用实习 and other projects are NOT interchangeable.
-            # The current campus API returned only 留用实习 AI-PM candidates.
-            if "日常实习" not in (title + " " + str(x.get("projectName") or "")):
-                continue
+            # Retention projects are eligible candidates unless the JD explicitly
+            # restricts applications to graduating students.
             cities = "/".join(str(z.get("name") or "") for z in (x.get("workLocationDicts") or []) if isinstance(z, dict))
             summary = str(x.get("description") or "")
             req = str(x.get("positionDemand") or "")
@@ -98,10 +96,7 @@ def normalize_extra(company, rows, today):
         elif company == "米哈游":
             if x.get("jobNatureId") != 3:
                 continue
-            # Some official internship projects are training/specialty cohorts.
-            # Do not claim they are daily interns without an explicit daily marker.
-            if "日常实习" not in str(x.get("projectName") or ""):
-                continue
+            # Keep general/special internship projects as lower-priority leads.
             title = str(x.get("title") or "").strip()
             cities = "/".join(str(z.get("addressDetail") or "") for z in (x.get("addressDetailList") or []) if isinstance(z, dict))
             if "北京" not in cities or not re.search(r"产品经理|产品实习|用户研究", title):
