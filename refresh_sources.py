@@ -11,6 +11,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import requests
+from extra_sources import make_sources, normalize_extra
 
 ROOT = Path(__file__).resolve().parent
 TODAY = lambda: datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d")
@@ -130,9 +131,12 @@ def jd(s):
     return records, meta
 
 SOURCES = {"美团": meituan, "小红书": xhs, "腾讯": tencent, "京东": jd}
-KEYS = {"meituan": "美团", "xhs": "小红书", "tencent": "腾讯", "jd": "京东"}
+SOURCES.update(make_sources(request_json, collect, TODAY))
+KEYS = {"meituan": "美团", "xhs": "小红书", "tencent": "腾讯", "jd": "京东", "kuaishou": "快手", "mihoyo": "米哈游"}
 
 def normalize(company, records):
+    if company in ('快手', '米哈游'):
+        return normalize_extra(company, records, TODAY)
     out = []
     for r in records:
         name, city, key, url, team, date, date_type, duty, requirements = (
@@ -204,7 +208,7 @@ def normalize(company, records):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--sources", nargs="+", choices=["meituan", "xhs", "tencent", "jd", "all"],
+    ap.add_argument("--sources", nargs="+", choices=["meituan", "xhs", "tencent", "jd", "kuaishou", "mihoyo", "all"],
                     default=["meituan", "xhs", "tencent"])
     ap.add_argument("--audit-only", action="store_true")
     args = ap.parse_args()
@@ -224,6 +228,12 @@ def main():
             (rawdir / (company + "_latest.json")).write_text(
                 json.dumps({"checked": TODAY(), "records": records}, ensure_ascii=False), encoding="utf-8")
             audits[company] = meta
+            if company in ("快手", "米哈游"):
+                info = data.setdefault("company_coverage", {}).setdefault(company, {})
+                info.update({"source": meta.get("capture", "官方公开招聘接口"),
+                             "level": "complete_api",
+                             "coverage": f"已核对本接口 {meta['unique_ids']} 个唯一职位 ID；企业其他渠道尚未全量核验",
+                             "website": "https://campus.kuaishou.cn/" if company == "快手" else "https://jobs.mihoyo.com/"})
             attempts[company] = {"status": "成功（当前接口）", "checked": TODAY(),
                                  "reported": meta["reported"], "unique_ids": meta["unique_ids"]}
             successes += 1
