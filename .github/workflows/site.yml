@@ -1,0 +1,68 @@
+name: Beijing AI Product Internship Radar
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    # 01:17 UTC = 09:17 Beijing time (scheduler may be delayed)
+    - cron: '17 1 * * *'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ai-product-intern-radar-pages
+  cancel-in-progress: false
+
+jobs:
+  refresh-build-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: github-pages
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Use Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Refresh official public job sources
+        if: github.event_name != 'push'
+        run: python refresh_sources.py --sources meituan xhs tencent jd
+      - name: Validate collector
+        run: python -m unittest discover -s tests -p 'test_refresh.py' -v
+      - name: Reconcile company watchlist and exports
+        run: python expand_companies.py
+      - name: Generate standalone dashboard
+        run: python rebuild.py
+      - name: Validate dashboard
+        run: python -m unittest discover -s tests -p 'test_deploy.py' -v
+      - name: Save refreshed data
+        if: github.event_name != 'push'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add jobs.json jobs.csv company_coverage.csv index.html data/last_errors.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'data: refresh checked public recruitment feeds'
+            git push
+          fi
+      - name: Build Pages artifact
+        run: |
+          mkdir -p public
+          cp index.html jobs.csv company_coverage.csv public/
+          touch public/.nojekyll
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
