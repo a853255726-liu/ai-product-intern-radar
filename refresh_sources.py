@@ -162,9 +162,8 @@ def normalize(company, records):
             duty, requirements = r.get("duty") or "", r.get("qualification") or ""
             if r.get("recruitStatus") != "in_recruitment":
                 continue
-            # Do not silently conflate other campus projects with daily internships.
-            if "日常实习" not in str(r.get("jobProjectName") or ""):
-                continue
+            # Campus projects are eligible leads if confirmed internship;
+            # only explicitly graduate-only positions are excluded downstream.
             if "实习" not in name and "实习" not in team:
                 continue
             if "校招" in team and "实习" not in team:
@@ -176,8 +175,6 @@ def normalize(company, records):
             url = "https://join.qq.com/post_detail.html?postid=" + key
             team = str(r.get("bgs") or "")
         elif company == "京东":
-            # This endpoint is not confirmed to represent daily internships.
-            continue
             name = r.get("positionDept") or r.get("positionName") or ""
             city = r.get("workCity") or ""
             key = str(r.get("publishId"))
