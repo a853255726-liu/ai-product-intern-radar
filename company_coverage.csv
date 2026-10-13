@@ -14,8 +14,8 @@ B站,官网招聘入口,blocked,动态招聘接口尚无法稳定复核；本轮
 贝壳,贝壳校招门户,partial,只拿到相邻交互岗位，未完成AI产品细分,https://ke.zhiye.com/jobs,0
 同道猎聘,实习僧/猎聘转发,partial,有AI招聘和企业效率岗线索，待确认HC,https://www.liepin.com/,2
 牛客,LinkedIn/猎聘转发,partial,有AI产品实习岗位线索，尚无官网职位ID,https://www.nowcoder.com/,1
-智谱,智谱官方飞书入口 + DataHub第三方岗位,partial,发现B端Agent产品实习第三方记录，官方暂无对应ID；已找到的内部信息化产品助理和AI PM不是同一岗位,https://zhipu-ai.jobs.feishu.cn/index/,2
-MiniMax,官方飞书校园招聘门户,partial,核验大模型产品经理-Top Talent实习历史记录；第三方已显示截止，不当作当前在招候选；持续监控其他实习项目,https://vrfi1sk8a0.jobs.feishu.cn/379481/,0
+智谱,官网公开职位页面标准浏览器渲染（无登录）,complete_api,已核对本接口 222 个唯一职位 ID；企业其他渠道尚未全量核验,https://zhipu-ai.jobs.feishu.cn/index/position/list,10
+MiniMax,官网公开职位页面标准浏览器渲染（无登录）,complete_api,已核对本接口 197 个唯一职位 ID；企业其他渠道尚未全量核验,https://vrfi1sk8a0.jobs.feishu.cn/index/position/list,1
 阶跃星辰,第三方岗位来源,partial,GUI Agent岗位尚未确认官网申请入口,https://www.stepfun.com/,1
 月之暗面,第三方岗位来源,partial,Kimi评测及产品岗位待官核,https://www.moonshot.cn/,2
 科大讯飞,北森招聘 API,partial,2026-10-13 实测 Category=3 的实习结果为0；其它入口仍未完全检索。,https://iflytek.zhiye.com/,0
@@ -38,7 +38,7 @@ Boss直聘,企业招聘渠道,todo,尚未核对北京AI招聘产品实习,https:
 美图,官网招聘详情,partial,已核验1个北京AI创作社区产品岗位；未完成全量实习项目/岗位枚举,https://hr.meitu.com/,1
 昆仑万维,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.kunlun.com,0
 百川智能,官方校招日常实习列表,partial,指定日常实习项目列出6条，均为算法、工程/Infra等；本项目范围当前未发现AI产品经理，不能证明其他渠道无岗；历史医学产品第三方线索仍待复核。,https://cq6qe6bvfr6.jobs.feishu.cn/646926/,1
-零一万物,官方飞书招聘职位列表与详情,partial,2026-10-13核对官方列表51条（6页，去重51）；其中2条北京产品实习JD核实。此为页面级完整分页检查，不是自动API。,https://01ai.jobs.feishu.cn/index/position/list,2
+零一万物,官网公开职位页面标准浏览器渲染（无登录）,complete_api,已核对本接口 51 个唯一职位 ID；企业其他渠道尚未全量核验,https://01ai.jobs.feishu.cn/index/position/list,2
 硅基流动,牛客企业HR在招信息（官网未核实）,partial,发现北京AIGC产品体验实习，明确4天/周；公司招聘官方全量接口未核对,https://www.nowcoder.com/jobs/detail/456133,1
 DeepSeek,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.deepseek.com,0
 合合信息,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.intsig.com,0
@@ -54,4 +54,4 @@ DeepSeek,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产
 万兴科技,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.wondershare.cn,0
 米哈游,官方 ATS 公开职位 API,complete_api,已核对本接口 269 个唯一职位 ID；企业其他渠道尚未全量核验,https://jobs.mihoyo.com/,0
 生数科技,第三方职位聚合页面,partial,发现北京视频生成Agent产品实习，工作流、模型评测和PRD相关；尚未核验官方职位详情、在招状态,https://mqjob.cn/jobs/10917,1
-RealAI,官方飞书校园招聘列表,partial,官方校园岗位共11条，已识别北京AI治理产品实习；详情与职位期限待复核。未接入自动采集。,https://realai.jobs.feishu.cn/272867/?current=1&limit=10,1
+RealAI,官网公开职位页面标准浏览器渲染（无登录）,complete_api,已核对本接口 11 个唯一职位 ID；企业其他渠道尚未全量核验,https://realai.jobs.feishu.cn/272867/,1
