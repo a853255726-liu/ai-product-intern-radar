@@ -20,7 +20,7 @@ class CollectionTests(unittest.TestCase):
     def test_beijing_and_product_filter(self):
         records = [{"positionId":101,"positionName":"AI Agent 产品实习生",
             "workplace":"北京市","publishTime":"2026-10-13",
-            "jobProjectName":"其他项目","recruitStatus":"in_recruitment",
+            "jobProjectName":"日常实习项目","recruitStatus":"in_recruitment",
             "duty":"大模型产品设计与评测","qualification":"Python"},
             {"positionId":102,"positionName":"算法工程师实习生",
             "workplace":"北京市","jobProjectName":"其他项目","recruitStatus":"in_recruitment"},
