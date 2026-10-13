@@ -14,6 +14,7 @@ publication = deepcopy(data)
 publication['jobs'] = daily_jobs(jobs)
 publication['published_scope'] = '北京 AI 产品相关日常实习（有招聘项目证据），其他项目及属性不明的历史记录不会展示'
 publication['excluded_from_publication'] = master_count - len(publication['jobs'])
+publication['version'] = 'V3.2 日常实习专版'
 payload = json.dumps(publication, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 html = (ROOT / "template.html").read_text(encoding="utf-8")
 assert "__DATA__" in html, "Missing source data placeholder"
