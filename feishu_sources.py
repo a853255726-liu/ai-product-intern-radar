@@ -54,6 +54,52 @@ def parse_list_html(html, base_url):
         })
     return total, records
 
+def collect_feishu_browser(company, page_size=10, max_pages=MAX_PAGES):
+    """Render only the employer's public job-board UI using ordinary Chromium.
+
+    This does not emulate internal signed APIs, solve challenges, or use login.
+    Stop on blocked scripts, a challenge, missing count, or partial pagination.
+    """
+    from playwright.sync_api import sync_playwright, TimeoutError as BrowserTimeout
+    base, path = PORTALS[company]
+    rows_all, expected, page_sizes = [], None, []
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch(headless=True)
+        try:
+            page = browser.new_page(locale="zh-CN", viewport={"width": 1250, "height": 900})
+            page.set_default_timeout(18000)
+            for index in range(1, max_pages + 1):
+                page.goto(f"{base}{path}?current={index}&limit={page_size}",
+                          wait_until="domcontentloaded", timeout=30000)
+                try:
+                    page.locator("a[data-id]").first.wait_for(timeout=18000)
+                except BrowserTimeout as exc:
+                    raise ValueError("Feishu browser did not render a public position list") from exc
+                total, rows = parse_list_html(page.content(), base)
+                if expected is None:
+                    expected = total
+                elif total != expected:
+                    raise ValueError("Feishu browser total changed during pagination")
+                rows_all.extend(rows)
+                page_sizes.append(len(rows))
+                if len(rows_all) >= expected:
+                    break
+                if not rows:
+                    raise ValueError("Feishu browser returned an empty intermediate page")
+        finally:
+            browser.close()
+    ids = [x["id"] for x in rows_all]
+    if len(ids) != expected or len(set(ids)) != expected:
+        raise ValueError(f"Feishu browser incomplete {company}: total={expected}, returned={len(ids)}, unique={len(set(ids))}")
+    return rows_all, {
+        "reported": expected, "raw_records": len(ids), "unique_ids": len(set(ids)),
+        "pages": len(page_sizes), "page_sizes": page_sizes, "failed_pages": 0,
+        "status": "公开浏览器页面完整性校验通过",
+        "scope": f"{company} 飞书官方招聘门户 {path}，所有招聘类型（需筛实习）",
+        "capture": "官网公开职位页面标准浏览器渲染（无登录）"
+    }
+
+
 def collect_feishu(session, company, page_size=10, max_pages=MAX_PAGES):
     if company not in PORTALS:
         raise ValueError("Unconfigured Feishu employer")
@@ -66,7 +112,14 @@ def collect_feishu(session, company, page_size=10, max_pages=MAX_PAGES):
             "Accept": "text/html,application/xhtml+xml",
         }, timeout=28)
         response.raise_for_status()
-        reported, rows = parse_list_html(response.text, base)
+        try:
+            reported, rows = parse_list_html(response.text, base)
+        except ValueError as exc:
+            if page == 1:
+                # Standard browser rendering is a fallback for publicly accessible JS
+                # sites, never a workaround for login/verification/access challenges.
+                return collect_feishu_browser(company, page_size, max_pages)
+            raise
         if total is None:
             total = reported
         elif reported != total:
