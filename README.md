@@ -8,23 +8,22 @@
 
 **重要：** 公司官网显示“投递”按钮不等于已确认 HC；“官网详情已核验”不等于 HR 已确认职位仍有空缺；第三方岗位必须再次向官网核实。发布日期、更新时间和首次发现时间不混用。2027 届正式校招不能当作实习。
 
-## 二、部署到 GitHub Pages（需在 GitHub 网页做一次设置）
+## 二、GitHub Pages 发布状态（需要仓库所有者完成一次设置）
 
-当前账号已连接 GitHub，但可用的 GitHub 集成**不能创建新仓库或修改 Pages 设置**，因此没有擅自使用其他已有项目的仓库，也没有声称已上线。
+代码已上传到 [a853255726-liu/ai-product-intern-radar](https://github.com/a853255726-liu/ai-product-intern-radar)，而且首次 GitHub Actions 中的 Python 单元测试、数据重建和网页检查已成功。
 
-1. 登录 GitHub，访问 <https://github.com/new>，创建一个 **Public** 的独立**空仓库**，推荐名称 `ai-product-intern-radar`。不要勾选 Initialize with README / .gitignore / license，因为这些文件已随压缩包提供。
-2. 将本压缩包解压，在 Windows 双击 `发布到GitHub.cmd`，按提示输入新仓库 URL，例如 `https://github.com/<your-username>/ai-product-intern-radar.git`。需要已安装 Git for Windows，并能使用你的 GitHub 凭据登录。程序不会 `--force` 覆盖远端。
-3. 在新仓库的 **Settings → Pages → Build and deployment → Source** 选择 **GitHub Actions**。打开 Actions → `北京 AI 产品实习雷达 · 更新与发布` → `Run workflow`。首次 `main` 推送也会触发发布。完成后，**真实网址以 Actions 部署输出的 page_url 为准**。
+**目前网站尚未上线。** 初次自动部署在 `Configure Pages` 时报错 `Get Pages site failed`，因为 GitHub Pages 尚未为本仓库启用。
 
-默认工作流 `.github/workflows/site.yml`：
+当前仓库是 **Private**。按照 GitHub 官方政策，GitHub Free 账户需要将 Pages 所在仓库设成 Public；GitHub Pro/Team 等支持从 Private 仓库发布 Pages。不要为了公开网站把任何私人记录或密钥写入仓库，网页仅存放公开招聘数据。
 
-- 每天 **北京时间约 09:17** 请求美团、小红书、腾讯和京东的指定公开职位接口。GitHub 定时调度可能延迟甚至失败，不能保证精确时间。
-- 单个公司接口失败只保留它上次成功快照，记录错误，不会据此删除岗位；全部接口失败则本轮失败，网页保持原样。
-- 严格核对分页报告总数和唯一 ID；避免把采集不完整当成无新岗位。
-- 成功构建后，自动部署 `index.html`、`jobs.csv` 与 `company_coverage.csv`。包含 `push` 触发和同一工作流内完成部署，因此不依赖 GitHub Actions 机器人提交后再次触发其他工作流。
-- 若 GitHub 平台 IP 被招聘官网拦截，自动刷新可能失败；**本地离线单元测试不能代替一次 GitHub 线上端到端验收。**
+请打开仓库设置，完成：
 
-如果不想每日运行，删除 `site.yml` 里的 `schedule:` 与 `cron:` 两行，仅保留手动 `workflow_dispatch`。如需早晚多次刷新，可调整 `cron`，但应遵守各招聘站点访问规则。
+1. 如果使用 GitHub Free：`Settings → General → Danger Zone → Change repository visibility → Make public`。此操作会公开仓库全部内容，请先确认。
+2. `Settings → Pages → Build and deployment → Source`，选择 **GitHub Actions**。
+3. `Actions → Beijing AI Product Internship Radar → Run workflow`，重新运行。进入该执行记录确认 **Deploy Pages** 步骤成功。
+4. 只有部署成功后，网站才可能出现在 `https://a853255726-liu.github.io/ai-product-intern-radar/`；具体请以 Pages 设置里的 **Visit site** 为准。
+
+更新日程：`.github/workflows/site.yml` 每天 UTC 01:17（北京时间约 09:17）检查指定招聘接口。首次 `push` 只构建和部署，不重新采集；定时或手动执行会调用采集脚本。GitHub Actions 运行可能延迟，目标官网也可能限制 GitHub 云 IP，因此无法保证每次自动更新都成功。
 
 ## 三、手动运行采集
 
