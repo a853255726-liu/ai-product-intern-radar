@@ -132,10 +132,10 @@ def jd(s):
 
 SOURCES = {"美团": meituan, "小红书": xhs, "腾讯": tencent, "京东": jd}
 SOURCES.update(make_sources(request_json, collect, TODAY))
-KEYS = {"meituan": "美团", "xhs": "小红书", "tencent": "腾讯", "jd": "京东", "kuaishou": "快手", "mihoyo": "米哈游"}
+KEYS = {"meituan": "美团", "xhs": "小红书", "tencent": "腾讯", "jd": "京东", "kuaishou": "快手", "mihoyo": "米哈游", "xiaomi": "小米"}
 
 def normalize(company, records):
-    if company in ('快手', '米哈游'):
+    if company in ('快手', '米哈游', '小米'):
         return normalize_extra(company, records, TODAY)
     out = []
     for r in records:
@@ -210,7 +210,7 @@ def normalize(company, records):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--sources", nargs="+", choices=["meituan", "xhs", "tencent", "jd", "kuaishou", "mihoyo", "all"],
+    ap.add_argument("--sources", nargs="+", choices=["meituan", "xhs", "tencent", "jd", "kuaishou", "mihoyo", "xiaomi", "all"],
                     default=["meituan", "xhs", "tencent"])
     ap.add_argument("--audit-only", action="store_true")
     args = ap.parse_args()
@@ -230,12 +230,12 @@ def main():
             (rawdir / (company + "_latest.json")).write_text(
                 json.dumps({"checked": TODAY(), "records": records}, ensure_ascii=False), encoding="utf-8")
             audits[company] = meta
-            if company in ("快手", "米哈游"):
+            if company in ("快手", "米哈游", "小米"):
                 info = data.setdefault("company_coverage", {}).setdefault(company, {})
                 info.update({"source": meta.get("capture", "官方公开招聘接口"),
                              "level": "complete_api",
                              "coverage": f"已核对本接口 {meta['unique_ids']} 个唯一职位 ID；企业其他渠道尚未全量核验",
-                             "website": "https://campus.kuaishou.cn/" if company == "快手" else "https://jobs.mihoyo.com/"})
+                             "website": "https://campus.kuaishou.cn/" if company == "快手" else "https://jobs.mihoyo.com/" if company == "米哈游" else "https://hr.xiaomi.com/website/opportunities.html"})
             attempts[company] = {"status": "成功（当前接口）", "checked": TODAY(),
                                  "reported": meta["reported"], "unique_ids": meta["unique_ids"]}
             successes += 1
@@ -243,6 +243,20 @@ def main():
             if not args.audit_only:
                 for job in found:
                     ident = job["id"]
+                    # Link a previously researched third-party Xiaomi vacancy to
+                    # its official larkJobCode; avoid double-counting the same job.
+                    if company == "小米" and job.get("source_job_code"):
+                        code = job["source_job_code"]
+                        prior_id = next((k for k, v in all_jobs.items()
+                            if k.startswith("xiaomi-") and k != ident
+                            and (v.get("source_job_code") == code or k.endswith("-"+code))), None)
+                        if prior_id:
+                            existing = all_jobs[prior_id]
+                            existing.update(job)
+                            existing["id"] = prior_id
+                            existing["note"] += " 已根据官方职位编号 "+code+" 与历史第三方线索合并。"
+                            existing["last_seen"] = TODAY()
+                            continue
                     if ident not in all_jobs:
                         all_jobs[ident] = job
                         new += 1
