@@ -17,6 +17,7 @@ PORTALS = {
     "百川智能": ("https://cq6qe6bvfr6.jobs.feishu.cn", "/646926/"),
 }
 JOB_COUNT = re.compile(r"开启新的工作\s*[（(]\s*(\d+)\s*[）)]")
+COMPANY_CODES = {"零一万物":"zeroone","MiniMax":"minimax","智谱":"zhipu","RealAI":"realai","百川智能":"baichuan"}
 MAX_PAGES = 50
 
 def list_url(company, page, page_size):
@@ -179,7 +180,7 @@ def normalize_feishu(company, records, today):
             continue
         track = "AI Agent" if re.search(r"Agent|智能体", title+" "+duty,re.I) else "AI应用/体验"
         jobs.append({
-            "id": "feishu-"+re.sub(r"[^a-z0-9]+","-",company.lower()).strip("-")+"-"+row["id"],
+            "id": "feishu-"+COMPANY_CODES[company]+"-"+row["id"],
             "company": company, "title": title, "link": row["url"],
             "posted": "", "date_type": "未提供", "group": "AI创业公司",
             "track": track, "fit": "优先关注" if "产品" in title else "可以尝试",
