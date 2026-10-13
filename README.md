@@ -22,13 +22,13 @@
 
 ## 自动更新
 
-GitHub Actions 每天北京时间约 **09:17** 检查公开招聘来源，运行时间可能浮动。已接入腾讯、美团、小红书、京东、快手、米哈游部分招聘接口；其他企业还在逐步核查中。
+GitHub Actions 每天北京时间约 **09:17** 检查公开招聘来源，运行时间可能浮动。已接入腾讯、美团、小红书、京东、快手、米哈游，以及**小米北京实习官方职位 API**。零一万物、百川智能、RealAI 目前已核对官方职位列表，但仍属手动采集，不在每日自动更新链路中。
 
 本地运行：
 
 ```bash
 python -m pip install -r requirements.txt
-python refresh_sources.py --sources meituan xhs tencent jd kuaishou mihoyo
+python refresh_sources.py --sources meituan xhs tencent jd kuaishou mihoyo xiaomi
 python -m unittest discover -s tests -p 'test_*.py' -v
 python expand_companies.py
 python rebuild.py
@@ -37,3 +37,13 @@ python rebuild.py
 细节见 `DAILY_BATCH2_AUDIT.md`（记录的是上版严格日常检索的历史过程，**不是当前筛选政策**）。
 
 **覆盖限制：** 53 家企业是核查名单，不等于全部打通。来源日期不等于首次发布或新招名额；采集失败、接口返回空数据不能推断公司没有岗位。
+
+## 小米官方接口与新公司覆盖（2026-10-13）
+
+小米官网公开 JS `https://hr.xiaomi.com/website/assets/js/jobs.js` 指向职位 API：`https://hr.xiaomi.com/website/api/agent/searchJobPage`，查询条件 `cityZhNames=北京&type=3&pageSize=100&pageNum=N`。官网实习分类北京当前报告334个岗位，经4页去重核对。接口直接返回岗位名称、团队、职责、条件、发布时间和官方投递详情地址。自动采集使用此范围，且严格要求总数、去重ID数量一致，不能据此推断企业所有招聘系统全覆盖。
+
+- **零一万物**：官网飞书列表51条6页经逐页核对，已核实2条北京产品实习，其中ToB Agent岗位要求2027届在读（其他届次待HR确认），产品研究与用户体验岗明确每周4天/至少3个月。职位详情保存官方直达链接，暂无每日自动采集。
+- **RealAI**：校园岗位目录列出11条，其中北京AI治理/伪造内容检测产品实习明确列在官方职位列表。单条详情有时无法抓取，标注为官网列表待复核。
+- **百川智能**：特定日常实习招聘项目官网6条当前主要为算法/Infra，无对应AI PM；过去发现的医学AI产品岗仍为第三方待确认，不能将其算作该官方项目目前在招。
+
+`jobs.json.manual_source_checks` 保存人工范围和日期，与真正每天复查的 `source_audits` 分开。不存在零岗位的判断依据时，请查看 `company_coverage` 的覆盖边界。
