@@ -5416,7 +5416,8 @@
       "note": "此职位来自官网列表、非完整 JD；公开显示不等于确认仍有名额。",
       "graduation": "未核实",
       "checked": "2026-10-14",
-      "source_post_id": "7616324224533612841"
+      "source_post_id": "7616324224533612841",
+      "last_seen": "2026-10-14"
     },
     {
       "id": "feishu-zhipu-7614090220368152874",
@@ -5439,7 +5440,8 @@
       "note": "此职位来自官网列表、非完整 JD；公开显示不等于确认仍有名额。",
       "graduation": "未核实",
       "checked": "2026-10-14",
-      "source_post_id": "7614090220368152874"
+      "source_post_id": "7614090220368152874",
+      "last_seen": "2026-10-14"
     },
     {
       "id": "feishu-zhipu-7572125479491651890",
@@ -5462,7 +5464,8 @@
       "note": "此职位来自官网列表、非完整 JD；公开显示不等于确认仍有名额。",
       "graduation": "未核实",
       "checked": "2026-10-14",
-      "source_post_id": "7572125479491651890"
+      "source_post_id": "7572125479491651890",
+      "last_seen": "2026-10-14"
     },
     {
       "id": "feishu-zhipu-7563496763023149350",
@@ -5485,7 +5488,8 @@
       "note": "此职位来自官网列表、非完整 JD；公开显示不等于确认仍有名额。",
       "graduation": "未核实",
       "checked": "2026-10-14",
-      "source_post_id": "7563496763023149350"
+      "source_post_id": "7563496763023149350",
+      "last_seen": "2026-10-14"
     },
     {
       "id": "feishu-zhipu-7546557142721071369",
@@ -5508,7 +5512,8 @@
       "note": "此职位来自官网列表、非完整 JD；公开显示不等于确认仍有名额。",
       "graduation": "未核实",
       "checked": "2026-10-14",
-      "source_post_id": "7546557142721071369"
+      "source_post_id": "7546557142721071369",
+      "last_seen": "2026-10-14"
     },
     {
       "id": "feishu-zhipu-7520508356948625700",
@@ -5531,7 +5536,8 @@
       "note": "此职位来自官网列表、非完整 JD；公开显示不等于确认仍有名额。",
       "graduation": "未核实",
       "checked": "2026-10-14",
-      "source_post_id": "7520508356948625700"
+      "source_post_id": "7520508356948625700",
+      "last_seen": "2026-10-14"
     },
     {
       "id": "feishu-zhipu-7504235296814188827",
@@ -5554,7 +5560,8 @@
       "note": "此职位来自官网列表、非完整 JD；公开显示不等于确认仍有名额。",
       "graduation": "未核实",
       "checked": "2026-10-14",
-      "source_post_id": "7504235296814188827"
+      "source_post_id": "7504235296814188827",
+      "last_seen": "2026-10-14"
     },
     {
       "id": "feishu-zhipu-7501958783989516570",
@@ -5577,7 +5584,8 @@
       "note": "此职位来自官网列表、非完整 JD；公开显示不等于确认仍有名额。",
       "graduation": "未核实",
       "checked": "2026-10-14",
-      "source_post_id": "7501958783989516570"
+      "source_post_id": "7501958783989516570",
+      "last_seen": "2026-10-14"
     }
   ],
   "company_coverage": {
@@ -5674,13 +5682,13 @@
     "智谱": {
       "source": "官网公开职位页面标准浏览器渲染（无登录）",
       "coverage": "已核对本接口 222 个唯一职位 ID；企业其他渠道尚未全量核验",
-      "level": "complete_api",
+      "level": "complete_public_html",
       "website": "https://zhipu-ai.jobs.feishu.cn/index/position/list"
     },
     "MiniMax": {
       "source": "官网公开职位页面标准浏览器渲染（无登录）",
       "coverage": "已核对本接口 197 个唯一职位 ID；企业其他渠道尚未全量核验",
-      "level": "complete_api",
+      "level": "complete_public_html",
       "website": "https://vrfi1sk8a0.jobs.feishu.cn/index/position/list"
     },
     "阶跃星辰": {
@@ -5810,15 +5818,15 @@
       "website": "https://www.kunlun.com"
     },
     "百川智能": {
-      "source": "官方校招日常实习列表",
-      "coverage": "指定日常实习项目列出6条，均为算法、工程/Infra等；本项目范围当前未发现AI产品经理，不能证明其他渠道无岗；历史医学产品第三方线索仍待复核。",
-      "level": "partial",
+      "source": "官网公开职位页面标准浏览器渲染（无登录）",
+      "coverage": "已核对本接口 6 个唯一职位 ID；企业其他渠道尚未全量核验",
+      "level": "complete_public_html",
       "website": "https://cq6qe6bvfr6.jobs.feishu.cn/646926/"
     },
     "零一万物": {
       "source": "官网公开职位页面标准浏览器渲染（无登录）",
       "coverage": "已核对本接口 51 个唯一职位 ID；企业其他渠道尚未全量核验",
-      "level": "complete_api",
+      "level": "complete_public_html",
       "website": "https://01ai.jobs.feishu.cn/index/position/list"
     },
     "硅基流动": {
@@ -5913,7 +5921,7 @@
     },
     "RealAI": {
       "source": "官网公开职位页面标准浏览器渲染（无登录）",
-      "level": "complete_api",
+      "level": "complete_public_html",
       "coverage": "已核对本接口 11 个唯一职位 ID；企业其他渠道尚未全量核验",
       "website": "https://realai.jobs.feishu.cn/272867/"
     }
@@ -6173,6 +6181,19 @@
       "status": "公开浏览器页面完整性校验通过",
       "scope": "RealAI 飞书官方招聘门户 /272867/，所有招聘类型（需筛实习）",
       "capture": "官网公开职位页面标准浏览器渲染（无登录）"
+    },
+    "百川智能": {
+      "reported": 6,
+      "raw_records": 6,
+      "unique_ids": 6,
+      "pages": 1,
+      "page_sizes": [
+        6
+      ],
+      "failed_pages": 0,
+      "status": "公开浏览器页面完整性校验通过",
+      "scope": "百川智能 飞书官方招聘门户 /646926/，所有招聘类型（需筛实习）",
+      "capture": "官网公开职位页面标准浏览器渲染（无登录）"
     }
   },
   "source_attempts": {
@@ -6246,6 +6267,12 @@
       "checked": "2026-10-14",
       "reported": 11,
       "unique_ids": 11
+    },
+    "百川智能": {
+      "status": "成功（当前接口）",
+      "checked": "2026-10-14",
+      "reported": 6,
+      "unique_ids": 6
     }
   },
   "search_scope": "仅北京 AI 产品相关日常实习；其他实习项目与未证实日常属性职位保留在主库，不在默认网页展示",
