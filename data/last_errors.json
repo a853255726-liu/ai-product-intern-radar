@@ -1,6 +1,9 @@
 {
   "date": "2026-10-13",
   "errors": [
-    "小米: HTTPError: 403 Client Error:  for url: https://hr.xiaomi.com/website/api/agent/searchJobPage?keyword=&cityZhNames=%E5%8C%97%E4%BA%AC&pageSize=100&pageNum=1&type=3"
+    "零一万物: ValueError: Feishu SSR missing advertised job count; possible JS skeleton",
+    "MiniMax: ValueError: Feishu SSR missing advertised job count; possible JS skeleton",
+    "智谱: ValueError: Feishu SSR missing advertised job count; possible JS skeleton",
+    "RealAI: ValueError: Feishu SSR missing advertised job count; possible JS skeleton"
   ]
 }

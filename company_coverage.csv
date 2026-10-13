@@ -3,10 +3,10 @@
 腾讯,官网职位API,good,已核查若干实习项目；还需检查全部团队直招,https://join.qq.com/post.html,5
 美团,官网职位API,good,已核查一次实习分页；仍需核查其他项目和职位下架,https://zhaopin.meituan.com/web/campus,35
 小红书,官网职位API,good,已核查校招目录；实习与正式、专项需要细分,https://job.xiaohongshu.com/campus/intern,21
-百度,招聘官网,partial,职位样本核实；481个实习列表未跑完全量,https://talent.baidu.com/jobs/list?recruitType=INTERN,9
+百度,招聘官网,partial,职位样本核实；481个实习列表未跑完全量,https://talent.baidu.com/jobs/list?recruitType=INTERN,98
 字节跳动,官方校园招聘入口 + 第三方逐条复核,partial,官网确有日常实习独立项目，职位列表需客户端渲染；本轮获1条日常实习的第三方转引，官方详情未独立核验,https://jobs.bytedance.com/campus/position,2
 快手,官方校园招聘公开职位 API,complete_api,已核对本接口 228 个唯一职位 ID；企业其他渠道尚未全量核验,https://campus.kuaishou.cn/,6
-京东,官网校招 API,partial,2026-10-13 实测 type=intern 为0条；type=present 为124条，无法认定属于实习。其他入口仍待查。,https://campus.jd.com/,0
+京东,官网校招 API,partial,2026-10-13 实测 type=intern 为0条；type=present 为124条，无法认定属于实习。其他入口仍待查。,https://campus.jd.com/,6
 阿里巴巴,集团招聘系统,todo,招聘项目多，需要逐招聘子系统检索,https://talent.alibaba.com/,0
 B站,官网招聘入口,blocked,动态招聘接口尚无法稳定复核；本轮没有可验证的北京AI产品实习岗位，不等于零岗位,https://jobs.bilibili.com/campus/positions,0
 滴滴,第三方岗位来源,partial,北京Agent岗位待官方复核,https://didiglobal.com/,3
@@ -33,7 +33,7 @@ Boss直聘,企业招聘渠道,todo,尚未核对北京AI招聘产品实习,https:
 网易,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://hr.163.com,0
 爱奇艺,官方日常实习列表,partial,已核对北京日常实习 AI 产品/搜索推荐；列表含职位 A15887，尚未核对全部职位详情,https://iq.jobs.feishu.cn/intern/m/,3
 金山办公,招聘平台岗位与官网,partial,找到WPS Agent/Skills AI产品实习，但职位工作地为珠海，因北京限定未入库,https://www.wps.cn/,0
-小米,小米校招官网 + 实习僧招聘,partial,已核对小米在校实习项目及北京语音产品、AI用户研究实习线索；官方对应招聘ID与全量API待打通,https://hr.xiaomi.com/website/opportunities.html,2
+小米,小米官网招聘 API（官方已取全量，GitHub Actions自动请求受限）,partial,2026-10-13官方API北京实习type=3共334条4页、334唯一职位ID；27条2026年AI产品相关候选已截图式取源快照。云端GitHub Actions返回403，当前此来源为非自动更新，勿按实时招聘状态理解。,https://hr.xiaomi.com/website/opportunities.html,28
 蚂蚁集团,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://talent.antgroup.com,0
 美图,官网招聘详情,partial,已核验1个北京AI创作社区产品岗位；未完成全量实习项目/岗位枚举,https://hr.meitu.com/,1
 昆仑万维,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.kunlun.com,0
