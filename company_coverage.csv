@@ -1,23 +1,23 @@
 ﻿企业,来源,覆盖状态,检查结果,网址,候选数量
-360,官网及第三方职位列表,partial,第三方有AI产品运营；官网实习申请需复核,https://360campus.zhiye.com/,1
-腾讯,官网职位API,good,已核查若干实习项目；还需检查全部团队直招,https://join.qq.com/post.html,12
-美团,官网职位API,good,已核查一次实习分页；仍需核查其他项目和职位下架,https://zhaopin.meituan.com/web/campus,35
-小红书,官网职位API,good,已核查校招目录；实习与正式、专项需要细分,https://job.xiaohongshu.com/campus/intern,21
-百度,招聘官网,partial,职位样本核实；481个实习列表未跑完全量,https://talent.baidu.com/jobs/list?recruitType=INTERN,7
-字节跳动,飞书招聘系统,partial,官网动态接口未完成全量审计,https://jobs.bytedance.com/campus/position,1
-快手,官方校园招聘公开职位 API,complete_api,已核对本接口 228 个唯一职位 ID；企业其他渠道尚未全量核验,https://campus.kuaishou.cn/,6
+360,官网及第三方职位列表,partial,第三方有AI产品运营；官网实习申请需复核,https://360campus.zhiye.com/,0
+腾讯,官网职位API,good,已核查若干实习项目；还需检查全部团队直招,https://join.qq.com/post.html,4
+美团,官网职位API,good,已核查一次实习分页；仍需核查其他项目和职位下架,https://zhaopin.meituan.com/web/campus,34
+小红书,官网职位API,good,已核查校招目录；实习与正式、专项需要细分,https://job.xiaohongshu.com/campus/intern,0
+百度,招聘官网,partial,职位样本核实；481个实习列表未跑完全量,https://talent.baidu.com/jobs/list?recruitType=INTERN,9
+字节跳动,官方校园招聘入口 + 第三方逐条复核,partial,官网确有日常实习独立项目，职位列表需客户端渲染；本轮获1条日常实习的第三方转引，官方详情未独立核验,https://jobs.bytedance.com/campus/position,1
+快手,官方校园招聘公开职位 API,complete_api,已核对本接口 228 个唯一职位 ID；企业其他渠道尚未全量核验,https://campus.kuaishou.cn/,0
 京东,官网校招 API,partial,2026-10-13 实测 type=intern 为0条；type=present 为124条，无法认定属于实习。其他入口仍待查。,https://campus.jd.com/,0
 阿里巴巴,集团招聘系统,todo,招聘项目多，需要逐招聘子系统检索,https://talent.alibaba.com/,0
-B站,校园招聘系统,todo,未完成可用职位列表读取,https://jobs.bilibili.com/,0
-滴滴,第三方岗位来源,partial,北京Agent岗位待官方复核,https://didiglobal.com/,3
-知乎,第三方岗位来源,partial,北京平台产品线索待官方复核,https://www.zhihu.com/,1
-贝壳,贝壳校招门户,partial,只拿到相邻交互岗位，未完成AI产品细分,https://ke.zhiye.com/jobs,1
-同道猎聘,实习僧/猎聘转发,partial,有AI招聘和企业效率岗线索，待确认HC,https://www.liepin.com/,2
-牛客,LinkedIn/猎聘转发,partial,有AI产品实习岗位线索，尚无官网职位ID,https://www.nowcoder.com/,1
-智谱,官方飞书招聘门户,partial,官网找到产品助理；尚未确认AI产品经理实习,https://zhipu-ai.jobs.feishu.cn/,1
-MiniMax,官方飞书招聘门户,partial,已找到模型资源运营；AI产品PM方向尚未核实,https://vrfi1sk8a0.jobs.feishu.cn/379481/,1
-阶跃星辰,第三方岗位来源,partial,GUI Agent岗位尚未确认官网申请入口,https://www.stepfun.com/,1
-月之暗面,第三方岗位来源,partial,Kimi评测及产品岗位待官核,https://www.moonshot.cn/,2
+B站,校园招聘入口,blocked,站点招聘接口依赖动态会话/CSRF，当前静态采集显示0不能推断无岗位；日常实习AI产品未确证,https://jobs.bilibili.com/campus/positions,0
+滴滴,第三方岗位来源,partial,北京Agent岗位待官方复核,https://didiglobal.com/,0
+知乎,第三方岗位来源,partial,北京平台产品线索待官方复核,https://www.zhihu.com/,0
+贝壳,贝壳校招门户,partial,只拿到相邻交互岗位，未完成AI产品细分,https://ke.zhiye.com/jobs,0
+同道猎聘,实习僧/猎聘转发,partial,有AI招聘和企业效率岗线索，待确认HC,https://www.liepin.com/,0
+牛客,LinkedIn/猎聘转发,partial,有AI产品实习岗位线索，尚无官网职位ID,https://www.nowcoder.com/,0
+智谱,飞书官方招聘门户,partial,浏览部分北京实习职位，但产品助理属内部信息系统且日常项目类型未明确；本轮无新增确定日常AI产品岗,https://zhipu-ai.jobs.feishu.cn/,0
+MiniMax,官方招聘官网 + 飞书招聘门户,partial,官网单独设日常实习与2028届实习项目；暂未核实北京日常AI产品经理，拒绝将2028届与算法实习混入,https://minimax.cn/careers,0
+阶跃星辰,第三方岗位来源,partial,GUI Agent岗位尚未确认官网申请入口,https://www.stepfun.com/,0
+月之暗面,第三方岗位来源,partial,Kimi评测及产品岗位待官核,https://www.moonshot.cn/,0
 科大讯飞,北森招聘 API,partial,2026-10-13 实测 Category=3 的实习结果为0；其它入口仍未完全检索。,https://iflytek.zhiye.com/,0
 商汤科技,招聘官网,todo,尚未核对北京AI产品实习,https://www.sensetime.com/,0
 第四范式,企业招聘渠道,todo,尚未核对北京AI产品实习,https://www.4paradigm.com/,0
@@ -31,11 +31,11 @@ Boss直聘,企业招聘渠道,todo,尚未核对北京AI招聘产品实习,https:
 面壁智能,企业招聘渠道,todo,尚未核对北京端侧AI产品实习,https://www.modelbest.cn/,0
 携程集团,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.ctrip.com,0
 网易,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://hr.163.com,0
-爱奇艺,官网招聘详情,partial,已核验2个北京日常实习产品岗位；未完成官网实习岗位全量列表,https://careers.iqiyi.com/intern/,2
+爱奇艺,官方日常实习列表,partial,已核对北京日常实习 AI 产品/搜索推荐；列表含职位 A15887，尚未核对全部职位详情,https://iq.jobs.feishu.cn/intern/m/,3
 金山办公,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.wps.cn,0
 小米,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.mi.com,0
 蚂蚁集团,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://talent.antgroup.com,0
-美图,官网招聘详情,partial,已核验1个北京AI创作社区产品岗位；未完成全量实习项目/岗位枚举,https://hr.meitu.com/,1
+美图,官网招聘详情,partial,已核验1个北京AI创作社区产品岗位；未完成全量实习项目/岗位枚举,https://hr.meitu.com/,0
 昆仑万维,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.kunlun.com,0
 百川智能,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.baichuan-ai.com,0
 零一万物,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.lingyiwanwu.com,0

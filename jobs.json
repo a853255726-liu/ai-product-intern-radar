@@ -2685,31 +2685,29 @@
   "version": "V3.1 Pages-ready",
   "source_audits": {
     "腾讯": {
-      "reported": 210,
-      "raw_records": 210,
-      "unique_ids": 210,
-      "pages": 12,
+      "reported": 25,
+      "raw_records": 25,
+      "unique_ids": 25,
+      "pages": 2,
       "failed_pages": 0,
       "by_project": {
-        "日常实习": 25,
-        "应届实习": 51,
-        "青云计划实习": 134
+        "日常实习": 25
       },
       "status": "分页数量一致",
       "last_checked": "2026-10-13",
-      "scope": "北京三种实习项目，不包括部门直招"
+      "scope": "仅北京日常实习项目 mapping=104，不包括应届实习/青云/部门直招"
     },
     "美团": {
-      "reported": 371,
-      "raw_records": 371,
-      "unique_ids": 371,
+      "reported": 370,
+      "raw_records": 370,
+      "unique_ids": 370,
       "pages": 4,
       "failed_pages": 0,
       "page_sizes": [
         100,
         100,
         100,
-        71
+        70
       ],
       "status": "分页数量一致",
       "last_checked": "2026-10-13",
@@ -2813,8 +2811,8 @@
     "美团": {
       "status": "成功（当前接口）",
       "checked": "2026-10-13",
-      "reported": 371,
-      "unique_ids": 371
+      "reported": 370,
+      "unique_ids": 370
     },
     "小红书": {
       "status": "成功（当前接口）",
@@ -2825,8 +2823,8 @@
     "腾讯": {
       "status": "成功（当前接口）",
       "checked": "2026-10-13",
-      "reported": 210,
-      "unique_ids": 210
+      "reported": 25,
+      "unique_ids": 25
     },
     "京东": {
       "status": "成功（当前接口）",
