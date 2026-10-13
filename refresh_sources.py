@@ -297,7 +297,28 @@ def main():
                             existing["note"] += " 已根据官方职位编号 "+code+" 与历史第三方线索合并。"
                             existing["last_seen"] = TODAY()
                             continue
-                    if ident not in all_jobs:
+                    # Preserve manually verified details when an official
+                    # list contains the same post under a different ID format.
+                    duplicate = None
+                    if company == "百度":
+                        m = re.search(r"J\d+", job.get("title", ""))
+                        if m:
+                            code = m.group()
+                            duplicate = next((k for k, v in all_jobs.items()
+                                if v.get("company") == company and k != ident
+                                and (k == "baidu-"+code
+                                     or re.search(r"\b"+code+r"\b", v.get("title","")))), None)
+                    elif company in FEISHU_PORTALS:
+                        sid = str(job.get("source_post_id") or "")
+                        if sid:
+                            duplicate = next((k for k,v in all_jobs.items()
+                                if v.get("company") == company and k != ident
+                                and (str(v.get("source_post_id") or "") == sid
+                                     or ("/position/"+sid+"/detail") in str(v.get("link") or ""))), None)
+                    if duplicate:
+                        all_jobs[duplicate]["checked"] = TODAY()
+                        all_jobs[duplicate]["last_seen"] = TODAY()
+                    elif ident not in all_jobs:
                         all_jobs[ident] = job
                         new += 1
                     else:
