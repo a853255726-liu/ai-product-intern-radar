@@ -31,7 +31,7 @@ Boss直聘,企业招聘渠道,todo,尚未核对北京AI招聘产品实习,https:
 面壁智能,企业招聘渠道,todo,尚未核对北京端侧AI产品实习,https://www.modelbest.cn/,0
 携程集团,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.ctrip.com,0
 网易,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://hr.163.com,0
-爱奇艺,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-14 核验本入口 95 个唯一职位 ID；范围：爱奇艺 飞书官方招聘门户 /intern/m/，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://iq.jobs.feishu.cn/intern/m/,9
+爱奇艺,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-14 核验本入口 96 个唯一职位 ID；范围：爱奇艺 飞书官方招聘门户 /intern/m/，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://iq.jobs.feishu.cn/intern/m/,9
 金山办公,招聘平台岗位与官网,partial,找到WPS Agent/Skills AI产品实习，但职位工作地为珠海，因北京限定未入库,https://www.wps.cn/,0
 小米,小米官网招聘 API（官方已取全量，GitHub Actions自动请求受限）,partial,2026-10-13官方API北京实习type=3共334条4页、334唯一职位ID；27条2026年AI产品相关候选已截图式取源快照。云端GitHub Actions返回403，当前此来源为非自动更新，勿按实时招聘状态理解。,https://hr.xiaomi.com/website/opportunities.html,28
 蚂蚁集团,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://talent.antgroup.com,0

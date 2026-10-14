@@ -8074,7 +8074,7 @@
     },
     "爱奇艺": {
       "source": "官网公开职位页面标准浏览器渲染（无登录）",
-      "coverage": "2026-10-14 核验本入口 95 个唯一职位 ID；范围：爱奇艺 飞书官方招聘门户 /intern/m/，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏",
+      "coverage": "2026-10-14 核验本入口 96 个唯一职位 ID；范围：爱奇艺 飞书官方招聘门户 /intern/m/，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏",
       "level": "complete_public_html",
       "website": "https://iq.jobs.feishu.cn/intern/m/"
     },
@@ -8492,9 +8492,9 @@
       "last_checked": "2026-10-14"
     },
     "爱奇艺": {
-      "reported": 95,
-      "raw_records": 95,
-      "unique_ids": 95,
+      "reported": 96,
+      "raw_records": 96,
+      "unique_ids": 96,
       "pages": 10,
       "page_sizes": [
         10,
@@ -8506,7 +8506,7 @@
         10,
         10,
         10,
-        5
+        6
       ],
       "failed_pages": 0,
       "status": "公开浏览器页面完整性校验通过",
@@ -8517,10 +8517,9 @@
   },
   "source_attempts": {
     "美团": {
-      "status": "成功（当前接口）",
+      "status": "失败；保留上次完整快照",
       "checked": "2026-10-14",
-      "reported": 364,
-      "unique_ids": 364
+      "error": "美团: reported=364 retrieved=364 unique=362"
     },
     "小红书": {
       "status": "成功（当前接口）",
@@ -8596,8 +8595,13 @@
     "爱奇艺": {
       "status": "成功（当前接口）",
       "checked": "2026-10-14",
-      "reported": 95,
-      "unique_ids": 95
+      "reported": 96,
+      "unique_ids": 96
+    },
+    "月之暗面": {
+      "status": "失败；保留上次完整快照",
+      "checked": "2026-10-14",
+      "error": "Moka unexpected job detail route: #/job/898b515a-1a57-4e53-8994-0db2719e1cc3"
     }
   },
   "search_scope": "仅北京 AI 产品相关日常实习；其他实习项目与未证实日常属性职位保留在主库，不在默认网页展示",
