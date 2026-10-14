@@ -181,6 +181,42 @@ def diagnose_alibaba(records):
             "sample": interesting}
 
 
+
+def infer_internship_terms(text):
+    """Parse only explicit numeric/Chinese time commitments from an official JD."""
+    duty = str(text or "").replace("～", "-").replace("至", "-")
+    days = "未注明"
+    if re.search(r"(?:每周|一周|单周).{0,25}4\s*[-~－]\s*5\s*天", duty):
+        days = "≥4天"
+    elif re.search(r"每周一至周五|每周.{0,12}(?:至少|不少于|保证|到岗|出勤|在岗|可实习|实习).{0,10}5\s*天|每周.{0,8}5\s*天", duty):
+        days = "≥5天"
+    elif re.search(r"(?:每周|一周|单周).{0,25}4\s*天", duty):
+        days = "≥4天"
+    elif re.search(r"(?:每周|一周|单周).{0,25}3\s*天", duty):
+        days = "≥3天"
+    duration = "未注明"
+    m = re.search(r"(?:实习|持续|不少于|不低于|至少).{0,18}([3-9])\s*个?月", duty)
+    if m:
+        duration = "≥" + m.group(1) + "个月"
+    elif re.search(r"(?:实习|持续|不少于|不低于|至少).{0,18}半年", duty):
+        duration = "≥6个月"
+    return days, duration
+
+
+def role_fit(title, duty, requirements):
+    """PM responsibility wins; adjacent eval/UX/ops remain discoverable, not top-ranked."""
+    title = str(title or "")
+    requirements = str(requirements or "")
+    if re.search(r"生物信息|生物湿实验|世界模型评测|计算机视觉研究", title + " " + requirements):
+        return "匹配较弱"
+    if re.search(r"(?i)research|评测|eval|工程|算法|基础模型|运营|增长|设计实习|LBS海外", title) and not re.search(r"(?i)产品经理|产品实习", title):
+        return "可以尝试"
+    if re.search(r"产品经理|产品实习", title):
+        return "优先关注"
+    if re.search(r"产品(?:需求|方案|规划|设计|迭代)|PRD", duty):
+        return "可以尝试"
+    return "匹配较弱"
+
 def normalize_alibaba(records, today):
     found = []
     for row in records:
@@ -198,13 +234,16 @@ def normalize_alibaba(records, today):
             continue
         jid = str(row["id"])
         post_date = _posted(row)
+        days, duration = infer_internship_terms(requirements + "\n" + duty)
+        fit = role_fit(title, duty, requirements)
         found.append({
             "id": "alibaba-public-" + jid, "company": "阿里巴巴",
             "title": title,
             "link": SITE + "/campus/position/" + jid,
             "posted": post_date, "date_type": "更新时间" if post_date else "未提供",
-            "group": "大厂", "track": "AI 产品/策略", "fit": "优先关注",
-            "days": "未注明", "duration": "未注明",
+            "group": "大厂", "track": "AI 产品/策略", "fit": fit,
+            "days": days, "duration": duration,
+            "internship_kind": "daily", "daily_evidence": "阿里巴巴日常实习生批次 100000560002",
             "verify": "官网API（含JD，详情待复核）",
             "status": "当前日常实习项目官网有职位记录，实时名额未确认",
             "team": _flat(row.get("circleNames")) or "业务集团待核实",
