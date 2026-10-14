@@ -84,5 +84,15 @@ class AlibabaFeedTests(unittest.TestCase):
             parse_page({"content": {"totalCount": 1, "datas": [{"name": "x"}]}})
 
 
+    def test_diagnostic_reports_field_selection_without_full_jds(self):
+        from alibaba_sources import diagnose_alibaba
+        row = {"id": 199907740040, "name": "AI产品经理实习生",
+               "workLocations": ["北京"], "projectName": "日常实习",
+               "description": "AI Agent产品需求设计"}
+        result = diagnose_alibaba([row])
+        self.assertEqual(result["counts"]["beijing_internship_pm"], 1)
+        self.assertIn("projectName", result["source_keys"])
+        self.assertLess(len(str(result["sample"][0])), 800)
+
 if __name__ == "__main__":
     unittest.main()
