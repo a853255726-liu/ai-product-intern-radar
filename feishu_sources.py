@@ -17,9 +17,11 @@ PORTALS = {
     "RealAI": ("https://realai.jobs.feishu.cn", "/272867/"),
     "百川智能": ("https://cq6qe6bvfr6.jobs.feishu.cn", "/646926/"),
     "爱奇艺": ("https://iq.jobs.feishu.cn", "/intern/m/"),
+    "生数科技": ("https://shengshu.jobs.feishu.cn", "/index/position/list"),
+    "面壁智能": ("https://modelbest.jobs.feishu.cn", "/campus/m/position/list"),
 }
 JOB_COUNT = re.compile(r"开启新的工作\s*[（(]\s*(\d+)\s*[）)]")
-COMPANY_CODES = {"零一万物":"zeroone","MiniMax":"minimax","智谱":"zhipu","RealAI":"realai","百川智能":"baichuan","爱奇艺":"iqiyi"}
+COMPANY_CODES = {"零一万物":"zeroone","MiniMax":"minimax","智谱":"zhipu","RealAI":"realai","百川智能":"baichuan","爱奇艺":"iqiyi","生数科技":"shengshu","面壁智能":"modelbest"}
 MAX_PAGES = 50
 
 def list_url(company, page, page_size):
