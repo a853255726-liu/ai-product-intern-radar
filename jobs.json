@@ -7888,25 +7888,25 @@
     },
     "腾讯": {
       "source": "官网职位API",
-      "coverage": "已核查若干实习项目；还需检查全部团队直招",
+      "coverage": "2026-10-14 核验本入口 25 个唯一职位 ID；范围：仅北京日常实习项目 mapping=104，不包括应届实习/青云/部门直招；企业其他招聘项目仍可能存在遗漏",
       "level": "good",
       "website": "https://join.qq.com/post.html"
     },
     "美团": {
       "source": "官网职位API",
-      "coverage": "已核查一次实习分页；仍需核查其他项目和职位下架",
+      "coverage": "2026-10-14 核验本入口 364 个唯一职位 ID；范围：官网校招实习类别，不代表其他渠道；企业其他招聘项目仍可能存在遗漏",
       "level": "good",
       "website": "https://zhaopin.meituan.com/web/campus"
     },
     "小红书": {
       "source": "官网职位API",
-      "coverage": "已核查校招目录；实习与正式、专项需要细分",
+      "coverage": "2026-10-14 核验本入口 489 个唯一职位 ID；范围：校园招聘混合目录，含非实习职位；企业其他招聘项目仍可能存在遗漏",
       "level": "good",
       "website": "https://job.xiaohongshu.com/campus/intern"
     },
     "百度": {
       "source": "招聘官网",
-      "coverage": "职位样本核实；481个实习列表未跑完全量",
+      "coverage": "2026-10-14 核验本入口 184 个唯一职位 ID；范围：仅 INTERN，北京市 workPlace=1100，产品类别 postType=2；企业其他招聘项目仍可能存在遗漏",
       "level": "partial",
       "website": "https://talent.baidu.com/jobs/list?recruitType=INTERN"
     },
@@ -7918,13 +7918,13 @@
     },
     "快手": {
       "source": "官方校园招聘公开职位 API",
-      "coverage": "已核对本接口 228 个唯一职位 ID；企业其他渠道尚未全量核验",
+      "coverage": "2026-10-14 核验本入口 228 个唯一职位 ID；范围：positionNatureCode=intern，实习类别全部城市；企业其他招聘项目仍可能存在遗漏",
       "level": "complete_api",
       "website": "https://campus.kuaishou.cn/"
     },
     "京东": {
       "source": "官网校招 API",
-      "coverage": "2026-10-13 实测 type=intern 为0条；type=present 为124条，无法认定属于实习。其他入口仍待查。",
+      "coverage": "2026-10-14 核验本入口 102 个唯一职位 ID；范围：京东官方 type=internship 实习类别（全城市），与正式校招类型不同；企业其他招聘项目仍可能存在遗漏",
       "level": "partial",
       "website": "https://campus.jd.com/"
     },
@@ -7932,7 +7932,7 @@
       "source": "集团招聘系统",
       "coverage": "招聘项目多，需要逐招聘子系统检索",
       "level": "todo",
-      "website": "https://talent.alibaba.com/"
+      "website": "https://campus-talent.alibaba.com/campus/position"
     },
     "B站": {
       "source": "官网招聘入口",
@@ -7972,13 +7972,13 @@
     },
     "智谱": {
       "source": "官网公开职位页面标准浏览器渲染（无登录）",
-      "coverage": "已核对本接口 222 个唯一职位 ID；企业其他渠道尚未全量核验",
+      "coverage": "2026-10-14 核验本入口 222 个唯一职位 ID；范围：智谱 飞书官方招聘门户 /index/position/list，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏",
       "level": "complete_public_html",
       "website": "https://zhipu-ai.jobs.feishu.cn/index/position/list"
     },
     "MiniMax": {
       "source": "官网公开职位页面标准浏览器渲染（无登录）",
-      "coverage": "已核对本接口 197 个唯一职位 ID；企业其他渠道尚未全量核验",
+      "coverage": "2026-10-14 核验本入口 197 个唯一职位 ID；范围：MiniMax 飞书官方招聘门户 /index/position/list，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏",
       "level": "complete_public_html",
       "website": "https://vrfi1sk8a0.jobs.feishu.cn/index/position/list"
     },
@@ -7992,7 +7992,7 @@
       "source": "第三方岗位来源",
       "coverage": "Kimi评测及产品岗位待官核",
       "level": "partial",
-      "website": "https://www.moonshot.cn/"
+      "website": "https://careers.kimi.com/campus"
     },
     "科大讯飞": {
       "source": "北森招聘 API",
@@ -8074,7 +8074,7 @@
     },
     "爱奇艺": {
       "source": "官网公开职位页面标准浏览器渲染（无登录）",
-      "coverage": "已核对本接口 95 个唯一职位 ID；企业其他渠道尚未全量核验",
+      "coverage": "2026-10-14 核验本入口 95 个唯一职位 ID；范围：爱奇艺 飞书官方招聘门户 /intern/m/，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏",
       "level": "complete_public_html",
       "website": "https://iq.jobs.feishu.cn/intern/m/"
     },
@@ -8110,13 +8110,13 @@
     },
     "百川智能": {
       "source": "官网公开职位页面标准浏览器渲染（无登录）",
-      "coverage": "已核对本接口 6 个唯一职位 ID；企业其他渠道尚未全量核验",
+      "coverage": "2026-10-14 核验本入口 6 个唯一职位 ID；范围：百川智能 飞书官方招聘门户 /646926/，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏",
       "level": "complete_public_html",
       "website": "https://cq6qe6bvfr6.jobs.feishu.cn/646926/"
     },
     "零一万物": {
       "source": "官网公开职位页面标准浏览器渲染（无登录）",
-      "coverage": "已核对本接口 51 个唯一职位 ID；企业其他渠道尚未全量核验",
+      "coverage": "2026-10-14 核验本入口 51 个唯一职位 ID；范围：零一万物 飞书官方招聘门户 /index/position/list，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏",
       "level": "complete_public_html",
       "website": "https://01ai.jobs.feishu.cn/index/position/list"
     },
@@ -8201,7 +8201,7 @@
     "米哈游": {
       "source": "官方 ATS 公开职位 API",
       "level": "complete_api",
-      "coverage": "已核对本接口 269 个唯一职位 ID；企业其他渠道尚未全量核验",
+      "coverage": "2026-10-14 核验本入口 269 个唯一职位 ID；范围：channelDetailIds=1、hireType=1；混合校招正式与实习；企业其他招聘项目仍可能存在遗漏",
       "website": "https://jobs.mihoyo.com/"
     },
     "生数科技": {
@@ -8213,7 +8213,7 @@
     "RealAI": {
       "source": "官网公开职位页面标准浏览器渲染（无登录）",
       "level": "complete_public_html",
-      "coverage": "已核对本接口 11 个唯一职位 ID；企业其他渠道尚未全量核验",
+      "coverage": "2026-10-14 核验本入口 11 个唯一职位 ID；范围：RealAI 飞书官方招聘门户 /272867/，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏",
       "website": "https://realai.jobs.feishu.cn/272867/"
     }
   },
