@@ -290,7 +290,7 @@ def main():
                 json.dumps({"checked": TODAY(), "records": records}, ensure_ascii=False), encoding="utf-8")
             meta.setdefault("last_checked", TODAY())
             audits[company] = meta
-            if company in ("快手", "米哈游", "小米", "月之暗面", "字节跳动", "阿里巴巴") or company in FEISHU_PORTALS:
+            if company in ("快手", "米哈游", "小米", "月之暗面", "字节跳动", "阿里巴巴", "阶跃星辰") or company in FEISHU_PORTALS:
                 info = data.setdefault("company_coverage", {}).setdefault(company, {})
                 info.update({"source": meta.get("capture", "官方公开招聘接口"),
                              "level": "complete_public_html" if company in FEISHU_PORTALS or company in ("月之暗面","阶跃星辰") else "partial" if company in ("字节跳动", "阿里巴巴") else "complete_api",
@@ -328,7 +328,7 @@ def main():
                                 if v.get("company") == company and k != ident
                                 and (k == "baidu-"+code
                                      or re.search(r"\b"+code+r"\b", v.get("title","")))), None)
-                    elif company in FEISHU_PORTALS or company in ("月之暗面", "字节跳动", "阿里巴巴"):
+                    elif company in FEISHU_PORTALS or company in ("月之暗面", "字节跳动", "阿里巴巴", "阶跃星辰"):
                         sid = str(job.get("source_post_id") or "")
                         code = str(job.get("source_job_code") or "")
                         if sid:
