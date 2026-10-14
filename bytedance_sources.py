@@ -137,7 +137,7 @@ def normalize_bytedance(rows, today):
             "group": "大厂", "track": ("AI Agent" if re.search(
                 r"Agent|智能体", title + duty, re.I) else "AI 产品/策略"),
             "fit": "优先关注",
-            "days": days, "duration": "≥3个月",
+            "days": days, "duration": "未注明",
             "verify": "官网API（含JD，详情待复核）",
             "status": "官网当前接口有记录，名额及资格未获HR确认",
             "team": "日常实习 · " + category,
