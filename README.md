@@ -110,3 +110,15 @@ GitHub Actions 配置：`.github/workflows/site.yml`；每日自动更新和网�
 - 生数科技：官网 `https://shengshu.jobs.feishu.cn/index/position/list`；公开职位目录观察到约 107 条原始记录，招聘类型混合，**仅筛北京实习与 AI 产品相邻职位**。选择器 `feishu-shengshu`。
 - 面壁智能：官网 `https://modelbest.jobs.feishu.cn/campus/m/position/list`；公开校园招聘目录观察到约 60 条原始记录，**不将校招正式岗算作实习**。选择器 `feishu-modelbest`。
 - 两个新源均复用飞书公开 HTML/普通浏览器分页核验、唯一职位 ID 对账、失败保留快照机制。配置完成不代表实时采集成功，以 `source_attempts` 和 `source_audits` 为准。
+
+### 阿里巴巴校园招聘公开会话 API 验证（2026-10-14）
+
+- 新增 `alibaba_sources.py`、命令 `alibaba-public`，试接入官方 `https://campus-talent.alibaba.com/campus/position?batchId=100000760001`。中文地区网页初步观察到约470条原始职位，不代表北京日常 AI 产品实习数。
+- 采用官网公开、匿名会话提供的标准页面 token，并调用同域职位列表 JSON；**不会绕过登录、验证码或风控验证**。当前招聘批次和老批次的接口行为可能不同，必须以 GitHub Actions 实测为准。
+- 先核对总数与所有唯一职位ID，再根据职位/招聘项目**明确的“实习”证据**、北京地点和 JD 中 AI 产品工作职责筛选。不能因为校招目录中出现“产品经理”就把正式应届岗位收为实习。
+- 入口范围仅是当前 campus batchId，其他集团或独立招聘渠道不在成功声称范围。若实际 HTTP 拒绝、token 未提供或数据不完整则失败保留既有记录。
+
+### 阶跃星辰来源发现（2026-10-14）
+
+- 已确认阶跃星辰校招/实习的官方 Moka 入口 `https://app.mokahr.com/campus-recruitment/step/94905#/jobs`，并在企业覆盖页中改为直接打开这一招聘目录。
+- 官网另有 StepStar 专项人才招聘入口，与一般校园实习的筛选范围不同。当前两个目录尚未完成独立分页/岗位性质验收，因此**只是来源入口，不算每日自动采集成功**。

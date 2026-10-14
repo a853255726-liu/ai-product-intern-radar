@@ -8,6 +8,7 @@ from __future__ import annotations
 import re
 from urllib.parse import urljoin, urlparse
 from bs4 import BeautifulSoup
+import requests
 from candidate_scope import is_product_candidate
 
 PORTALS = {
@@ -118,14 +119,25 @@ def collect_feishu(session, company, page_size=10, max_pages=MAX_PAGES):
     if company not in PORTALS:
         raise ValueError("Unconfigured Feishu employer")
     base, path = PORTALS[company]
+    # ModelBest's public campus/m board is reliable in ordinary Chromium,
+    # while a plain HTTPS GET intermittently times out in Actions.
+    if company == "面壁智能":
+        return collect_feishu_browser(company, page_size, max_pages)
     all_rows, total, sizes = [], None, []
     for page in range(1, max_pages+1):
         url = list_url(company, page, page_size)
-        response = session.get(url, headers={
-            "User-Agent": "Mozilla/5.0 (compatible; AIInternshipRadar/1.1)",
-            "Accept": "text/html,application/xhtml+xml",
-        }, timeout=28)
-        response.raise_for_status()
+        try:
+            response = session.get(url, headers={
+                "User-Agent": "Mozilla/5.0 (compatible; AIInternshipRadar/1.1)",
+                "Accept": "text/html,application/xhtml+xml",
+            }, timeout=28)
+            response.raise_for_status()
+        except (requests.Timeout, requests.ConnectionError):
+            if page == 1:
+                # A transient first-page network failure is not proof of an
+                # empty board; try the same public page in a normal browser.
+                return collect_feishu_browser(company, page_size, max_pages)
+            raise
         try:
             reported, rows = parse_list_html(response.text, base)
         except ValueError as exc:

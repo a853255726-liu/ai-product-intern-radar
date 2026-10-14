@@ -16,6 +16,31 @@ class StartupPortalsTests(unittest.TestCase):
                 self.assertEqual(COMPANY_CODES[name], code)
                 self.assertIn(path + "?current=2&limit=10", list_url(name, 2, 10))
 
+    def test_modelbest_uses_public_browser_route(self):
+        from unittest.mock import patch
+        from feishu_sources import collect_feishu
+        with patch("feishu_sources.collect_feishu_browser",
+                   return_value=([], {"reported": 0})) as mock:
+            class FailIfCalled:
+                def get(self, *args, **kwargs):
+                    raise AssertionError("ModelBest must start with browser")
+            _, meta = collect_feishu(FailIfCalled(), "面壁智能")
+            self.assertEqual(meta["reported"], 0)
+            mock.assert_called_once()
+
+    def test_first_page_timeout_falls_back_to_public_browser(self):
+        import requests
+        from unittest.mock import patch
+        from feishu_sources import collect_feishu
+        class TimeoutSession:
+            def get(self, *args, **kwargs):
+                raise requests.Timeout("transient network timeout")
+        with patch("feishu_sources.collect_feishu_browser",
+                   return_value=([], {"reported": 8})) as mock:
+            _, meta = collect_feishu(TimeoutSession(), "生数科技")
+            self.assertEqual(meta["reported"], 8)
+            mock.assert_called_once()
+
     def test_official_detail_and_beijing_internship(self):
         for name, path in [
             ("生数科技", "index"),
