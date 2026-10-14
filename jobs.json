@@ -8812,6 +8812,99 @@
       "link_label": "官网职位详情",
       "link_check": "职位专属URL；实时可访问性及HC未逐条确认",
       "source_url": "https://shengshu.jobs.feishu.cn/index/position/7668707263888247078/detail"
+    },
+    {
+      "id": "feishu-modelbest-7696139759969814827",
+      "company": "面壁智能",
+      "title": "硬件产品采购专家",
+      "link": "https://modelbest.jobs.feishu.cn/campus/position/7696139759969814827/detail",
+      "posted": "",
+      "date_type": "未提供",
+      "group": "AI创业公司",
+      "track": "AI应用/体验",
+      "fit": "优先关注",
+      "days": "未注明",
+      "duration": "未注明",
+      "verify": "官网列表（需核对详情）",
+      "status": "飞书官网列表显示实习；具体职位限制和名额需确认",
+      "team": "企业AI招聘官网 · 具体团队未核",
+      "summary": "加入面壁智能采购部，独立负责硬件产品（硬件一体机、存储、网络设备、AI 芯片等）的寻源、选型与价格谈判，作为硬件中台核心成员支持推动\"千行百业万端\"项目落地。\n\n核心职责\n1. 硬件选型与评估\n根据业务方（算法 / 具身 / 数据 / 商业化）需求，完成硬件选型采购\n覆盖范围：、存储系统（全闪 / 混闪 / NAS）、网络设备、AI 芯片、配套硬件\n\n2. 供应商寻源与价格谈判\n开发新供应商（OEM / ODM / 芯片厂商 / 代理渠道），建立并维护供应商池\n独立完成芯片厂商价格谈判（GPU / AI 芯片 / 国产芯片优先）\n商务条款：价格、付款、交期、售后、违约责任\n供应商关系日常维护，处理报价 / RFQ / 对账\n\n3. 项目支持\n支持\"千行百业万端\"项目硬件落地\n协同硬件中台负责人按项目节奏交付\n\n4. 采购流程\n推进合同从寻源 → 谈判 → 审批 → 签约 → 交付 → 验收全流程\n维护采购台账、供应商档案\n配合 SRM 系统建设与优化",
+      "requirements": "官网列表未完整披露职位要求；请查看详情。",
+      "source": "企业飞书官网公开职位列表（SSR）",
+      "note": "此职位来自官网列表、非完整 JD；公开显示不等于确认仍有名额。",
+      "graduation": "未核实",
+      "checked": "2026-10-14",
+      "source_post_id": "7696139759969814827",
+      "source_job_code": "A120872",
+      "first_seen": "2026-10-14",
+      "last_seen": "2026-10-14",
+      "official_detail_url": "https://modelbest.jobs.feishu.cn/campus/position/7696139759969814827/detail",
+      "link_kind": "official_detail",
+      "link_label": "官网职位详情",
+      "link_check": "职位专属URL；实时可访问性及HC未逐条确认",
+      "source_url": "https://modelbest.jobs.feishu.cn/campus/position/7696139759969814827/detail"
+    },
+    {
+      "id": "feishu-modelbest-7662199919368997147",
+      "company": "面壁智能",
+      "title": "海外社区增长运营实习生",
+      "link": "https://modelbest.jobs.feishu.cn/campus/position/7662199919368997147/detail",
+      "posted": "",
+      "date_type": "未提供",
+      "group": "AI创业公司",
+      "track": "AI应用/体验",
+      "fit": "可以尝试",
+      "days": "未注明",
+      "duration": "未注明",
+      "verify": "官网列表（需核对详情）",
+      "status": "飞书官网列表显示实习；具体职位限制和名额需确认",
+      "team": "企业AI招聘官网 · 具体团队未核",
+      "summary": "1. 协助社媒与社区运营：协助搭建和运营模型在海外主流社媒及开发者社区（X、Reddit、Discord、Hugging Face、GitHub等），协助整理并输出英文内容（技术推文、模型评测等），提升品牌曝光。\n2. 协助渠道拓展与KOC/KOL对接，参与对接开发者、技术KOL的合作事宜，协助推进开源生态共建。\n3. 参与调研与数据整理：参与海外开发者调研，协助收集用户反馈，协助监控社媒及API调用数据，整理分析开发者行为，为模型迭代和运营策略提供数据支持。\n4. 协助活动策划与冷启动：协助策划和执行海外市场活动（模型发布、技术分享会、KOL联动、黑客松比赛等），配合团队完成海外运营冷启动相关工作（账号注册、内容规划、方案落地等）。",
+      "requirements": "官网列表未完整披露职位要求；请查看详情。",
+      "source": "企业飞书官网公开职位列表（SSR）",
+      "note": "此职位来自官网列表、非完整 JD；公开显示不等于确认仍有名额。",
+      "graduation": "未核实",
+      "checked": "2026-10-14",
+      "source_post_id": "7662199919368997147",
+      "source_job_code": "A67381",
+      "first_seen": "2026-10-14",
+      "last_seen": "2026-10-14",
+      "official_detail_url": "https://modelbest.jobs.feishu.cn/campus/position/7662199919368997147/detail",
+      "link_kind": "official_detail",
+      "link_label": "官网职位详情",
+      "link_check": "职位专属URL；实时可访问性及HC未逐条确认",
+      "source_url": "https://modelbest.jobs.feishu.cn/campus/position/7662199919368997147/detail"
+    },
+    {
+      "id": "feishu-modelbest-7649645598602332435",
+      "company": "面壁智能",
+      "title": "大模型解决方案与项目管理实习生",
+      "link": "https://modelbest.jobs.feishu.cn/campus/position/7649645598602332435/detail",
+      "posted": "",
+      "date_type": "未提供",
+      "group": "AI创业公司",
+      "track": "AI应用/体验",
+      "fit": "可以尝试",
+      "days": "未注明",
+      "duration": "未注明",
+      "verify": "官网列表（需核对详情）",
+      "status": "飞书官网列表显示实习；具体职位限制和名额需确认",
+      "team": "企业AI招聘官网 · 具体团队未核",
+      "summary": "1、方案设计与技术落地\n负责端侧大模型在办公、具身智能、医疗、遥感、思维博弈、电磁信号等垂直领域的解决方案设计；具备大模型预训练、微调等基础知识，能够针对客户需求完成模型选型、数据策略制定及微调方案设计。\nVibe Coding 与快速原型开发\n熟练运用 Vibe Coding 范式，借助自然语言驱动的高效编码方式，快速生成、迭代和调试代码原型，缩短从需求到可运行方案的验证周期，支撑解决方案的快速交付与演示。\n2、项目全流程管理\n承担项目全流程管理职责，包括项目立项、需求分析、进度计划、资源协调、风险控制、交付验收等环节；确保项目按时、按质、按预算完成，并定期向内部及客户汇报项目状态。\n项目材料撰写与汇报\n负责项目过程中各类文档的撰写，包括项目建议书、技术方案、结题报告、PPT 等；具备优秀的表达与沟通能力，能够面向客户或评审专家进行高质量的项目汇报。",
+      "requirements": "官网列表未完整披露职位要求；请查看详情。",
+      "source": "企业飞书官网公开职位列表（SSR）",
+      "note": "此职位来自官网列表、非完整 JD；公开显示不等于确认仍有名额。",
+      "graduation": "未核实",
+      "checked": "2026-10-14",
+      "source_post_id": "7649645598602332435",
+      "source_job_code": "A198154",
+      "first_seen": "2026-10-14",
+      "last_seen": "2026-10-14",
+      "official_detail_url": "https://modelbest.jobs.feishu.cn/campus/position/7649645598602332435/detail",
+      "link_kind": "official_detail",
+      "link_label": "官网职位详情",
+      "link_check": "职位专属URL；实时可访问性及HC未逐条确认",
+      "source_url": "https://modelbest.jobs.feishu.cn/campus/position/7649645598602332435/detail"
     }
   ],
   "company_coverage": {
@@ -8841,7 +8934,7 @@
     },
     "百度": {
       "source": "招聘官网",
-      "coverage": "2026-10-14 核验本入口 184 个唯一职位 ID；范围：仅 INTERN，北京市 workPlace=1100，产品类别 postType=2；企业其他招聘项目仍可能存在遗漏",
+      "coverage": "2026-10-14 核验本入口 185 个唯一职位 ID；范围：仅 INTERN，北京市 workPlace=1100，产品类别 postType=2；企业其他招聘项目仍可能存在遗漏",
       "level": "partial",
       "website": "https://talent.baidu.com/jobs/list?recruitType=INTERN"
     },
@@ -8864,9 +8957,9 @@
       "website": "https://campus.jd.com/"
     },
     "阿里巴巴": {
-      "source": "集团招聘系统",
-      "coverage": "招聘项目多，需要逐招聘子系统检索",
-      "level": "todo",
+      "source": "阿里巴巴官方匿名网页会话与职位列表 JSON",
+      "coverage": "2026-10-14 核验本入口 470 个唯一职位 ID；范围：阿里巴巴 campus-talent 官网 batchId=100000760001 的当前混合校园招聘目录，不能等同全部业务或日常实习岗位；企业其他招聘项目仍可能存在遗漏",
+      "level": "partial",
       "website": "https://campus-talent.alibaba.com/campus/position"
     },
     "B站": {
@@ -8921,7 +9014,7 @@
       "source": "第三方岗位来源",
       "coverage": "GUI Agent岗位尚未确认官网申请入口",
       "level": "partial",
-      "website": "https://www.stepfun.com/"
+      "website": "https://app.mokahr.com/campus-recruitment/step/94905#/jobs"
     },
     "月之暗面": {
       "source": "官网 Moka 招聘公开浏览器渲染（无登录）",
@@ -8990,10 +9083,10 @@
       "website": "https://www.horizon.auto/"
     },
     "面壁智能": {
-      "source": "企业招聘渠道",
-      "coverage": "尚未核对北京端侧AI产品实习",
-      "level": "todo",
-      "website": "https://www.modelbest.cn/"
+      "source": "官网公开职位页面标准浏览器渲染（无登录）",
+      "coverage": "2026-10-14 核验本入口 60 个唯一职位 ID；范围：面壁智能 飞书官方招聘门户 /campus/m/position/list，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏",
+      "level": "complete_public_html",
+      "website": "https://modelbest.jobs.feishu.cn/campus/m/position/list"
     },
     "携程集团": {
       "source": "公司网站（招聘接口尚未定位）",
@@ -9212,9 +9305,9 @@
       "scope": "校园招聘混合目录，含非实习职位"
     },
     "百度": {
-      "reported": 184,
-      "raw_records": 184,
-      "unique_ids": 184,
+      "reported": 185,
+      "raw_records": 185,
+      "unique_ids": 185,
       "pages": 19,
       "failed_pages": 0,
       "page_sizes": [
@@ -9236,7 +9329,7 @@
         10,
         10,
         10,
-        4
+        5
       ],
       "status": "分页数量一致",
       "last_checked": "2026-10-14",
@@ -9489,6 +9582,43 @@
       "scope": "生数科技 飞书官方招聘门户 /index/position/list，页面完整分页范围（需筛北京实习）",
       "capture": "官网公开职位页面标准浏览器渲染（无登录）",
       "last_checked": "2026-10-14"
+    },
+    "面壁智能": {
+      "reported": 60,
+      "raw_records": 60,
+      "unique_ids": 60,
+      "pages": 6,
+      "page_sizes": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "failed_pages": 0,
+      "status": "公开浏览器页面完整性校验通过",
+      "scope": "面壁智能 飞书官方招聘门户 /campus/m/position/list，页面完整分页范围（需筛北京实习）",
+      "capture": "官网公开职位页面标准浏览器渲染（无登录）",
+      "last_checked": "2026-10-14"
+    },
+    "阿里巴巴": {
+      "reported": 470,
+      "raw_records": 470,
+      "unique_ids": 470,
+      "pages": 5,
+      "page_sizes": [
+        100,
+        100,
+        100,
+        100,
+        70
+      ],
+      "failed_pages": 0,
+      "status": "公开会话职位接口完整性校验通过",
+      "scope": "阿里巴巴 campus-talent 官网 batchId=100000760001 的当前混合校园招聘目录，不能等同全部业务或日常实习岗位",
+      "capture": "阿里巴巴官方匿名网页会话与职位列表 JSON",
+      "last_checked": "2026-10-14"
     }
   },
   "source_attempts": {
@@ -9535,8 +9665,8 @@
     "百度": {
       "status": "成功（当前接口）",
       "checked": "2026-10-14",
-      "reported": 184,
-      "unique_ids": 184
+      "reported": 185,
+      "unique_ids": 185
     },
     "零一万物": {
       "status": "成功（当前接口）",
@@ -9592,9 +9722,16 @@
       "unique_ids": 108
     },
     "面壁智能": {
-      "status": "失败；保留上次完整快照",
+      "status": "成功（当前接口）",
       "checked": "2026-10-14",
-      "error": "HTTPSConnectionPool(host='modelbest.jobs.feishu.cn', port=443): Read timed out. (read timeout=28)"
+      "reported": 60,
+      "unique_ids": 60
+    },
+    "阿里巴巴": {
+      "status": "成功（当前接口）",
+      "checked": "2026-10-14",
+      "reported": 470,
+      "unique_ids": 470
     }
   },
   "search_scope": "仅北京 AI 产品相关日常实习；其他实习项目与未证实日常属性职位保留在主库，不在默认网页展示",

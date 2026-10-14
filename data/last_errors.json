@@ -1,7 +1,6 @@
 {
   "date": "2026-10-14",
   "errors": [
-    "美团: ValueError: 美团: reported=363 retrieved=363 unique=362",
-    "面壁智能: ReadTimeout: HTTPSConnectionPool(host='modelbest.jobs.feishu.cn', port=443): Read timed out. (read timeout=28)"
+    "美团: ValueError: 美团: reported=363 retrieved=363 unique=362"
   ]
 }
