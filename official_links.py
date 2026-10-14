@@ -51,6 +51,8 @@ def _specific_official(url):
     if h == "app.mokahr.com":
         return (p == "/campus-recruitment/moonshot/148507"
                 and re.fullmatch(r"/job/[0-9a-f]{8}-[0-9a-f-]{27,36}", f) is not None)
+    if h == "app.mokahr.com" and p == "/campus-recruitment/step/94905":
+        return re.fullmatch(r"/job/[0-9a-f-]{36}", f) is not None
     if h == "campus-talent.alibaba.com":
         return re.fullmatch(r"/campus/position/" + POSITIVE + r"/?", p) is not None
     if h == "jobs.bytedance.com":
