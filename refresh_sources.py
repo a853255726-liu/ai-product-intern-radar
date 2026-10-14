@@ -321,7 +321,7 @@ def main():
                                 and (str(v.get("source_post_id") or "") == sid
                                      or ("/position/"+sid+"/detail") in str(v.get("link") or "")
                                      or (code and (str(v.get("source_job_code") or "") == code
-                                        or k.endswith("-"+code)))), None)
+                                        or k.endswith("-"+code))))), None)
                     if duplicate:
                         existing = all_jobs[duplicate]
                         existing["checked"] = TODAY()
