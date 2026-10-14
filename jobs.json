@@ -10370,10 +10370,9 @@
   },
   "source_attempts": {
     "美团": {
-      "status": "成功（当前接口）",
+      "status": "失败；保留上次完整快照",
       "checked": "2026-10-14",
-      "reported": 366,
-      "unique_ids": 366
+      "error": "美团: reported=366 retrieved=366 unique=365"
     },
     "小红书": {
       "status": "失败；保留上次完整快照",
