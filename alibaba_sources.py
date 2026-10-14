@@ -169,8 +169,16 @@ def diagnose_alibaba(records):
                 ) if k in row})[:280],
                 "description_start": str(row.get("description") or "")[:130],
             })
+    batch_names = {}
+    for row in records:
+        name = str(row.get("batchName") or "未标注")
+        batch_names[name] = batch_names.get(name, 0) + 1
     return {"source_keys": sorted(source_keys)[:80],
-            "counts": counts, "sample": interesting}
+            "counts": counts, "batch_names": batch_names,
+            "recruitment_scope": ("仅已识别应届校招批次，未覆盖日常实习"
+                if batch_names and all("应届" in name for name in batch_names)
+                else "混合批次，逐条检查实习证据"),
+            "sample": interesting}
 
 
 def normalize_alibaba(records, today):
