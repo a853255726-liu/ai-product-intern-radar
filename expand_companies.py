@@ -39,6 +39,7 @@ official_directories = {
     "阿里巴巴": "https://campus-talent.alibaba.com/campus/position",
     "月之暗面": "https://careers.kimi.com/campus",
     "字节跳动": "https://jobs.bytedance.com/campus/position",
+    "阶跃星辰": "https://app.mokahr.com/campus-recruitment/step/94905#/jobs",
 }
 for name, url in official_directories.items():
     info = coverage.setdefault(name, {
