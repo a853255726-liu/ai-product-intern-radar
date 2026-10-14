@@ -26,6 +26,7 @@ class OfficialJobLinkTests(unittest.TestCase):
             "https://zhipu-ai.jobs.feishu.cn/index/position/7614090220368152874/detail",
             "https://realai.jobs.feishu.cn/272867/position/7208016656676669707/detail",
             "https://jobs.bytedance.com/campus/position/7673733057043712261/detail",
+            "https://campus-talent.alibaba.com/campus/position/199907680064?deptCodes=",
             "https://hr.meitu.com/en/jobIntern/d21c3fc8-d9dc-43ee-b71b-b3d59dca7517"
         ]
         for url in examples:
@@ -37,6 +38,7 @@ class OfficialJobLinkTests(unittest.TestCase):
             "https://campus.jd.com/#/job/detail?publishId=4910",
             "https://join.qq.com/post_detail.html?postid=-3",
             "https://talent.baidu.com/jobs/list?recruitType=INTERN",
+            "https://campus-talent.alibaba.com/campus/position?batchId=100000760001",
             "https://iq.jobs.feishu.cn/intern/m/",
             "https://ke.zhiye.com/jobs",
             "https://agechild.com/company/360",
