@@ -112,7 +112,7 @@ def collect_bilibili(session, page_size=PAGE_SIZE, max_pages=MAX_PAGES):
         kind = str(row.get("positionTypeName") or "未注明")
         type_counts[kind] = type_counts.get(kind, 0) + 1
     confirmed_internships = sum(
-        1 for row in rows if "实习" in str(row.get("positionTypeName") or ""))
+        1 for row in rows if "实习" in str(row.get("positionTypeName") or "")
     )
     return rows, {
         "position_type_counts": type_counts,
