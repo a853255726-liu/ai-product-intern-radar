@@ -39,5 +39,24 @@ class CandidateScopeTests(unittest.TestCase):
         self.assertTrue(is_product_candidate(
             "AI 产品运营实习生", "参与智能体产品需求设计与效果评测"))
 
+    def test_kimi_r_and_d_and_design_are_not_pm(self):
+        for title in (
+            "后端研发实习生（Agent 产品工程方向）",
+            "【实习生】Research Scientist, Life Sciences",
+            "ai for engineering eval intern（汽车方向）",
+            "增长团队管培生",
+            "设计实习生",
+        ):
+            with self.subTest(title=title):
+                self.assertFalse(is_product_candidate(
+                    title, "参与 Agent 产品需求分析和用户调研"))
+
+    def test_kimi_agent_and_eval_product_roles_survive(self):
+        self.assertTrue(is_product_candidate(
+            "AI harness 产品实习生", "负责 Agent 产品设计、评测和需求分析"))
+        self.assertTrue(is_product_candidate(
+            "体验运营实习生（Harness业务方向）",
+            "使用 Agent 平台做产品体验分析和需求反馈"))
+
 if __name__ == "__main__":
     unittest.main()
