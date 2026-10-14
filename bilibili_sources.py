@@ -78,7 +78,7 @@ def collect_bilibili(session, page_size=PAGE_SIZE, max_pages=MAX_PAGES):
     res.raise_for_status()
     token_response = res.json()
     token = token_response.get("data") if isinstance(token_response, dict) else None
-    if (token_response.get("code") != 0 or not isinstance(token, str)
+    if (not isinstance(token_response, dict) or token_response.get("code") != 0 or not isinstance(token, str)
             or not re.fullmatch(r"[0-9a-fA-F-]{32,50}", token)):
         raise ValueError("Bilibili public anonymous CSRF unavailable")
     h = headers(token)
