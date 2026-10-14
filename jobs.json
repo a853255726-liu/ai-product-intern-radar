@@ -8922,7 +8922,7 @@
     },
     "美团": {
       "source": "官网职位API",
-      "coverage": "2026-10-14 核验本入口 364 个唯一职位 ID；范围：官网校招实习类别，不代表其他渠道；企业其他招聘项目仍可能存在遗漏",
+      "coverage": "2026-10-14 核验本入口 363 个唯一职位 ID；范围：官网校招实习类别，不代表其他渠道；企业其他招聘项目仍可能存在遗漏",
       "level": "good",
       "website": "https://zhaopin.meituan.com/web/campus"
     },
@@ -9272,16 +9272,16 @@
       "scope": "仅北京日常实习项目 mapping=104，不包括应届实习/青云/部门直招"
     },
     "美团": {
-      "reported": 364,
-      "raw_records": 364,
-      "unique_ids": 364,
+      "reported": 363,
+      "raw_records": 363,
+      "unique_ids": 363,
       "pages": 4,
       "failed_pages": 0,
       "page_sizes": [
         100,
         100,
         100,
-        64
+        63
       ],
       "status": "分页数量一致",
       "last_checked": "2026-10-14",
@@ -9603,6 +9603,92 @@
       "last_checked": "2026-10-14"
     },
     "阿里巴巴": {
+      "screening_diagnostics": {
+        "source_keys": [
+          "batchId",
+          "batchName",
+          "batchWillingCount",
+          "bucket",
+          "categories",
+          "categoryName",
+          "categoryType",
+          "channels",
+          "circle",
+          "circleCodeList",
+          "circleNames",
+          "code",
+          "degree",
+          "department",
+          "description",
+          "experience",
+          "graduationTime",
+          "id",
+          "interviewLocations",
+          "isLingYang",
+          "isTongyi",
+          "modifyTime",
+          "name",
+          "niuKeProjectName",
+          "operations",
+          "positionType",
+          "positionUrl",
+          "project",
+          "publishTime",
+          "regionEnNameMap",
+          "requirement",
+          "status",
+          "tags",
+          "technologyNameIdMap",
+          "tongyi",
+          "trackId",
+          "useInternal",
+          "workLocations"
+        ],
+        "counts": {
+          "with_beijing": 270,
+          "explicit_internship": 0,
+          "beijing_internship": 0,
+          "beijing_internship_pm": 0,
+          "pm_titles": 27
+        },
+        "sample": [
+          {
+            "id": "199907720043",
+            "title": "AI Agent优化工程师-训练/数据/评测",
+            "location_value": "['北京', '杭州']",
+            "type_value": "{'batchName': '阿里巴巴2027届应届生', 'positionType': None, 'tags': None}",
+            "description_start": "这是一个综合的AI推理、优化的技术岗位，适合希望从事以下工作的候选人投递：\n● 希望从事AI应用构建与模型优化工作的候选人\n● 希望从事AI应用数据构建与自动化评测工作的候选人\n● 希望从事多模态AI应用构建与算法优化工作的候选人\n\n围绕真实业务核心场景，参与"
+          },
+          {
+            "id": "199908580004",
+            "title": "AI产品经理-智能体",
+            "location_value": "['杭州']",
+            "type_value": "{'batchName': '阿里巴巴2027届应届生', 'positionType': None, 'tags': None}",
+            "description_start": "本岗位需要完成工程笔试\n\n1. 主导Agent与人协作产品的设计与迭代；\n2. 深入研究用户场景与痛点，建立用户反馈闭环，持续驱动产品体验优化；\n3. 与工程、设计、运营等同事和Agent紧密协作，推动产品从 0 到 1 及规模化增长；\n4. 定义并跟踪核心产"
+          },
+          {
+            "id": "199907720103",
+            "title": "智能体运行时安全评测与防御关键技术研究-阿里星",
+            "location_value": "['杭州']",
+            "type_value": "{'batchName': '阿里巴巴2027届应届生', 'positionType': None, 'tags': None}",
+            "description_start": "1.负责智能体运行时安全评测体系的构建，围绕真实工具调用（Function Call）、多步任务执行、跨系统交互等Agent场景，设计并实现行为级安全评测框架，覆盖提示词注入、工具滥用、权限越界、执行链异常等风险维度\n2.负责智能体行为轨迹的判读与分析能力建设"
+          },
+          {
+            "id": "199907680002",
+            "title": "AI产品经理-超级智能体",
+            "location_value": "['北京', '广州', '杭州']",
+            "type_value": "{'batchName': '阿里巴巴2027届应届生', 'positionType': None, 'tags': None}",
+            "description_start": "1.参与或负责千问AI产品规划、模型迭代、行业策略、数据机制、产品方案；\n2.分析用户需求、技术趋势、行业场景和竞品动态，落实到具体产品业务；\n3.构建用户需求、产品形态和模型范式之间的评估评价体系，不拘一格思考产品方案；\n4.跟进产品开发or运营进度，与算法"
+          },
+          {
+            "id": "199907640007",
+            "title": "面向 AI 编码产品的智能研发交付与工程效能平台关键技术研究-阿里星",
+            "location_value": "['杭州']",
+            "type_value": "{'batchName': '阿里巴巴2027届应届生', 'positionType': None, 'tags': None}",
+            "description_start": "Qteam 是阿里云旗下的 AI 编码产品团队，正在打造涵盖 AI IDE、AI 编码插件、AI Coding CLI 在内的下一代智能开发工具矩阵。我们相信 AI 将从根本上重塑开发者的编程方式——从代码补全到自主编程 Agent，从单点辅助到全流程智能化。"
+          }
+        ]
+      },
       "reported": 470,
       "raw_records": 470,
       "unique_ids": 470,
@@ -9623,9 +9709,10 @@
   },
   "source_attempts": {
     "美团": {
-      "status": "失败；保留上次完整快照",
+      "status": "成功（当前接口）",
       "checked": "2026-10-14",
-      "error": "美团: reported=363 retrieved=363 unique=362"
+      "reported": 363,
+      "unique_ids": 363
     },
     "小红书": {
       "status": "成功（当前接口）",
