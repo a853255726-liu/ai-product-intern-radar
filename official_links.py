@@ -65,6 +65,9 @@ def _official_listing(url):
 def classify_link(url):
     if _specific_official(url):
         return "official_detail"
+    # Broken detail endpoints are not valid official *listing* URLs.
+    if re.fullmatch(r"https://join\.qq\.com/post_detail\.html\?postid=-\d+", str(url)):
+        return "invalid"
     if not _safe_url(url):
         return "invalid"
     if _official_listing(url):
@@ -79,7 +82,12 @@ def enrich_job(job):
     # Migrate a legacy JD hash route. This format was proven to show a 404.
     jd = re.fullmatch(r"https://campus\.jd\.com/#/job/detail\?publishId=("+POSITIVE+r")", current)
     if jd:
+        old_route = current
         current = "https://campus.jd.com/#/details?id="+jd.group(1)
+        obj["legacy_link_url"] = old_route
+        # Never expose the proven-404 legacy URL as the secondary source link.
+        if source == old_route:
+            source = current
     if classify_link(current) == "official_detail":
         obj["official_detail_url"] = current
         obj["link"] = current
