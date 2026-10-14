@@ -3214,7 +3214,7 @@
       "id": "jd-7641",
       "company": "京东",
       "title": "金融产品经理",
-      "link": "https://campus.jd.com/#/job/detail?publishId=7641",
+      "link": "https://campus.jd.com/#/details?id=7641",
       "posted": "2026-04-01",
       "date_type": "发布日期",
       "group": "大厂",
@@ -3231,13 +3231,15 @@
       "source": "企业招聘官网公开 API",
       "graduation": "未核实",
       "checked": "2026-10-14",
-      "last_seen": "2026-10-14"
+      "last_seen": "2026-10-14",
+      "legacy_link_url": "https://campus.jd.com/#/job/detail?publishId=7641",
+      "source_url": "https://campus.jd.com/#/details?id=7641"
     },
     {
       "id": "jd-4962",
       "company": "京东",
       "title": "用户研究",
-      "link": "https://campus.jd.com/#/job/detail?publishId=4962",
+      "link": "https://campus.jd.com/#/details?id=4962",
       "posted": "2024-03-01",
       "date_type": "发布日期",
       "group": "大厂",
@@ -3254,13 +3256,15 @@
       "source": "企业招聘官网公开 API",
       "graduation": "未核实",
       "checked": "2026-10-14",
-      "last_seen": "2026-10-14"
+      "last_seen": "2026-10-14",
+      "legacy_link_url": "https://campus.jd.com/#/job/detail?publishId=4962",
+      "source_url": "https://campus.jd.com/#/details?id=4962"
     },
     {
       "id": "jd-4920",
       "company": "京东",
       "title": "物流产品服务",
-      "link": "https://campus.jd.com/#/job/detail?publishId=4920",
+      "link": "https://campus.jd.com/#/details?id=4920",
       "posted": "2024-03-01",
       "date_type": "发布日期",
       "group": "大厂",
@@ -3277,13 +3281,15 @@
       "source": "企业招聘官网公开 API",
       "graduation": "未核实",
       "checked": "2026-10-14",
-      "last_seen": "2026-10-14"
+      "last_seen": "2026-10-14",
+      "legacy_link_url": "https://campus.jd.com/#/job/detail?publishId=4920",
+      "source_url": "https://campus.jd.com/#/details?id=4920"
     },
     {
       "id": "jd-4914",
       "company": "京东",
       "title": "产品运营",
-      "link": "https://campus.jd.com/#/job/detail?publishId=4914",
+      "link": "https://campus.jd.com/#/details?id=4914",
       "posted": "2024-03-01",
       "date_type": "发布日期",
       "group": "大厂",
@@ -3300,13 +3306,15 @@
       "source": "企业招聘官网公开 API",
       "graduation": "未核实",
       "checked": "2026-10-14",
-      "last_seen": "2026-10-14"
+      "last_seen": "2026-10-14",
+      "legacy_link_url": "https://campus.jd.com/#/job/detail?publishId=4914",
+      "source_url": "https://campus.jd.com/#/details?id=4914"
     },
     {
       "id": "jd-4910",
       "company": "京东",
       "title": "技术产品经理",
-      "link": "https://campus.jd.com/#/job/detail?publishId=4910",
+      "link": "https://campus.jd.com/#/details?id=4910",
       "posted": "2024-03-01",
       "date_type": "发布日期",
       "group": "大厂",
@@ -3323,13 +3331,15 @@
       "source": "企业招聘官网公开 API",
       "graduation": "未核实",
       "checked": "2026-10-14",
-      "last_seen": "2026-10-14"
+      "last_seen": "2026-10-14",
+      "legacy_link_url": "https://campus.jd.com/#/job/detail?publishId=4910",
+      "source_url": "https://campus.jd.com/#/details?id=4910"
     },
     {
       "id": "jd-5014",
       "company": "京东",
       "title": "保险产品经理",
-      "link": "https://campus.jd.com/#/job/detail?publishId=5014",
+      "link": "https://campus.jd.com/#/details?id=5014",
       "posted": "2024-03-01",
       "date_type": "发布日期",
       "group": "大厂",
@@ -3346,7 +3356,9 @@
       "source": "企业招聘官网公开 API",
       "graduation": "未核实",
       "checked": "2026-10-14",
-      "last_seen": "2026-10-14"
+      "last_seen": "2026-10-14",
+      "legacy_link_url": "https://campus.jd.com/#/job/detail?publishId=5014",
+      "source_url": "https://campus.jd.com/#/details?id=5014"
     },
     {
       "id": "baidu-c325e4e8-d27e-40d4-a517-3dbc27bb4303",
