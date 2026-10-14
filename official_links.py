@@ -56,7 +56,7 @@ def _specific_official(url):
     if h == "jobs.bytedance.com":
         return re.fullmatch(r"/(?:campus|experienced)/position/"+POSITIVE+r"/detail/?",p) is not None
     if h.endswith(".jobs.feishu.cn") and h != "jobs.feishu.cn":
-        return re.fullmatch(r"/[^/]+/position/"+POSITIVE+r"/detail/?",p) is not None
+        return re.fullmatch(r"/(?:[^/]+/){1,3}position/"+POSITIVE+r"/detail/?",p) is not None
     return False
 
 def _official_listing(url):
