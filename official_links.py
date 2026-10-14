@@ -48,6 +48,9 @@ def _specific_official(url):
         return re.fullmatch(r"/(?:intern|index)/position/"+POSITIVE+r"/detail/?",p) is not None
     if h == "xiaomi.jobs.f.mioffice.cn":
         return re.fullmatch(r"/(?:internship|topintern)/position/"+POSITIVE+r"/detail/?",p) is not None
+    if h == "app.mokahr.com":
+        return (p == "/campus-recruitment/moonshot/148507"
+                and re.fullmatch(r"/job/[0-9a-f]{8}-[0-9a-f-]{27,36}", f) is not None)
     if h == "jobs.bytedance.com":
         return re.fullmatch(r"/(?:campus|experienced)/position/"+POSITIVE+r"/detail/?",p) is not None
     if h.endswith(".jobs.feishu.cn") and h != "jobs.feishu.cn":
@@ -60,7 +63,7 @@ def _official_listing(url):
     host = urlsplit(url).hostname.lower()
     return host in {"talent.baidu.com","campus.jd.com","join.qq.com","ke.zhiye.com",
         "careers.iqiyi.com","job.xiaohongshu.com","jobs.bytedance.com",
-        "zhaopin.meituan.com","campus.kuaishou.cn"} or host.endswith(".jobs.feishu.cn")
+        "zhaopin.meituan.com","campus.kuaishou.cn","app.mokahr.com"} or host.endswith(".jobs.feishu.cn")
 
 def classify_link(url):
     if _specific_official(url):

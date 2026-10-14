@@ -14,6 +14,7 @@ import requests
 from extra_sources import make_sources, normalize_extra
 from feishu_sources import PORTALS as FEISHU_PORTALS, collect_feishu, normalize_feishu
 from candidate_scope import is_product_candidate
+from kimi_sources import collect_kimi, normalize_kimi, BASE as KIMI_BASE
 
 ROOT = Path(__file__).resolve().parent
 TODAY = lambda: datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d")
@@ -159,13 +160,16 @@ def jd(s):
 SOURCES = {"美团": meituan, "小红书": xhs, "腾讯": tencent, "京东": jd, "百度": baidu}
 SOURCES.update(make_sources(request_json, collect, TODAY))
 SOURCES.update({name: (lambda session, company=name: collect_feishu(session, company)) for name in FEISHU_PORTALS})
-KEYS = {"meituan": "美团", "xhs": "小红书", "tencent": "腾讯", "jd": "京东", "baidu": "百度", "kuaishou": "快手", "mihoyo": "米哈游", "xiaomi": "小米", "feishu-zeroone": "零一万物", "feishu-minimax": "MiniMax", "feishu-zhipu": "智谱", "feishu-realai": "RealAI", "feishu-baichuan": "百川智能", "feishu-iqiyi": "爱奇艺"}
+SOURCES["月之暗面"] = collect_kimi
+KEYS = {"meituan": "美团", "xhs": "小红书", "tencent": "腾讯", "jd": "京东", "baidu": "百度", "kuaishou": "快手", "mihoyo": "米哈游", "xiaomi": "小米", "feishu-zeroone": "零一万物", "feishu-minimax": "MiniMax", "feishu-zhipu": "智谱", "feishu-realai": "RealAI", "feishu-baichuan": "百川智能", "feishu-iqiyi": "爱奇艺", "kimi-moka": "月之暗面"}
 
 def normalize(company, records):
     if company in ('快手', '米哈游', '小米'):
         return normalize_extra(company, records, TODAY)
     if company in FEISHU_PORTALS:
         return normalize_feishu(company, records, TODAY)
+    if company == "月之暗面":
+        return normalize_kimi(records, TODAY)
     out = []
     for r in records:
         name, city, key, url, team, date, date_type, duty, requirements = (
@@ -253,7 +257,7 @@ def normalize(company, records):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--sources", nargs="+", choices=["meituan", "xhs", "tencent", "jd", "baidu", "kuaishou", "mihoyo", "xiaomi", "feishu-zeroone", "feishu-minimax", "feishu-zhipu", "feishu-realai", "feishu-baichuan", "feishu-iqiyi", "all"],
+    ap.add_argument("--sources", nargs="+", choices=["meituan", "xhs", "tencent", "jd", "baidu", "kuaishou", "mihoyo", "xiaomi", "feishu-zeroone", "feishu-minimax", "feishu-zhipu", "feishu-realai", "feishu-baichuan", "feishu-iqiyi", "kimi-moka", "all"],
                     default=["meituan", "xhs", "tencent"])
     ap.add_argument("--audit-only", action="store_true")
     args = ap.parse_args()
@@ -274,12 +278,12 @@ def main():
                 json.dumps({"checked": TODAY(), "records": records}, ensure_ascii=False), encoding="utf-8")
             meta.setdefault("last_checked", TODAY())
             audits[company] = meta
-            if company in ("快手", "米哈游", "小米") or company in FEISHU_PORTALS:
+            if company in ("快手", "米哈游", "小米", "月之暗面") or company in FEISHU_PORTALS:
                 info = data.setdefault("company_coverage", {}).setdefault(company, {})
                 info.update({"source": meta.get("capture", "官方公开招聘接口"),
-                             "level": "complete_public_html" if company in FEISHU_PORTALS else "complete_api",
+                             "level": "complete_public_html" if company in FEISHU_PORTALS or company == "月之暗面" else "complete_api",
                              "coverage": f"已核对本接口 {meta['unique_ids']} 个唯一职位 ID；企业其他渠道尚未全量核验",
-                             "website": (FEISHU_PORTALS[company][0] + FEISHU_PORTALS[company][1]) if company in FEISHU_PORTALS else ("https://campus.kuaishou.cn/" if company == "快手" else "https://jobs.mihoyo.com/" if company == "米哈游" else "https://hr.xiaomi.com/website/opportunities.html")})
+                             "website": (FEISHU_PORTALS[company][0] + FEISHU_PORTALS[company][1]) if company in FEISHU_PORTALS else (KIMI_BASE+"#/jobs" if company == "月之暗面" else "https://campus.kuaishou.cn/" if company == "快手" else "https://jobs.mihoyo.com/" if company == "米哈游" else "https://hr.xiaomi.com/website/opportunities.html")})
             attempts[company] = {"status": "成功（当前接口）", "checked": TODAY(),
                                  "reported": meta["reported"], "unique_ids": meta["unique_ids"]}
             successes += 1
@@ -312,7 +316,7 @@ def main():
                                 if v.get("company") == company and k != ident
                                 and (k == "baidu-"+code
                                      or re.search(r"\b"+code+r"\b", v.get("title","")))), None)
-                    elif company in FEISHU_PORTALS:
+                    elif company in FEISHU_PORTALS or company == "月之暗面":
                         sid = str(job.get("source_post_id") or "")
                         code = str(job.get("source_job_code") or "")
                         if sid:
@@ -320,6 +324,7 @@ def main():
                                 if v.get("company") == company and k != ident
                                 and (str(v.get("source_post_id") or "") == sid
                                      or ("/position/"+sid+"/detail") in str(v.get("link") or "")
+                                     or (company == "月之暗面" and "/job/"+sid in str(v.get("link") or ""))
                                      or (code and (str(v.get("source_job_code") or "") == code
                                         or k.endswith("-"+code))))), None)
                     if duplicate:

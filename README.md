@@ -47,6 +47,14 @@
 - **后续官方接入**：阿里日常实习、字节日常实习、Kimi 校招门户需要单独核实动态职位目录、官方 ID 和分页，不在未证实接口可靠前纳入自动成功源。
 - **重复记录**：新捕获的爱奇艺职位会优先按职位专属 ID、招聘职位代码（如 A15887）与已收录记录去重，并在证据足够时把原来的列表链接升级为官方详情。
 
+### 月之暗面 Kimi 官方 MokaHR 来源（2026-10-14）
+
+- 官方校园招聘职位目录：https://app.mokahr.com/campus-recruitment/moonshot/148507#/jobs/?page=1 。网页核查时显示95条原始职位，分布4页；不等于北京AI产品候选数量。
+- kimi_sources.py 使用公开浏览器正常渲染，核验总数与唯一UUID，需到职位详情确认北京（部分职位列表省略城市）。不模仿非公开API，也不绕过登录限制。
+- 新增 kimi-moka 命令及官方 Moka `/job/<UUID>` 详情链接识别。若职位列表缺页、总数不一致或职位详情无法渲染，保留上一版成功的数据。
+- 职位发布状态不能证明仍有招聘名额；以 jobs.json.source_attempts.月之暗面 判断真实采集状态。
+
+
 
 ## 工程实现
 
@@ -64,7 +72,7 @@
 python -m pip install -r requirements.txt
 python -m playwright install chromium
 python -m unittest discover -s tests -p 'test_*.py' -v
-python refresh_sources.py --sources meituan xhs tencent jd baidu kuaishou mihoyo feishu-zeroone feishu-minimax feishu-zhipu feishu-realai feishu-baichuan
+python refresh_sources.py --sources meituan xhs tencent jd baidu kuaishou mihoyo feishu-zeroone feishu-minimax feishu-zhipu feishu-realai feishu-baichuan feishu-iqiyi kimi-moka
 python expand_companies.py
 python rebuild.py
 ```
