@@ -40,6 +40,9 @@ def parse_list_html(html):
         if not anchor or not title_el:
             raise ValueError("Moka result card has no official link or title")
         url = anchor.get("href", "").strip()
+        # Moka live DOM uses fragment-only hrefs; crawlers may absolutize them.
+        if url.startswith("#/job/"):
+            url = BASE + url
         parsed = urlparse(url)
         match = JOB_RE.fullmatch(parsed.fragment)
         if not (parsed.scheme == "https" and parsed.netloc == "app.mokahr.com"
