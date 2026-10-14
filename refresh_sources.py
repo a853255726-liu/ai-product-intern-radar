@@ -272,6 +272,7 @@ def main():
                 records, meta = SOURCES[company](session)
             (rawdir / (company + "_latest.json")).write_text(
                 json.dumps({"checked": TODAY(), "records": records}, ensure_ascii=False), encoding="utf-8")
+            meta.setdefault("last_checked", TODAY())
             audits[company] = meta
             if company in ("快手", "米哈游", "小米") or company in FEISHU_PORTALS:
                 info = data.setdefault("company_coverage", {}).setdefault(company, {})
