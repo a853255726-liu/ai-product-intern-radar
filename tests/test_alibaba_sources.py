@@ -1,7 +1,8 @@
 """Alibaba job discovery contract tests: do not trust incomplete API results."""
 import unittest
 from alibaba_sources import (BATCH_ID, LIST_PAGE, TOKEN_RE, query_for_page,
-                             parse_page, collect_alibaba, normalize_alibaba)
+                             parse_page, collect_alibaba, normalize_alibaba,
+                             role_fit, infer_internship_terms)
 from refresh_sources import KEYS
 
 
@@ -80,6 +81,32 @@ class AlibabaFeedTests(unittest.TestCase):
         row["workLocations"] = ["北京"]
         row["name"] = "大模型算法工程师"
         self.assertEqual(normalize_alibaba([row], lambda: "2026-10-14"), [])
+
+    def test_tiered_fit_for_pm_research_and_growth(self):
+        self.assertEqual(role_fit("千问AI 产品实习生", "负责需求规划", ""), "优先关注")
+        self.assertEqual(role_fit("智多星-大模型评测（通用方向）", "负责评测", ""), "可以尝试")
+        self.assertEqual(role_fit("智多星-大模型评测（生物信息方向）", "",
+                                  "需要生物湿实验技能"), "匹配较弱")
+        self.assertEqual(role_fit("高德 AI 运营实习生", "内容营销", ""), "可以尝试")
+
+    def test_jd_weekly_days_and_duration_are_not_discarded(self):
+        self.assertEqual(infer_internship_terms("单周4天以上，实习3个月以上"),
+                         ("≥4天", "≥3个月"))
+        self.assertEqual(infer_internship_terms("每周到岗4～5天，6个月以上优先")[0], "≥4天")
+        self.assertEqual(infer_internship_terms("一周至少3天，时间不少于4个月"),
+                         ("≥3天", "≥4个月"))
+        self.assertEqual(infer_internship_terms("未提到天数"), ("未注明", "未注明"))
+
+    def test_daily_batch_classified_as_daily_for_published_jobs(self):
+        from daily_scope import classify
+        row={"id":101, "name":"千问AI 产品实习生",
+             "batchName":"阿里巴巴日常实习生","workLocations":["北京"],
+             "description":"参与 AI Agent 产品需求与迭代", "requirement":"每周至少4天，实习3个月以上"}
+        jobs=normalize_alibaba([row],lambda: "2026-10-14")
+        self.assertEqual(jobs[0]["fit"], "优先关注")
+        self.assertEqual(jobs[0]["days"], "≥4天")
+        self.assertEqual(jobs[0]["duration"], "≥3个月")
+        self.assertEqual(classify(jobs[0]), "daily")
 
     def test_reject_missing_job_schema(self):
         with self.assertRaises(ValueError):
