@@ -76,9 +76,22 @@ def meituan(s):
              "keywords": "", "cityList": [], "department": [], "jfJgList": [],
              "jobType": [{"code": "2", "subCode": []}], "typeCode": [], "specialCode": []},
             "https://zhaopin.meituan.com/web/campus")
-    records, meta = collect("美团", one,
-                           lambda x: (x.get("data", {}).get("list"),
-                                      x.get("data", {}).get("page", {}).get("totalCount"), "jobUnionId"))
+    # Jobs can be re-ordered while the four pages are fetched. One
+    # duplicate ID means one other position may have been skipped, so never
+    # silently deduplicate. Retry the ENTIRE source a few times and only
+    # accept a snapshot with all advertised unique IDs.
+    for attempt in range(3):
+        try:
+            records, meta = collect("美团", one,
+                                   lambda x: (x.get("data", {}).get("list"),
+                                              x.get("data", {}).get("page", {}).get("totalCount"),
+                                              "jobUnionId"))
+            break
+        except ValueError as exc:
+            msg = str(exc)
+            if attempt == 2 or not ("reported=" in msg and "unique=" in msg):
+                raise
+            time.sleep(1.5 * (attempt + 1))
     meta["scope"] = "官网校招实习类别，不代表其他渠道"
     return records, meta
 
