@@ -40,7 +40,7 @@ class OfficialSourcesTests(unittest.TestCase):
         self.assertEqual(len(posts),1)
         self.assertEqual(posts[0]["id"],"jd-7641")
         self.assertIn("北京",rows[0]["requirementVoList"][0]["workCity"])
-        self.assertIn("job/detail?publishId=7641",posts[0]["link"])
+        self.assertEqual(posts[0]["link"], "https://campus.jd.com/#/details?id=7641")
         self.assertIn("AI产品",posts[0]["summary"])
 
     def test_baidu_encoded_form_and_product_city(self):
