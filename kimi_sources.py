@@ -21,7 +21,7 @@ def list_url(index):
     return f"{BASE}#/jobs/?page={index}"
 
 
-def parse_list_html(html):
+def parse_list_html(html, base=BASE):
     soup = BeautifulSoup(html, "html.parser")
     full_text = soup.get_text(" ", strip=True)
     m = RESULT_RE.search(full_text)
@@ -42,11 +42,11 @@ def parse_list_html(html):
         url = anchor.get("href", "").strip()
         # Moka live DOM uses fragment-only hrefs; crawlers may absolutize them.
         if url.startswith("#/job/"):
-            url = BASE + url
+            url = base + url
         parsed = urlparse(url)
         match = JOB_RE.fullmatch(parsed.fragment)
         if not (parsed.scheme == "https" and parsed.netloc == "app.mokahr.com"
-                and parsed.path == "/campus-recruitment/moonshot/148507" and match):
+                and parsed.path == urlparse(base).path and match):
             raise ValueError("Moka unexpected job detail route: " + url)
         details = [el.get_text(" ", strip=True) for el in
                    card.select('div[class*="sd-Ellipsis-hiddenContent-"]')]
