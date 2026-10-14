@@ -35,6 +35,8 @@ class Session:
 class AlibabaFeedTests(unittest.TestCase):
     def test_public_batch_and_pagination_contract(self):
         self.assertEqual(KEYS["alibaba-public"], "阿里巴巴")
+        self.assertEqual(BATCH_ID, 100000560002)
+        self.assertIn("&lang=zh", LIST_PAGE)
         self.assertEqual(query_for_page(2)["pageIndex"], 2)
         self.assertEqual(query_for_page(2)["batchId"], BATCH_ID)
         self.assertEqual(query_for_page(2)["pageSize"], 100)
