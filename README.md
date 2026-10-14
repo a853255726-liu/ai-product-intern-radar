@@ -104,3 +104,9 @@ GitHub Actions 配置：`.github/workflows/site.yml`；每日自动更新和网�
 
 - 已确认校园招聘的独立职位详情 URL 格式：`https://campus-talent.alibaba.com/campus/position/<职位ID>`；`official_links.py` 对符合格式的专属职位链接归为 `official_detail`，普通目录页面仍为 `official_list`。
 - 本次仅完成**官网专属详情路由识别**，没有把阿里招聘系统列为每日成功采集源。其日常实习、多集团职位范围、分页结果与北京 AI 产品筛选还需独立核验。
+
+### 新增小型 AI 公司官方源验证（2026-10-14）
+
+- 生数科技：官网 `https://shengshu.jobs.feishu.cn/index/position/list`；公开职位目录观察到约 107 条原始记录，招聘类型混合，**仅筛北京实习与 AI 产品相邻职位**。选择器 `feishu-shengshu`。
+- 面壁智能：官网 `https://modelbest.jobs.feishu.cn/campus/m/position/list`；公开校园招聘目录观察到约 60 条原始记录，**不将校招正式岗算作实习**。选择器 `feishu-modelbest`。
+- 两个新源均复用飞书公开 HTML/普通浏览器分页核验、唯一职位 ID 对账、失败保留快照机制。配置完成不代表实时采集成功，以 `source_attempts` 和 `source_audits` 为准。
