@@ -11,8 +11,8 @@ import re
 from candidate_scope import is_product_candidate
 
 SITE = "https://campus-talent.alibaba.com"
-BATCH_ID = 100000760001  # Current official campus page as observed 2026-10-14.
-LIST_PAGE = SITE + "/campus/position?batchId=" + str(BATCH_ID)
+BATCH_ID = 100000560002  # Official 日常实习生 CTA on /campus/index; verified 2026-10-14.
+LIST_PAGE = SITE + "/campus/position?batchId=" + str(BATCH_ID) + "&lang=zh"
 API = SITE + "/position/search"
 PAGE_SIZE = 100
 MAX_PAGES = 25
@@ -91,8 +91,8 @@ def collect_alibaba(session):
         "unique_ids": len(set(ids)), "pages": len(sizes),
         "page_sizes": sizes, "failed_pages": 0,
         "status": "公开会话职位接口完整性校验通过",
-        "scope": ("阿里巴巴 campus-talent 官网 batchId=" + str(BATCH_ID)
-                  + " 的当前混合校园招聘目录，不能等同全部业务或日常实习岗位"),
+        "scope": ("阿里巴巴 campus-talent 官网官方日常实习生入口 batchId=" + str(BATCH_ID)
+                  + "，仅此招聘项目；其他实习渠道或业务集团不保证覆盖"),
         "capture": "阿里巴巴官方匿名网页会话与职位列表 JSON",
     }
 
@@ -206,14 +206,14 @@ def normalize_alibaba(records, today):
             "group": "大厂", "track": "AI 产品/策略", "fit": "优先关注",
             "days": "未注明", "duration": "未注明",
             "verify": "官网API（含JD，详情待复核）",
-            "status": "当前校招批次官网有职位记录，实时名额未确认",
+            "status": "当前日常实习项目官网有职位记录，实时名额未确认",
             "team": _flat(row.get("circleNames")) or "业务集团待核实",
             "summary": duty[:2100],
             "requirements": requirements[:1500] or "请查看官方岗位详情",
             "source": "阿里巴巴校园招聘公开职位列表",
             "graduation": "未核实", "checked": today(),
             "source_post_id": jid,
-            "note": ("来自当前校招混合目录，筛选要求职位标题或招聘项目"
-                     "明确为实习；具体投递资格需按官方详情核验。"),
+            "note": ("来自阿里巴巴日常实习生招聘项目；官网有记录不代表HR确认名额，"
+                     "且需按官方详情核实毕业届次、北京工作地点与要求。"),
         })
     return found

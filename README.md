@@ -34,7 +34,7 @@
 | 月之暗面 Kimi | `app.mokahr.com/campus-recruitment/moonshot/148507` 校招公开目录 | 94～95 | 公开浏览器页面成功，按最近成功快照为准 |
 | 生数科技 | `shengshu.jobs.feishu.cn/index/position/list` 全招聘类型 | 108 | 公开页面成功，11页独立 ID 对账 |
 | 面壁智能 | `modelbest.jobs.feishu.cn/campus/m/position/list` 校园招聘 | 60 | 公开浏览器页面成功，6页独立 ID 对账 |
-| 阿里巴巴 | `campus-talent.alibaba.com/campus/position?batchId=100000760001` 混合校招批次 | 470 | 官方匿名会话 API 成功，5页ID核验；实习类别筛选诊断中 |
+| 阿里巴巴 | `campus-talent.alibaba.com/campus/position?batchId=100000560002&lang=zh` 日常实习项目 | 待当前 Actions 核验（官网中文页面观察到368） | 已切换到官方“日常实习生”入口；必须以 `source_audits` 成功结果为准 |
 
 以上数字是首次修复和测试时的证据快照。往后请以 `jobs.json.source_audits`、`jobs.json.source_attempts` 和 `data/last_errors.json` 的最近结果为准。页面不展示所有原始记录；只有“北京+产品相关+实习”筛查后留下的候选才入库。
 
@@ -48,7 +48,7 @@
 
 - **爱奇艺日常实习**：新增官方飞书目录 `https://iq.jobs.feishu.cn/intern/m/`，以 `feishu-iqiyi` 开启完整分页、唯一职位 ID 对账、北京/实习/AI 产品职责筛选及官方职位详情 URL。新增接口的真实成功状态，以工作流执行后的 `source_audits.爱奇艺` 和 `source_attempts.爱奇艺` 为准，**配置完成不等于已抓取成功**。
 - **发现规则**：`candidate_scope.py` 在常规产品岗位外，允许标题不是“产品”但 JD 具有明确 AI 产品工作职责的相邻岗位；排除纯研发、标注、行政等工作。保留原始官方职位总数与最终候选数的区别。
-- **后续官方接入**：Kimi 已核验并自动接入。阿里当前校招批次已完成470条完整分页，但日常实习类型的字段识别与筛选范围仍在核查；字节日常实习的当前公开 API 在 GitHub Actions 返回 HTTP 405，因此尚未成功接入，不能推断没有岗位。
+- **后续官方接入**：Kimi 已核验并自动接入。阿里已定位正确的日常实习入口 `batchId=100000560002`，正在重新核验；之前 `batchId=100000760001` 完整抓取的470条是2027届应届生岗位，不得混作实习。字节日常实习公开 API 在 GitHub Actions 返回 HTTP 405，尚未成功接入，不能推断没有岗位。
 - **重复记录**：新捕获的爱奇艺职位会优先按职位专属 ID、招聘职位代码（如 A15887）与已收录记录去重，并在证据足够时把原来的列表链接升级为官方详情。
 
 ### 月之暗面 Kimi 官方 MokaHR 来源（2026-10-14）
@@ -106,7 +106,7 @@ GitHub Actions 配置：`.github/workflows/site.yml`；每日自动更新和网�
 ### 阿里巴巴官方招聘链接范围（2026-10-14）
 
 - 已确认校园招聘的独立职位详情 URL 格式：`https://campus-talent.alibaba.com/campus/position/<职位ID>`；`official_links.py` 对符合格式的专属职位链接归为 `official_detail`，普通目录页面仍为 `official_list`。
-- 已在 GitHub Actions 核验当前批次 470 条职位、5页且无重复 ID。**混合校招不等于日常实习**，当前严格的岗位类型筛选尚无新增公开候选，需依据新的筛选诊断进一步核查字段。
+- 曾核验应届校招批次 `100000760001` 的470条职位、5页，但不属于日常实习。2026-10-14 已改为真正的日常实习批次 `100000560002`；请查看最新 `source_attempts.阿里巴巴` 和 `source_audits.阿里巴巴` 判断是否成功。
 
 ### 新增小型 AI 公司官方源验证（2026-10-14）
 
@@ -116,8 +116,8 @@ GitHub Actions 配置：`.github/workflows/site.yml`；每日自动更新和网�
 
 ### 阿里巴巴校园招聘公开会话 API 验证（2026-10-14）
 
-- 新增 `alibaba_sources.py`、命令 `alibaba-public`，已核验官方 `https://campus-talent.alibaba.com/campus/position?batchId=100000760001`。中文地区网页初步观察到约470条原始职位，不代表北京日常 AI 产品实习数。
-- 采用官网公开、匿名会话提供的标准页面 token，并调用同域职位列表 JSON；**不会绕过登录、验证码或风控验证**。2026-10-14 GitHub Actions 已成功抓取 470 条唯一 ID、5页；后续批次或接口行为可能改变，继续以实际审计结果为准。
+- `alibaba_sources.py`、命令 `alibaba-public` 现指向官网首页“日常实习生 → 去投递”真实目的地 `https://campus-talent.alibaba.com/campus/position?batchId=100000560002&lang=zh`。官网中文页面显示约368条原始职位，仍需按实习、北京、AI产品职责过滤。
+- 采用官网公开匿名会话提供的标准页面 token，并调用同域职位列表 JSON；**不会绕过登录、验证码或风控验证**。之前成功的470条记录属于应届校招，不能证明新日常实习入口已经完成全量验证；请以新一轮 Actions 审计为准。
 - 先核对总数与所有唯一职位ID，再根据职位/招聘项目**明确的“实习”证据**、北京地点和 JD 中 AI 产品工作职责筛选。不能因为校招目录中出现“产品经理”就把正式应届岗位收为实习。
 - 入口范围仅是当前 campus batchId，其他集团或独立招聘渠道不在成功声称范围。若实际 HTTP 拒绝、token 未提供或数据不完整则失败保留既有记录。
 
@@ -136,3 +136,9 @@ GitHub Actions 配置：`.github/workflows/site.yml`；每日自动更新和网�
 - 新增 `step_sources.py` 和 `step-moka` 来源，目标为官方 `https://app.mokahr.com/campus-recruitment/step/94905#/jobs`，此前公开页面观察到约129个校园职位；仅在成功全量分页及唯一ID核验后计入已核验来源。
 - 校园招聘列表包含标题写有“实习生”、但职位性质明确为“全职”的记录，**优先以职位性质判定**，避免误收录正式岗；还要求北京和AI产品相关职责。
 - StepStar人才专项为独立招聘项目，此版本不包含。若浏览器抓取不完整则保留历史数据，不将空页面判为无岗位。
+
+### 阿里日常实习正确入口定位（2026-10-14）
+
+- 已通过官网首页“研究型/日常实习生”下的**日常实习生**独立投递按钮验证目标 URL `batchId=100000560002`，不再误用应届校招 `batchId=100000760001`。
+- 中文页面按 `lang=zh` 展示约368个职位；英文界面的职位数量不同，不可不带语言参数把两者混为完整招聘清单。新采集仍要求同一查询范围内总数、分页、稳定ID一致。
+- 首次采集必须经 GitHub Actions 成功并生成 `source_attempts.阿里巴巴` 才能称已上线；严格依据实习项目、北京地点和职责筛选。
