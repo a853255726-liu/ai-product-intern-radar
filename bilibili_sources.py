@@ -105,14 +105,23 @@ def collect_bilibili(session, page_size=PAGE_SIZE, max_pages=MAX_PAGES):
             f"Bilibili incomplete/duplicate: reported={total} "
             f"retrieved={len(ids)} unique={len(set(ids))}"
         )
-    if any(str(j.get("positionTypeName") or "") != "实习"
-           or j.get("recruitType") not in (None, 0, "0") for j in rows):
-        raise ValueError("Bilibili internship feed unexpectedly contains non-internship roles")
+    # The site may return mixed position metadata even under its '实习'
+    # listing tab. Audit every raw job but only publish explicit internships.
+    type_counts = {}
+    for row in rows:
+        kind = str(row.get("positionTypeName") or "未注明")
+        type_counts[kind] = type_counts.get(kind, 0) + 1
+    confirmed_internships = sum(
+        1 for row in rows if "实习" in str(row.get("positionTypeName") or ""))
+    )
     return rows, {
+        "position_type_counts": type_counts,
+        "explicit_internships": confirmed_internships,
+        "non_internship_rows": len(rows) - confirmed_internships,
         "reported": total, "raw_records": len(rows), "unique_ids": len(set(ids)),
         "pages": len(sizes), "page_sizes": sizes, "failed_pages": 0,
         "status": "官网公开实习项目完整职位ID核验通过",
-        "scope": "仅哔哩哔哩官网 type=0 实习生招聘（并非应届生 type=3）；全国全类别，另筛北京 AI 产品",
+        "scope": "哔哩哔哩官网 type=0 实习频道；目录可能混合岗位性质，逐条核实实习后再筛北京 AI 产品",
         "capture": "B站校园招聘官网匿名会话公开 JSON API",
         "page_size": page_size,
     }
@@ -124,7 +133,7 @@ def normalize_bilibili(records, today):
         city = str(r.get("workLocation") or r.get("workCity") or "")
         duty = str(r.get("positionDescription") or "")
         category = str(r.get("postCodeName") or "")
-        if r.get("positionTypeName") != "实习" or "北京" not in city:
+        if "实习" not in str(r.get("positionTypeName") or "") or "北京" not in city:
             continue
         if not is_product_candidate(name, duty, category):
             continue

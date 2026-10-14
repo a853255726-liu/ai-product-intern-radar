@@ -72,8 +72,20 @@ class BilibiliTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             collect_bilibili(Session([[mkjob(title="AI 产品经理", city="上海")]],
                                      total=0))
-        with self.assertRaises(ValueError):
-            collect_bilibili(Session([[dict(mkjob(), positionTypeName="全职")]]))
+        rows, audit = collect_bilibili(
+            Session([[dict(mkjob(), positionTypeName="全职")]]))
+        self.assertEqual(audit["non_internship_rows"], 1)
+        self.assertEqual(audit["explicit_internships"], 0)
+        self.assertEqual(audit["position_type_counts"], {"全职": 1})
+        self.assertEqual(normalize_bilibili(rows, lambda:"2026-10-14"), [])
+
+    def test_mixed_public_listing_only_publishes_actual_interns(self):
+        rows=[mkjob(30111), dict(mkjob(30112), positionTypeName="全职")]
+        _, audit=collect_bilibili(Session([rows]))
+        self.assertEqual(audit["unique_ids"], 2)
+        self.assertEqual(audit["explicit_internships"], 1)
+        self.assertEqual(audit["non_internship_rows"], 1)
+        self.assertEqual(len(normalize_bilibili(rows,lambda:"2026-10-14")),1)
 
     def test_beijing_ai_pm_and_official_detail_only(self):
         rows = [
