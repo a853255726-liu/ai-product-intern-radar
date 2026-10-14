@@ -75,6 +75,9 @@ def classify(job):
 def is_product_candidate(job):
     """Keep the curated PM list broad, but not standalone technical engineers."""
     title = str(job.get("title") or "")
+    # Historical provider error: postId=-3 is a placeholder, not a vacancy.
+    if job.get("id") == "tencent--3":
+        return False
     if "工程师" in title and not re.search(r"产品经理|产品实习", title):
         return False
     return True
