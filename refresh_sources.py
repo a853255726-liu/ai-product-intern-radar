@@ -13,6 +13,7 @@ from zoneinfo import ZoneInfo
 import requests
 from extra_sources import make_sources, normalize_extra
 from feishu_sources import PORTALS as FEISHU_PORTALS, collect_feishu, normalize_feishu
+from candidate_scope import is_product_candidate
 
 ROOT = Path(__file__).resolve().parent
 TODAY = lambda: datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d")
@@ -158,7 +159,7 @@ def jd(s):
 SOURCES = {"美团": meituan, "小红书": xhs, "腾讯": tencent, "京东": jd, "百度": baidu}
 SOURCES.update(make_sources(request_json, collect, TODAY))
 SOURCES.update({name: (lambda session, company=name: collect_feishu(session, company)) for name in FEISHU_PORTALS})
-KEYS = {"meituan": "美团", "xhs": "小红书", "tencent": "腾讯", "jd": "京东", "baidu": "百度", "kuaishou": "快手", "mihoyo": "米哈游", "xiaomi": "小米", "feishu-zeroone": "零一万物", "feishu-minimax": "MiniMax", "feishu-zhipu": "智谱", "feishu-realai": "RealAI", "feishu-baichuan": "百川智能"}
+KEYS = {"meituan": "美团", "xhs": "小红书", "tencent": "腾讯", "jd": "京东", "baidu": "百度", "kuaishou": "快手", "mihoyo": "米哈游", "xiaomi": "小米", "feishu-zeroone": "零一万物", "feishu-minimax": "MiniMax", "feishu-zhipu": "智谱", "feishu-realai": "RealAI", "feishu-baichuan": "百川智能", "feishu-iqiyi": "爱奇艺"}
 
 def normalize(company, records):
     if company in ('快手', '米哈游', '小米'):
@@ -177,7 +178,7 @@ def normalize(company, records):
             team = r.get("jobFamily") or ""
             date = r.get("refreshTime") or ""
             date_type = "更新时间"
-            if team != "产品类" and not re.search("AI.{0,4}产品", name, re.I):
+            if team != "产品类" and not is_product_candidate(name):
                 continue
         elif company == "小红书":
             name = r.get("positionName") or ""
@@ -230,9 +231,7 @@ def normalize(company, records):
             continue
         if re.search("工程师|算法|人力资源|招聘专员|招聘HR|数据标注", name, re.I):
             continue
-        if not re.search("产品|用户研究|策略|AI运营|Agent运营", name, re.I):
-            continue
-        if "运营" in name and not re.search("AI|Agent|产品|大模型", name, re.I):
+        if not is_product_candidate(name, duty, team):
             continue
         content = " ".join([name, duty, requirements])
         ai = bool(re.search("AI|Agent|智能|大模型|LLM|RAG|MCP|AIGC|模型|推荐|搜索|评测|数据产品",
@@ -254,7 +253,7 @@ def normalize(company, records):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--sources", nargs="+", choices=["meituan", "xhs", "tencent", "jd", "baidu", "kuaishou", "mihoyo", "xiaomi", "feishu-zeroone", "feishu-minimax", "feishu-zhipu", "feishu-realai", "feishu-baichuan", "all"],
+    ap.add_argument("--sources", nargs="+", choices=["meituan", "xhs", "tencent", "jd", "baidu", "kuaishou", "mihoyo", "xiaomi", "feishu-zeroone", "feishu-minimax", "feishu-zhipu", "feishu-realai", "feishu-baichuan", "feishu-iqiyi", "all"],
                     default=["meituan", "xhs", "tencent"])
     ap.add_argument("--audit-only", action="store_true")
     args = ap.parse_args()
@@ -273,6 +272,7 @@ def main():
                 records, meta = SOURCES[company](session)
             (rawdir / (company + "_latest.json")).write_text(
                 json.dumps({"checked": TODAY(), "records": records}, ensure_ascii=False), encoding="utf-8")
+            meta.setdefault("last_checked", TODAY())
             audits[company] = meta
             if company in ("快手", "米哈游", "小米") or company in FEISHU_PORTALS:
                 info = data.setdefault("company_coverage", {}).setdefault(company, {})
@@ -314,15 +314,33 @@ def main():
                                      or re.search(r"\b"+code+r"\b", v.get("title","")))), None)
                     elif company in FEISHU_PORTALS:
                         sid = str(job.get("source_post_id") or "")
+                        code = str(job.get("source_job_code") or "")
                         if sid:
                             duplicate = next((k for k,v in all_jobs.items()
                                 if v.get("company") == company and k != ident
                                 and (str(v.get("source_post_id") or "") == sid
-                                     or ("/position/"+sid+"/detail") in str(v.get("link") or ""))), None)
+                                     or ("/position/"+sid+"/detail") in str(v.get("link") or "")
+                                     or (code and (str(v.get("source_job_code") or "") == code
+                                        or k.endswith("-"+code)))), None)
                     if duplicate:
-                        all_jobs[duplicate]["checked"] = TODAY()
-                        all_jobs[duplicate]["last_seen"] = TODAY()
+                        existing = all_jobs[duplicate]
+                        existing["checked"] = TODAY()
+                        existing["last_seen"] = TODAY()
+                        # A previously discovered listing/third-party lead can gain
+                        # an actual official detail URL, without overwriting verified JD.
+                        from official_links import classify_link
+                        if (classify_link(job.get("link")) == "official_detail"
+                                and classify_link(existing.get("link")) != "official_detail"):
+                            existing["link"] = job["link"]
+                            existing["source_url"] = job["link"]
+                            existing["verify"] = job["verify"]
+                            existing["summary"] = job.get("summary") or existing.get("summary", "")
+                            existing["requirements"] = job.get("requirements") or existing.get("requirements", "")
+                            existing["source_post_id"] = job.get("source_post_id")
+                            existing["source_job_code"] = job.get("source_job_code")
                     elif ident not in all_jobs:
+                        job["first_seen"] = TODAY()
+                        job["last_seen"] = TODAY()
                         all_jobs[ident] = job
                         new += 1
                     else:

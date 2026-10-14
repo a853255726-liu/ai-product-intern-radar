@@ -8,6 +8,7 @@ from __future__ import annotations
 import re
 from urllib.parse import urljoin, urlparse
 from bs4 import BeautifulSoup
+from candidate_scope import is_product_candidate
 
 PORTALS = {
     "零一万物": ("https://01ai.jobs.feishu.cn", "/index/position/list"),
@@ -15,9 +16,10 @@ PORTALS = {
     "智谱": ("https://zhipu-ai.jobs.feishu.cn", "/index/position/list"),
     "RealAI": ("https://realai.jobs.feishu.cn", "/272867/"),
     "百川智能": ("https://cq6qe6bvfr6.jobs.feishu.cn", "/646926/"),
+    "爱奇艺": ("https://iq.jobs.feishu.cn", "/intern/m/"),
 }
 JOB_COUNT = re.compile(r"开启新的工作\s*[（(]\s*(\d+)\s*[）)]")
-COMPANY_CODES = {"零一万物":"zeroone","MiniMax":"minimax","智谱":"zhipu","RealAI":"realai","百川智能":"baichuan"}
+COMPANY_CODES = {"零一万物":"zeroone","MiniMax":"minimax","智谱":"zhipu","RealAI":"realai","百川智能":"baichuan","爱奇艺":"iqiyi"}
 MAX_PAGES = 50
 
 def list_url(company, page, page_size):
@@ -105,7 +107,7 @@ def collect_feishu_browser(company, page_size=10, max_pages=MAX_PAGES):
         "reported": expected, "raw_records": len(ids), "unique_ids": len(set(ids)),
         "pages": len(page_sizes), "page_sizes": page_sizes, "failed_pages": 0,
         "status": "公开浏览器页面完整性校验通过",
-        "scope": f"{company} 飞书官方招聘门户 {path}，所有招聘类型（需筛实习）",
+        "scope": f"{company} 飞书官方招聘门户 {path}，页面完整分页范围（需筛北京实习）",
         "capture": "官网公开职位页面标准浏览器渲染（无登录）"
     }
 
@@ -147,7 +149,7 @@ def collect_feishu(session, company, page_size=10, max_pages=MAX_PAGES):
         "reported": total, "raw_records": len(ids), "unique_ids": len(set(ids)),
         "pages": len(sizes), "page_sizes": sizes, "failed_pages": 0,
         "status": "公开HTML分页数量一致",
-        "scope": f"{company} 飞书官网 {path} 展示的全部类别（包含正式岗）",
+        "scope": f"{company} 飞书官网 {path} 展示的职位目录（需核对招聘类别）",
         "capture": "官网公开服务端渲染HTML（不调用动态签名接口）",
     }
 
@@ -165,7 +167,7 @@ def normalize_feishu(company, records, today):
         # A city explicitly specified in the job TITLE beats a broad list label.
         if re.search(r"[-—－]\s*(?:厦门|上海|深圳|广州|杭州|成都|南京)(?:$|[-—（）()\s])", title):
             continue
-        if not re.search(r"产品|策略|用户研究|体验研究|体验运营", title):
+        if not is_product_candidate(title, duty, sub):
             continue
         if re.search(r"算法工程师|研发工程师|全栈.*工程|开发工程|招聘实习|销售运营", title):
             continue
@@ -179,6 +181,7 @@ def normalize_feishu(company, records, today):
         if company == "零一万物" and row["id"] == "7667504757090732298":
             continue
         track = "AI Agent" if re.search(r"Agent|智能体", title+" "+duty,re.I) else "AI应用/体验"
+        source_code = re.search(r"职位\s*ID\s*[：:]\s*([A-Za-z]\d+)", sub, re.I)
         jobs.append({
             "id": "feishu-"+COMPANY_CODES[company]+"-"+row["id"],
             "company": company, "title": title, "link": row["url"],
@@ -192,6 +195,7 @@ def normalize_feishu(company, records, today):
             "source": "企业飞书官网公开职位列表（SSR）",
             "note": "此职位来自官网列表、非完整 JD；公开显示不等于确认仍有名额。",
             "graduation": "未核实", "checked": today(),
-            "source_post_id": row["id"]
+            "source_post_id": row["id"],
+            "source_job_code": source_code.group(1) if source_code else ""
         })
     return jobs

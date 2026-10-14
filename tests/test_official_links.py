@@ -21,6 +21,7 @@ class OfficialJobLinkTests(unittest.TestCase):
             "https://campus.kuaishou.cn/recruit/campus/e/#/campus/jobs?positionId=11462",
             "https://jobs.mihoyo.com/#/campus/position/12345678",
             "https://careers.iqiyi.com/intern/position/7684155985208953134/detail",
+            "https://iq.jobs.feishu.cn/intern/position/7684155985208953134/detail",
             "https://xiaomi.jobs.f.mioffice.cn/internship/position/7687421651307219238/detail",
             "https://zhipu-ai.jobs.feishu.cn/index/position/7614090220368152874/detail",
             "https://realai.jobs.feishu.cn/272867/position/7208016656676669707/detail",
