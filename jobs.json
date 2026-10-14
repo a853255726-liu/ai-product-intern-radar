@@ -9742,7 +9742,7 @@
     },
     "爱奇艺": {
       "source": "官网公开职位页面标准浏览器渲染（无登录）",
-      "coverage": "2026-10-14 核验本入口 98 个唯一职位 ID；范围：爱奇艺 飞书官方招聘门户 /intern/m/，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏",
+      "coverage": "2026-10-14 核验本入口 97 个唯一职位 ID；范围：爱奇艺 飞书官方招聘门户 /intern/m/，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏",
       "level": "complete_public_html",
       "website": "https://iq.jobs.feishu.cn/intern/m/"
     },
@@ -9915,34 +9915,52 @@
       "reported": 366,
       "raw_records": 366,
       "unique_ids": 366,
-      "pages": 4,
+      "pages": 8,
       "failed_pages": 0,
       "page_sizes": [
-        100,
-        100,
-        100,
-        66
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        16
       ],
       "status": "分页数量一致",
       "last_checked": "2026-10-14",
-      "scope": "官网校招实习类别，不代表其他渠道"
+      "scope": "官网校招实习类别，不代表其他渠道",
+      "page_size": 50,
+      "recovered_from_boundary_duplicate": "美团: reported=366 retrieved=366 unique=365; duplicate_id_diagnostics=[{\"job_id\":\"4346490662\",\"first_page\":2,\"again_page\":3,\"scope\":\"cross_page\",\"identical_payload\":true}]"
     },
     "小红书": {
       "reported": 495,
       "raw_records": 495,
       "unique_ids": 495,
-      "pages": 5,
+      "pages": 10,
       "failed_pages": 0,
       "page_sizes": [
-        100,
-        100,
-        100,
-        100,
-        95
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        45
       ],
       "status": "分页数量一致",
       "last_checked": "2026-10-14",
-      "scope": "校园招聘混合目录，含非实习职位"
+      "scope": "校园招聘混合目录，含非实习职位",
+      "page_size": 50,
+      "retry_recovered": [
+        {
+          "page_size": 100,
+          "reason": "小红书: reported=495 retrieved=495 unique=494; duplicate_id_diagnostics=[{\"job_id\":\"20028\",\"first_page\":2,\"again_page\":3,\"scope\":\"cross_page\",\"identical_payload\":true}]"
+        }
+      ]
     },
     "百度": {
       "reported": 185,
@@ -10160,9 +10178,9 @@
       "last_checked": "2026-10-14"
     },
     "爱奇艺": {
-      "reported": 98,
-      "raw_records": 98,
-      "unique_ids": 98,
+      "reported": 97,
+      "raw_records": 97,
+      "unique_ids": 97,
       "pages": 10,
       "page_sizes": [
         10,
@@ -10174,7 +10192,7 @@
         10,
         10,
         10,
-        8
+        7
       ],
       "failed_pages": 0,
       "status": "公开浏览器页面完整性校验通过",
@@ -10370,14 +10388,16 @@
   },
   "source_attempts": {
     "美团": {
-      "status": "失败；保留上次完整快照",
+      "status": "成功（当前接口）",
       "checked": "2026-10-14",
-      "error": "美团: reported=366 retrieved=366 unique=365"
+      "reported": 366,
+      "unique_ids": 366
     },
     "小红书": {
-      "status": "失败；保留上次完整快照",
+      "status": "成功（当前接口）",
       "checked": "2026-10-14",
-      "error": "小红书: reported=495 retrieved=495 unique=494"
+      "reported": 495,
+      "unique_ids": 495
     },
     "腾讯": {
       "status": "成功（当前接口）",
@@ -10447,8 +10467,8 @@
     "爱奇艺": {
       "status": "成功（当前接口）",
       "checked": "2026-10-14",
-      "reported": 98,
-      "unique_ids": 98
+      "reported": 97,
+      "unique_ids": 97
     },
     "月之暗面": {
       "status": "成功（当前接口）",
@@ -10468,10 +10488,9 @@
       "unique_ids": 108
     },
     "面壁智能": {
-      "status": "成功（当前接口）",
+      "status": "失败；保留上次完整快照",
       "checked": "2026-10-14",
-      "reported": 60,
-      "unique_ids": 60
+      "error": "Feishu browser total changed during pagination"
     },
     "阿里巴巴": {
       "status": "成功（当前接口）",

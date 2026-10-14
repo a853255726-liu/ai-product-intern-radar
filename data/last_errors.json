@@ -1,7 +1,6 @@
 {
   "date": "2026-10-14",
   "errors": [
-    "美团: ValueError: 美团: reported=366 retrieved=366 unique=365",
-    "小红书: ValueError: 小红书: reported=495 retrieved=495 unique=494"
+    "面壁智能: ValueError: Feishu browser total changed during pagination"
   ]
 }
