@@ -17,6 +17,7 @@ from candidate_scope import is_product_candidate
 from kimi_sources import collect_kimi, normalize_kimi, BASE as KIMI_BASE
 from bytedance_sources import bytedance, normalize_bytedance
 from alibaba_sources import collect_alibaba, normalize_alibaba
+from step_sources import collect_step, normalize_step, BASE as STEP_BASE
 
 ROOT = Path(__file__).resolve().parent
 TODAY = lambda: datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d")
@@ -165,7 +166,8 @@ SOURCES.update({name: (lambda session, company=name: collect_feishu(session, com
 SOURCES["月之暗面"] = collect_kimi
 SOURCES["字节跳动"] = bytedance
 SOURCES["阿里巴巴"] = collect_alibaba
-KEYS = {"meituan": "美团", "xhs": "小红书", "tencent": "腾讯", "jd": "京东", "baidu": "百度", "kuaishou": "快手", "mihoyo": "米哈游", "xiaomi": "小米", "feishu-zeroone": "零一万物", "feishu-minimax": "MiniMax", "feishu-zhipu": "智谱", "feishu-realai": "RealAI", "feishu-baichuan": "百川智能", "feishu-iqiyi": "爱奇艺", "feishu-shengshu": "生数科技", "feishu-modelbest": "面壁智能", "kimi-moka": "月之暗面", "bytedance-daily": "字节跳动", "alibaba-public": "阿里巴巴"}
+SOURCES["阶跃星辰"] = collect_step
+KEYS = {"meituan": "美团", "xhs": "小红书", "tencent": "腾讯", "jd": "京东", "baidu": "百度", "kuaishou": "快手", "mihoyo": "米哈游", "xiaomi": "小米", "feishu-zeroone": "零一万物", "feishu-minimax": "MiniMax", "feishu-zhipu": "智谱", "feishu-realai": "RealAI", "feishu-baichuan": "百川智能", "feishu-iqiyi": "爱奇艺", "feishu-shengshu": "生数科技", "feishu-modelbest": "面壁智能", "kimi-moka": "月之暗面", "bytedance-daily": "字节跳动", "alibaba-public": "阿里巴巴", "step-moka": "阶跃星辰"}
 
 def normalize(company, records):
     if company in ('快手', '米哈游', '小米'):
@@ -178,6 +180,8 @@ def normalize(company, records):
         return normalize_bytedance(records, TODAY)
     if company == "阿里巴巴":
         return normalize_alibaba(records, TODAY)
+    if company == "阶跃星辰":
+        return normalize_step(records, TODAY)
     out = []
     for r in records:
         name, city, key, url, team, date, date_type, duty, requirements = (
@@ -265,7 +269,7 @@ def normalize(company, records):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--sources", nargs="+", choices=["meituan", "xhs", "tencent", "jd", "baidu", "kuaishou", "mihoyo", "xiaomi", "feishu-zeroone", "feishu-minimax", "feishu-zhipu", "feishu-realai", "feishu-baichuan", "feishu-iqiyi", "feishu-shengshu", "feishu-modelbest", "kimi-moka", "bytedance-daily", "alibaba-public", "all"],
+    ap.add_argument("--sources", nargs="+", choices=["meituan", "xhs", "tencent", "jd", "baidu", "kuaishou", "mihoyo", "xiaomi", "feishu-zeroone", "feishu-minimax", "feishu-zhipu", "feishu-realai", "feishu-baichuan", "feishu-iqiyi", "feishu-shengshu", "feishu-modelbest", "kimi-moka", "bytedance-daily", "alibaba-public", "step-moka", "all"],
                     default=["meituan", "xhs", "tencent"])
     ap.add_argument("--audit-only", action="store_true")
     args = ap.parse_args()
@@ -289,9 +293,9 @@ def main():
             if company in ("快手", "米哈游", "小米", "月之暗面", "字节跳动", "阿里巴巴") or company in FEISHU_PORTALS:
                 info = data.setdefault("company_coverage", {}).setdefault(company, {})
                 info.update({"source": meta.get("capture", "官方公开招聘接口"),
-                             "level": "complete_public_html" if company in FEISHU_PORTALS or company == "月之暗面" else "partial" if company in ("字节跳动", "阿里巴巴") else "complete_api",
+                             "level": "complete_public_html" if company in FEISHU_PORTALS or company in ("月之暗面","阶跃星辰") else "partial" if company in ("字节跳动", "阿里巴巴") else "complete_api",
                              "coverage": f"已核对本接口 {meta['unique_ids']} 个唯一职位 ID；企业其他渠道尚未全量核验",
-                             "website": (FEISHU_PORTALS[company][0] + FEISHU_PORTALS[company][1]) if company in FEISHU_PORTALS else (KIMI_BASE+"#/jobs" if company == "月之暗面" else "https://jobs.bytedance.com/campus/position" if company == "字节跳动" else "https://campus-talent.alibaba.com/campus/position?batchId=100000760001" if company == "阿里巴巴" else "https://campus.kuaishou.cn/" if company == "快手" else "https://jobs.mihoyo.com/" if company == "米哈游" else "https://hr.xiaomi.com/website/opportunities.html")})
+                             "website": (FEISHU_PORTALS[company][0] + FEISHU_PORTALS[company][1]) if company in FEISHU_PORTALS else (KIMI_BASE+"#/jobs" if company == "月之暗面" else STEP_BASE+"#/jobs" if company == "阶跃星辰" else "https://jobs.bytedance.com/campus/position" if company == "字节跳动" else "https://campus-talent.alibaba.com/campus/position?batchId=100000760001" if company == "阿里巴巴" else "https://campus.kuaishou.cn/" if company == "快手" else "https://jobs.mihoyo.com/" if company == "米哈游" else "https://hr.xiaomi.com/website/opportunities.html")})
             attempts[company] = {"status": "成功（当前接口）", "checked": TODAY(),
                                  "reported": meta["reported"], "unique_ids": meta["unique_ids"]}
             successes += 1
@@ -332,7 +336,7 @@ def main():
                                 if v.get("company") == company and k != ident
                                 and (str(v.get("source_post_id") or "") == sid
                                      or ("/position/"+sid+"/detail") in str(v.get("link") or "")
-                                     or (company == "月之暗面" and "/job/"+sid in str(v.get("link") or ""))
+                                     or (company in ("月之暗面","阶跃星辰") and "/job/"+sid in str(v.get("link") or ""))
                                      or (company == "字节跳动" and "/position/"+sid+"/detail" in str(v.get("link") or ""))
                                      or (company == "阿里巴巴" and "/campus/position/"+sid in str(v.get("link") or ""))
                                      or (code and (str(v.get("source_job_code") or "") == code
