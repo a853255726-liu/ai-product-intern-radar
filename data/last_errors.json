@@ -1,6 +1,4 @@
 {
   "date": "2026-10-14",
-  "errors": [
-    "美团: ValueError: 美团: reported=365 retrieved=365 unique=364"
-  ]
+  "errors": []
 }
