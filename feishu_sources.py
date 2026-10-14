@@ -179,6 +179,10 @@ def normalize_feishu(company, records, today):
         # First select the company-confirmed internship and Beijing, then PM scope.
         if "北京" not in sub or "实习" not in sub:
             continue
+        # A competition-only recruitment ID is not a generally applyable
+        # internship, even if its role title says product intern.
+        if company == "深势科技" and ("比赛专用" in title or "比赛专用" in sub):
+            continue
         # A city explicitly specified in the job TITLE beats a broad list label.
         if re.search(r"[-—－]\s*(?:厦门|上海|深圳|广州|杭州|成都|南京)(?:$|[-—（）()\s])", title):
             continue
