@@ -167,3 +167,9 @@ GitHub Actions 配置：`.github/workflows/site.yml`；每日自动更新和网�
 - 新增飞书招聘源 https://dptechnology.jobs.feishu.cn/index/position/list，命令 feishu-dptechnology。官网招募页面的原始职位数量在核查时约237～239条，属于混合全职/实习目录；这个数量并不是北京 AI 产品岗位数量。
 - 官网可直接核验产品实习生详情 https://dptechnology.jobs.feishu.cn/index/position/7611105993640741170/detail，岗位涉及 AI for Science 科研/教育平台需求、用户调研、PRD、产品迭代，每周4天及以上、连续3个月及以上。
 - 接入自动化后需要按官网完整分页与唯一职位ID校验，北京实习与AI产品职责再次筛选；若第一页未渲染可尝试公开普通浏览器，不绕过登录或反爬；未成功前不计入已成功每日来源。
+
+### 定向数据源验收（2026-10-14）
+
+- 日常定时任务与手动运行仍抓取全部配置来源。只对带指定标记的 GitHub push 支持定向刷新，避免每次修一个来源都等待全部飞书和 Moka 分页。
+- commit 标记 [refresh:focus]：仅刷新美团、小红书、深势科技；[refresh:diagnostics]：仅刷新美团与小红书；[refresh:dptechnology]：仅刷新深势科技；原 [refresh] 仍为全源刷新。
+- 定向运行仅更新被选数据源的审计与岗位，其余来源保留上次成功状态与历史数据。不要将定向运行的 last_errors.json 误读为全部来源当日无错误。
