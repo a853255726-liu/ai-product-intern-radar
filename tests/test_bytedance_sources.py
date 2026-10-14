@@ -1,6 +1,6 @@
 """Tests for conservative ByteDance Beijing daily internship query contract."""
 import unittest
-from bytedance_sources import payload_for_page, normalize_bytedance, _posted
+from bytedance_sources import payload_for_page, normalize_bytedance, _posted, bytedance
 from refresh_sources import KEYS
 
 
@@ -36,6 +36,34 @@ class ByteDanceFeedTests(unittest.TestCase):
         case["title"] = "零售产品运营实习生"
         case["description"] = "普通店铺商品管理"
         self.assertEqual(normalize_bytedance([case], lambda: "2026-10-14"), [])
+
+    def test_page_count_and_unique_ids_are_reconciled(self):
+        class Resp:
+            def __init__(self, rows, total):
+                self.rows, self.total = rows, total
+
+            def raise_for_status(self):
+                return None
+
+            def json(self):
+                return {"code": 0, "data": {
+                    "job_post_list": self.rows, "count": self.total}}
+
+        class Session:
+            def __init__(self, result):
+                self.result = result
+
+            def post(self, *args, **kwargs):
+                return self.result
+
+        row = {"id": "1234567", "title": "AI产品实习生"}
+        rows, audit = bytedance(Session(Resp([row], 1)))
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(audit["unique_ids"], 1)
+        with self.assertRaises(ValueError):
+            bytedance(Session(Resp([row, row], 2)))
+        with self.assertRaises(ValueError):
+            bytedance(Session(Resp([], 0)))
 
     def test_publish_time_with_milliseconds(self):
         self.assertRegex(_posted(1790000000000), r"^\d{4}-\d{2}-\d{2}$")
