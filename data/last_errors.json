@@ -1,4 +1,6 @@
 {
   "date": "2026-10-14",
-  "errors": []
+  "errors": [
+    "小红书: ValueError: 小红书: reported=495 retrieved=495 unique=494"
+  ]
 }
