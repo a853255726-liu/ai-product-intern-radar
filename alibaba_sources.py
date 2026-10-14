@@ -186,10 +186,10 @@ def infer_internship_terms(text):
     """Parse only explicit numeric/Chinese time commitments from an official JD."""
     duty = str(text or "").replace("～", "-").replace("至", "-")
     days = "未注明"
-    if re.search(r"每周一至周五|每周.{0,12}(?:至少|不少于|保证|到岗|出勤|在岗|可实习|实习).{0,10}5\s*天|每周.{0,8}5\s*天", duty):
-        days = "≥5天"
-    elif re.search(r"(?:每周|一周|单周).{0,25}4\s*[-~－]\s*5\s*天", duty):
+    if re.search(r"(?:每周|一周|单周).{0,25}4\s*[-~－]\s*5\s*天", duty):
         days = "≥4天"
+    elif re.search(r"每周一至周五|每周.{0,12}(?:至少|不少于|保证|到岗|出勤|在岗|可实习|实习).{0,10}5\s*天|每周.{0,8}5\s*天", duty):
+        days = "≥5天"
     elif re.search(r"(?:每周|一周|单周).{0,25}4\s*天", duty):
         days = "≥4天"
     elif re.search(r"(?:每周|一周|单周).{0,25}3\s*天", duty):
