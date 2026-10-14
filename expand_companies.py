@@ -31,6 +31,46 @@ for name, website in extra.items():
         "coverage": "尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索",
         "website": website
     })
+# Official entry points: the website column should go to recruitment, not
+# the corporate homepage. These are watchlist entries until a tested collector
+# has proven complete pagination and stable official position IDs.
+official_directories = {
+    "爱奇艺": "https://iq.jobs.feishu.cn/intern/m/",
+    "阿里巴巴": "https://campus-talent.alibaba.com/campus/position",
+    "月之暗面": "https://careers.kimi.com/campus",
+    "字节跳动": "https://jobs.bytedance.com/campus/position",
+}
+for name, url in official_directories.items():
+    info = coverage.setdefault(name, {
+        "source": "招聘官网目录（尚未自动采集）",
+        "level": "todo",
+        "coverage": "官方招聘入口已定位，尚未完成稳定职位分页核验",
+    })
+    info["website"] = url
+
+# Use the current successful audit to replace stale human-written claims
+# about raw result counts. Do not overwrite a source's last good evidence
+# when its latest scheduled attempt failed.
+attempts = db.get("source_attempts", {})
+for name, audit in db.get("source_audits", {}).items():
+    attempt = attempts.get(name) or {}
+    if not str(attempt.get("status", "")).startswith("成功"):
+        continue
+    if audit.get("last_checked") != attempt.get("checked"):
+        continue
+    count = audit.get("unique_ids")
+    if not isinstance(count, int):
+        continue
+    info = coverage.setdefault(name, {
+        "source": audit.get("capture", "企业招聘公开入口"),
+        "level": "partial",
+    })
+    scope = str(audit.get("scope") or "此已核验公开查询入口")
+    info["coverage"] = (
+        f"{attempt['checked']} 核验本入口 {count} 个唯一职位 ID；"
+        f"范围：{scope}；企业其他招聘项目仍可能存在遗漏"
+    )
+
 dbpath.write_text(json.dumps(db, ensure_ascii=False, indent=2), encoding="utf-8")
 with (ROOT / "company_coverage.csv").open("w", encoding="utf-8-sig", newline="") as stream:
     writer = csv.writer(stream)
