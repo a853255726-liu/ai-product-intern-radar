@@ -54,7 +54,23 @@ jobs:
           git add jobs.json jobs.csv company_coverage.csv index.html data/last_errors.json
           if ! git diff --cached --quiet; then
             git commit -m 'data: refresh checked public recruitment feeds'
-            git push
+            # Other commits may land during a multi-minute public source run.
+            # Rebase only our generated data commit, never force-push.
+            for attempt in 1 2 3; do
+              git fetch origin main
+              if ! git rebase origin/main; then
+                git rebase --abort
+                echo "Generated-data rebase conflicted; preserved remote main."
+                exit 1
+              fi
+              if git push origin HEAD:main; then
+                break
+              fi
+              if [ "$attempt" = 3 ]; then
+                echo "Failed to push generated data after 3 attempts"
+                exit 1
+              fi
+            done
           fi
       - name: Build Pages artifact
         run: |
