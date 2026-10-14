@@ -1,7 +1,7 @@
 {
   "date": "2026-10-14",
   "errors": [
-    "美团: ValueError: 美团: reported=364 retrieved=364 unique=362",
-    "月之暗面: ValueError: Moka unexpected job detail route: #/job/898b515a-1a57-4e53-8994-0db2719e1cc3"
+    "美团: ValueError: 美团: reported=363 retrieved=363 unique=362",
+    "字节跳动: HTTPError: 405 Client Error: Method Not Allowed for url: https://jobs.bytedance.com/api/v1/search/job/posts"
   ]
 }
