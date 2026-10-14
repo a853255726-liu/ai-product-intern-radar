@@ -42,6 +42,33 @@ def request_json(session, method, url, payload=None, referer=None):
                 raise
             time.sleep(2 * (attempt + 1))
 
+def duplicate_id_diagnostics(records, id_field, page_sizes):
+    """Return bounded evidence of whether repeated IDs overlap pages.
+
+    Do not reinterpret API raw-row total as a count of unique vacancies.
+    This diagnostic never makes an invalid capture eligible for publication.
+    """
+    first, collisions = {}, []
+    start = 0
+    for page, size in enumerate(page_sizes, start=1):
+        for row in records[start:start + size]:
+            jid = str(row[id_field])
+            fingerprint = json.dumps(row, sort_keys=True, ensure_ascii=False, default=str)
+            if jid in first:
+                old_page, old_value = first[jid]
+                collisions.append({
+                    "job_id": jid[:48],
+                    "first_page": old_page,
+                    "again_page": page,
+                    "scope": "same_page" if old_page == page else "cross_page",
+                    "identical_payload": fingerprint == old_value,
+                })
+            else:
+                first[jid] = (page, fingerprint)
+        start += size
+    return collisions[:8]
+
+
 def collect(label, page_request, unpack, max_pages=200):
     result, total, seen_pages = [], None, []
     for page in range(1, max_pages + 1):
@@ -64,8 +91,12 @@ def collect(label, page_request, unpack, max_pages=200):
         time.sleep(0.55)
     ids = [str(x[id_field]) for x in result]
     if len(result) != total or len(set(ids)) != total:
-        raise ValueError("%s: reported=%s retrieved=%s unique=%s" %
-                         (label, total, len(result), len(set(ids))))
+        duplicates = duplicate_id_diagnostics(result, id_field, seen_pages)
+        detail = ("; duplicate_id_diagnostics=" +
+                  json.dumps(duplicates, ensure_ascii=False, separators=(",", ":"))
+                  if duplicates else "")
+        raise ValueError("%s: reported=%s retrieved=%s unique=%s%s" %
+                         (label, total, len(result), len(set(ids)), detail))
     return result, {"reported": total, "raw_records": len(result), "unique_ids": len(set(ids)),
                     "pages": len(seen_pages), "failed_pages": 0, "page_sizes": seen_pages,
                     "status": "分页数量一致", "last_checked": TODAY()}
@@ -102,16 +133,39 @@ def meituan(s):
     raise ValueError("美团 strict pagination could not reconcile unique IDs")
 
 def xhs(s):
-    def one(page):
-        return request_json(s, "POST",
-            "https://job.xiaohongshu.com/websiterecruit/position/pageQueryPosition",
-            {"recruitType": "campus", "positionName": "", "pageNum": page, "pageSize": 100},
-            "https://job.xiaohongshu.com/campus/position")
-    records, meta = collect("小红书", one,
-                           lambda x: (x.get("data", {}).get("list"),
-                                      x.get("data", {}).get("total"), "positionId"))
-    meta["scope"] = "校园招聘混合目录，含非实习职位"
-    return records, meta
+    """Try smaller pages when an otherwise complete campus listing repeats IDs.
+
+    We never hide duplicates or infer an empty vacancy list from a failed
+    uniqueness check. The original error remains available for comparison.
+    """
+    retry_errors = []
+    for page_size in (100, 50, 20):
+        def one(page):
+            return request_json(s, "POST",
+                "https://job.xiaohongshu.com/websiterecruit/position/pageQueryPosition",
+                {"recruitType": "campus", "positionName": "",
+                 "pageNum": page, "pageSize": page_size},
+                "https://job.xiaohongshu.com/campus/position")
+        try:
+            records, meta = collect("小红书", one,
+                lambda x: (x.get("data", {}).get("list"),
+                           x.get("data", {}).get("total"), "positionId"))
+        except ValueError as exc:
+            if "unique=" not in str(exc):
+                raise
+            retry_errors.append({"page_size": page_size,
+                                 "reason": str(exc)[:800]})
+            if page_size == 20:
+                raise ValueError("小红书 all pagination sizes failed: " +
+                                 json.dumps(retry_errors, ensure_ascii=False)) from exc
+            time.sleep(0.6)
+            continue
+        meta["scope"] = "校园招聘混合目录，含非实习职位"
+        meta["page_size"] = page_size
+        if retry_errors:
+            meta["retry_recovered"] = retry_errors
+        return records, meta
+    raise ValueError("小红书 pagination could not reconcile unique IDs")
 
 def tencent(s):
     all_records, segments, sub = [], {}, []
