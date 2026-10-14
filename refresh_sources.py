@@ -243,7 +243,7 @@ SOURCES["月之暗面"] = collect_kimi
 SOURCES["字节跳动"] = bytedance
 SOURCES["阿里巴巴"] = collect_alibaba
 SOURCES["阶跃星辰"] = collect_step
-KEYS = {"meituan": "美团", "xhs": "小红书", "tencent": "腾讯", "jd": "京东", "baidu": "百度", "kuaishou": "快手", "mihoyo": "米哈游", "xiaomi": "小米", "feishu-zeroone": "零一万物", "feishu-minimax": "MiniMax", "feishu-zhipu": "智谱", "feishu-realai": "RealAI", "feishu-baichuan": "百川智能", "feishu-iqiyi": "爱奇艺", "feishu-shengshu": "生数科技", "feishu-modelbest": "面壁智能", "kimi-moka": "月之暗面", "bytedance-daily": "字节跳动", "alibaba-public": "阿里巴巴", "step-moka": "阶跃星辰"}
+KEYS = {"meituan": "美团", "xhs": "小红书", "tencent": "腾讯", "jd": "京东", "baidu": "百度", "kuaishou": "快手", "mihoyo": "米哈游", "xiaomi": "小米", "feishu-zeroone": "零一万物", "feishu-minimax": "MiniMax", "feishu-zhipu": "智谱", "feishu-realai": "RealAI", "feishu-baichuan": "百川智能", "feishu-iqiyi": "爱奇艺", "feishu-shengshu": "生数科技", "feishu-modelbest": "面壁智能", "feishu-dptechnology": "深势科技", "kimi-moka": "月之暗面", "bytedance-daily": "字节跳动", "alibaba-public": "阿里巴巴", "step-moka": "阶跃星辰"}
 
 def normalize(company, records):
     if company in ('快手', '米哈游', '小米'):
@@ -345,7 +345,7 @@ def normalize(company, records):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--sources", nargs="+", choices=["meituan", "xhs", "tencent", "jd", "baidu", "kuaishou", "mihoyo", "xiaomi", "feishu-zeroone", "feishu-minimax", "feishu-zhipu", "feishu-realai", "feishu-baichuan", "feishu-iqiyi", "feishu-shengshu", "feishu-modelbest", "kimi-moka", "bytedance-daily", "alibaba-public", "step-moka", "all"],
+    ap.add_argument("--sources", nargs="+", choices=["meituan", "xhs", "tencent", "jd", "baidu", "kuaishou", "mihoyo", "xiaomi", "feishu-zeroone", "feishu-minimax", "feishu-zhipu", "feishu-realai", "feishu-baichuan", "feishu-iqiyi", "feishu-shengshu", "feishu-modelbest", "feishu-dptechnology", "kimi-moka", "bytedance-daily", "alibaba-public", "step-moka", "all"],
                     default=["meituan", "xhs", "tencent"])
     ap.add_argument("--audit-only", action="store_true")
     args = ap.parse_args()
