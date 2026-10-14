@@ -216,12 +216,16 @@ def normalize(company, records):
             name = r.get("positionName") or ""
             city = "/".join(str(x.get("workCity") or "") for x in (r.get("requirementVoList") or []) if isinstance(x, dict))
             key = str(r.get("publishId") or "")
-            url = "https://campus.jd.com/#/job/detail?publishId=" + key
+            url = "https://campus.jd.com/#/details?id=" + key
             team = r.get("jobDirection") or ""
             duty = r.get("workContent") or ""
             requirements = r.get("qualification") or ""
             date = r.get("publishTime") or ""
             date_type = "发布日期"
+        # A provider occasionally returned placeholder postId=-3; never
+        # publish a link that cannot open an actual detail page.
+        if company == "腾讯" and (not key.isdigit() or int(key) <= 0):
+            continue
         if "北京" not in str(city):
             continue
         if re.search("工程师|算法|人力资源|招聘专员|招聘HR|数据标注", name, re.I):
