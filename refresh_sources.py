@@ -120,8 +120,12 @@ def meituan(s):
                 lambda x: (x.get("data", {}).get("list"),
                            x.get("data", {}).get("page", {}).get("totalCount"), "jobUnionId"))
         except ValueError as exc:
-            if "unique=" not in str(exc) or page_size == 50:
+            if "unique=" not in str(exc):
                 raise
+            if page_size == 50:
+                raise ValueError("美团 both 100- and 50-row pages failed integrity; "
+                                 + "first=" + str(duplicate_error or "")[:800]
+                                 + "; second=" + str(exc)[:800]) from exc
             duplicate_error = str(exc)
             time.sleep(0.6)
             continue
