@@ -184,10 +184,12 @@ GitHub Actions 配置：`.github/workflows/site.yml`；每日自动更新和网�
 ### B站官方日常/暑期实习招聘项目（2026-10-14）
 
 - 之前只确认了 B站官网 `https://jobs.bilibili.com/campus/positions`，这个不带类型的入口默认是应届生招聘（type=3），因此不能把其中的正式岗当作实习。现已确认 `https://jobs.bilibili.com/campus/positions?type=0&page=1` 是官方实习生招聘。
-- 前端程序公开使用匿名会话的 `/api/auth/v1/csrf/token` 和 `/api/campus/position/positionList`，明确参数 `workTypeList=["0"]`、`positionTypeList=["0"]`。在官网浏览器环境实测返回322条（100、100、100、22，共322唯一职位ID），其中有6条地点含北京，但目前未发现明确符合北京AI产品经理/相邻产品职责的岗位。
+- 前端程序公开使用匿名会话的 `/api/auth/v1/csrf/token` 和 `/api/campus/position/positionList`，明确参数 `workTypeList=["0"]`、`positionTypeList=["0"]`。在官网浏览器环境实测该频道返回322条原始记录（100、100、100、22，共322唯一职位ID），其中有6条地点含北京；职位类型还需逐条确认，不能直接将322条全部视为合格实习。目前未发现明确符合北京AI产品经理/相邻产品职责的岗位。
 - 新增 `bilibili_sources.py` 与 `bilibili-public` 来源及官方专属详情路由 `/campus/positions/<id>?type=0`，只采公开访客接口，不登录或绕过验证。是否能在GitHub Actions持续使用以真实自动化 `source_attempts.B站` 为准，接口失败时不删除历史记录。
 - B站官网有实习职位 ≠ 北京AI PM岗位；全国322条并不意味着北京存在322条有效机会。每条候选需同时通过实习类型、北京地点、AI业务及产品职责筛查。
 
 ### 硅基流动来源状态（2026-10-14）
 
 - 牛客企业HR的北京AIGC产品体验实习 `https://www.nowcoder.com/jobs/detail/456133` 仍是可核查的第三方招聘线索，条件每周4天、至少3个月；不等同公司独立官方职位ID。没有找到能够核实为硅基流动且稳定分页的官方招聘目录，因此不标记为官方自动采集成功。
+
+- 首次 GitHub Actions 发现 type=0 招聘频道存在非标准的职位性质字段，采集器已改为原始记录全量审计且保存 `position_type_counts`、`explicit_internships`、`non_internship_rows`；仅职位性质明确含“实习”的记录才可发布。未知或正式职位不进入实习看板。
