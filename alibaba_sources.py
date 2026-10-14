@@ -86,6 +86,7 @@ def collect_alibaba(session):
             f"fetched={len(ids)} unique={len(set(ids))}"
         )
     return records, {
+        "screening_diagnostics": diagnose_alibaba(records),
         "reported": expected, "raw_records": len(records),
         "unique_ids": len(set(ids)), "pages": len(sizes),
         "page_sizes": sizes, "failed_pages": 0,
@@ -130,6 +131,46 @@ def _has_internship_evidence(row):
     if re.search(r"全职|正式校招|社招", terms) and not re.search(r"实习", terms + title):
         return False
     return bool(re.search(r"实习|intern", title + " " + terms, re.I))
+
+
+def diagnose_alibaba(records):
+    """Small audit-only data footprint to diagnose underselection by schema."""
+    source_keys = set()
+    counts = {"with_beijing": 0, "explicit_internship": 0,
+              "beijing_internship": 0, "beijing_internship_pm": 0,
+              "pm_titles": 0}
+    interesting = []
+    for row in records:
+        source_keys.update(row.keys())
+        title = str(row.get("name") or "")
+        loc = _flat(row.get("workLocations"))
+        is_intern = _has_internship_evidence(row)
+        is_beijing = "北京" in loc
+        pm = is_product_candidate(title, str(row.get("description") or ""))
+        if is_beijing:
+            counts["with_beijing"] += 1
+        if is_intern:
+            counts["explicit_internship"] += 1
+        if is_beijing and is_intern:
+            counts["beijing_internship"] += 1
+        if pm:
+            counts["pm_titles"] += 1
+        if is_beijing and is_intern and pm:
+            counts["beijing_internship_pm"] += 1
+        if len(interesting) < 5 and ("产品" in title or "评测" in title):
+            interesting.append({
+                "id": str(row.get("id") or ""),
+                "title": title[:90],
+                "location_value": str(row.get("workLocations"))[:220],
+                "type_value": str({k: row.get(k) for k in (
+                    "batchName", "projectName", "projectType",
+                    "recruitmentType", "recruitType", "positionNature",
+                    "positionType", "jobType", "tags",
+                ) if k in row})[:280],
+                "description_start": str(row.get("description") or "")[:130],
+            })
+    return {"source_keys": sorted(source_keys)[:80],
+            "counts": counts, "sample": interesting}
 
 
 def normalize_alibaba(records, today):
