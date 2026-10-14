@@ -3,6 +3,7 @@ from pathlib import Path
 import json
 from copy import deepcopy
 from daily_scope import eligible_jobs
+from official_links import enrich_jobs
 
 ROOT = Path(__file__).resolve().parent
 data = json.loads((ROOT / "jobs.json").read_text(encoding="utf-8"))
@@ -11,7 +12,7 @@ assert jobs and all(all(key in row for key in ("id", "company", "title", "link")
 assert len(jobs) == len({str(row["id"]) for row in jobs}), "Duplicate job IDs"
 master_count = len(jobs)
 publication = deepcopy(data)
-publication['jobs'] = eligible_jobs(jobs)
+publication['jobs'] = enrich_jobs(eligible_jobs(jobs))
 publication['published_scope'] = '北京 AI 产品实习：日常实习优先，普通／留用／专项实习保留；排除明确只接受应届生的岗位'
 publication['excluded_from_publication'] = master_count - len(publication['jobs'])
 publication['version'] = 'V3.3 日常实习优先'
