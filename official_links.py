@@ -56,6 +56,8 @@ def _specific_official(url):
         return False
     if h == "campus-talent.alibaba.com":
         return re.fullmatch(r"/campus/position/" + POSITIVE + r"/?", p) is not None
+    if h == "jobs.bilibili.com":
+        return re.fullmatch(r"/campus/positions/" + POSITIVE + r"/?", p) is not None
     if h == "jobs.bytedance.com":
         return re.fullmatch(r"/(?:campus|experienced)/position/"+POSITIVE+r"/detail/?",p) is not None
     if h.endswith(".jobs.feishu.cn") and h != "jobs.feishu.cn":
@@ -69,7 +71,7 @@ def _official_listing(url):
     return host in {"talent.baidu.com","campus.jd.com","join.qq.com","ke.zhiye.com",
         "careers.iqiyi.com","job.xiaohongshu.com","jobs.bytedance.com",
         "zhaopin.meituan.com","campus.kuaishou.cn","app.mokahr.com",
-        "campus-talent.alibaba.com"} or host.endswith(".jobs.feishu.cn")
+        "campus-talent.alibaba.com","jobs.bilibili.com"} or host.endswith(".jobs.feishu.cn")
 
 def classify_link(url):
     if _specific_official(url):
