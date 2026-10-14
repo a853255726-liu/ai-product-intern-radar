@@ -58,5 +58,9 @@ class CandidateScopeTests(unittest.TestCase):
             "体验运营实习生（Harness业务方向）",
             "使用 Agent 平台做产品体验分析和需求反馈"))
 
+    def test_procurement_is_not_ai_pm(self):
+        self.assertFalse(is_product_candidate(
+            "硬件产品采购专家", "AI 芯片产品采购、价格谈判和供应商管理"))
+
 if __name__ == "__main__":
     unittest.main()
