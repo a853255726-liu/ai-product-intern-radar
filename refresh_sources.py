@@ -71,17 +71,35 @@ def collect(label, page_request, unpack, max_pages=200):
                     "status": "分页数量一致", "last_checked": TODAY()}
 
 def meituan(s):
-    def one(page):
-        return request_json(s, "POST", "https://zhaopin.meituan.com/api/official/job/getJobList",
-            {"page": {"pageNo": page, "pageSize": 100}, "jobShareType": "1",
-             "keywords": "", "cityList": [], "department": [], "jfJgList": [],
-             "jobType": [{"code": "2", "subCode": []}], "typeCode": [], "specialCode": []},
-            "https://zhaopin.meituan.com/web/campus")
-    records, meta = collect("美团", one,
-                           lambda x: (x.get("data", {}).get("list"),
-                                      x.get("data", {}).get("page", {}).get("totalCount"), "jobUnionId"))
-    meta["scope"] = "官网校招实习类别，不代表其他渠道"
-    return records, meta
+    """Strict pagination with a smaller-page retry for unstable boundaries.
+
+    A page-boundary duplicate does NOT count as success. A retry using
+    smaller pages must still reconcile the complete reported total and IDs.
+    """
+    duplicate_error = None
+    for page_size in (100, 50):
+        def one(page):
+            return request_json(s, "POST", "https://zhaopin.meituan.com/api/official/job/getJobList",
+                {"page": {"pageNo": page, "pageSize": page_size}, "jobShareType": "1",
+                 "keywords": "", "cityList": [], "department": [], "jfJgList": [],
+                 "jobType": [{"code": "2", "subCode": []}], "typeCode": [], "specialCode": []},
+                "https://zhaopin.meituan.com/web/campus")
+        try:
+            records, meta = collect("美团", one,
+                lambda x: (x.get("data", {}).get("list"),
+                           x.get("data", {}).get("page", {}).get("totalCount"), "jobUnionId"))
+        except ValueError as exc:
+            if "unique=" not in str(exc) or page_size == 50:
+                raise
+            duplicate_error = str(exc)
+            time.sleep(0.6)
+            continue
+        meta["scope"] = "官网校招实习类别，不代表其他渠道"
+        meta["page_size"] = page_size
+        if duplicate_error:
+            meta["recovered_from_boundary_duplicate"] = duplicate_error[:180]
+        return records, meta
+    raise ValueError("美团 strict pagination could not reconcile unique IDs")
 
 def xhs(s):
     def one(page):
