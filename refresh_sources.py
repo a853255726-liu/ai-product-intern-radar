@@ -363,8 +363,18 @@ def main():
                         all_jobs[ident] = job
                         new += 1
                     else:
-                        all_jobs[ident]["checked"] = TODAY()
-                        all_jobs[ident]["last_seen"] = TODAY()
+                        existing = all_jobs[ident]
+                        existing["checked"] = TODAY()
+                        existing["last_seen"] = TODAY()
+                        # Fresh official Alibaba batch evidence improves the
+                        # system-generated fit and time metadata on later runs.
+                        # Never rewrite a separately curated historical lead.
+                        if (company == "阿里巴巴"
+                                and existing.get("first_seen")
+                                and existing.get("source") == job.get("source")):
+                            for field in ("fit", "days", "duration",
+                                          "internship_kind", "daily_evidence"):
+                                existing[field] = job.get(field, existing.get(field))
             print(company, "reported", meta["reported"], "unique", meta["unique_ids"],
                   "candidates", len(found), "new", new)
         except Exception as exc:
