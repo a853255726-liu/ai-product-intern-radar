@@ -111,10 +111,10 @@ def normalize_extra(company, rows, today):
                  else "AI平台" if re.search(r"数据产品|平台", title)
                  else "AI应用/体验")
             fit = "优先投递" if re.search(r"AI|Agent|智能体|大模型|小爱|TTS|语音", title, re.I) else "可以尝试"
-            if re.search(r"每周.{0,12}(?:至少|可|稳定|可到岗)?[ ]*[45]天|每周.{0,12}4-5天|≥[ ]*4[ ]*天|实习≥4[ ]*天", req):
-                days = "≥4天"
-            elif re.search(r"每周.{0,10}5天|全职在岗", req):
+            if re.search(r"每周.{0,12}(?:至少|需|可到岗|稳定)?\s*5\s*天|每周.{0,12}5天|全职在岗", req):
                 days = "≥5天"
+            elif re.search(r"每周.{0,12}(?:至少|需|可到岗|稳定)?\s*4\s*天|每周.{0,12}4\s*[-～至]\s*5天|≥\s*4\s*天|实习≥\s*4\s*天", req):
+                days = "≥4天"
             else:
                 days = "未注明"
             duration = "≥6个月" if re.search(r"至少.{0,4}6个月|不少于6个月|实习6个月", req) else "≥3个月" if re.search(r"至少.{0,4}3个月|不少于3个月|实习期≥3", req) else "未注明"
