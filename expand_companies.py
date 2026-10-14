@@ -40,7 +40,7 @@ official_directories = {
     "月之暗面": "https://careers.kimi.com/campus",
     "字节跳动": "https://jobs.bytedance.com/campus/position",
     "阶跃星辰": "https://app.mokahr.com/campus-recruitment/step/94905#/jobs",
-    "B站": "https://jobs.bilibili.com/campus/positions",
+    "B站": "https://jobs.bilibili.com/campus/positions?type=0&page=1",
 }
 for name, url in official_directories.items():
     info = coverage.setdefault(name, {
@@ -49,7 +49,8 @@ for name, url in official_directories.items():
         "coverage": "官方招聘入口已定位，尚未完成稳定职位分页核验",
     })
     if not ((name == "月之暗面" and str(info.get("level")) == "complete_public_html")
-            or (name == "字节跳动" and "字节跳动官方" in str(info.get("source")))):
+            or (name == "字节跳动" and "字节跳动官方" in str(info.get("source")))
+            or (name == "B站" and str(info.get("source", "")).startswith("B站校园招聘官网"))):
         info["website"] = url
 
 # Use the current successful audit to replace stale human-written claims
