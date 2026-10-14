@@ -3,10 +3,13 @@ import csv
 import json
 from pathlib import Path
 from daily_scope import eligible_jobs
+from official_links import enrich_jobs
 
 ROOT = Path(__file__).resolve().parent
 dbpath = ROOT / "jobs.json"
 db = json.loads(dbpath.read_text(encoding="utf-8"))
+# Every build updates link metadata and repairs recognized legacy routes.
+db["jobs"] = enrich_jobs(db.get("jobs", []))
 extra = {
  "携程集团":"https://www.ctrip.com", "网易":"https://hr.163.com",
  "爱奇艺":"https://careers.iqiyi.com", "金山办公":"https://www.wps.cn",
@@ -39,7 +42,7 @@ with (ROOT / "company_coverage.csv").open("w", encoding="utf-8-sig", newline="")
 with (ROOT / "jobs.csv").open("w", encoding="utf-8-sig", newline="") as stream:
     cols = ["company","title","group","track","fit","days","duration","posted",
             "date_type","verify","checked","team","summary","requirements",
-            "note","link","id"]
+            "note","link","official_detail_url","source_url","link_kind","link_label","id"]
     writer = csv.DictWriter(stream, fieldnames=cols, extrasaction="ignore")
     writer.writeheader()
     writer.writerows(eligible_jobs(db.get("jobs", [])))
