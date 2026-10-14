@@ -295,7 +295,7 @@ def main():
                 info.update({"source": meta.get("capture", "官方公开招聘接口"),
                              "level": "complete_public_html" if company in FEISHU_PORTALS or company in ("月之暗面","阶跃星辰") else "partial" if company in ("字节跳动", "阿里巴巴") else "complete_api",
                              "coverage": f"已核对本接口 {meta['unique_ids']} 个唯一职位 ID；企业其他渠道尚未全量核验",
-                             "website": (FEISHU_PORTALS[company][0] + FEISHU_PORTALS[company][1]) if company in FEISHU_PORTALS else (KIMI_BASE+"#/jobs" if company == "月之暗面" else STEP_BASE+"#/jobs" if company == "阶跃星辰" else "https://jobs.bytedance.com/campus/position" if company == "字节跳动" else "https://campus-talent.alibaba.com/campus/position?batchId=100000760001" if company == "阿里巴巴" else "https://campus.kuaishou.cn/" if company == "快手" else "https://jobs.mihoyo.com/" if company == "米哈游" else "https://hr.xiaomi.com/website/opportunities.html")})
+                             "website": (FEISHU_PORTALS[company][0] + FEISHU_PORTALS[company][1]) if company in FEISHU_PORTALS else (KIMI_BASE+"#/jobs" if company == "月之暗面" else STEP_BASE+"#/jobs" if company == "阶跃星辰" else "https://jobs.bytedance.com/campus/position" if company == "字节跳动" else "https://campus-talent.alibaba.com/campus/position?batchId=100000560002&lang=zh" if company == "阿里巴巴" else "https://campus.kuaishou.cn/" if company == "快手" else "https://jobs.mihoyo.com/" if company == "米哈游" else "https://hr.xiaomi.com/website/opportunities.html")})
             attempts[company] = {"status": "成功（当前接口）", "checked": TODAY(),
                                  "reported": meta["reported"], "unique_ids": meta["unique_ids"]}
             successes += 1
