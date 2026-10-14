@@ -34,6 +34,13 @@ class DPTechnologyTests(unittest.TestCase):
         self.assertEqual(len(accepted),1)
         self.assertEqual(accepted[0]["title"],"产品实习生")
         self.assertIn("/index/position/"+JOB+"/detail",accepted[0]["link"])
+        # The same employer publishes contest-only roles, which must not be
+        # advertised as generally open daily internships.
+        contest = dict(records[0])
+        contest["id"] = "7611105993640741172"
+        contest["title"] = "【比赛专用】产品实习生"
+        contest["url"] = BASE + "/index/position/7611105993640741172/detail"
+        self.assertEqual(normalize_feishu("深势科技", [contest], lambda:"2026-10-14"), [])
 
 if __name__ == "__main__":
     unittest.main()

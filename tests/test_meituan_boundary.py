@@ -10,7 +10,7 @@ class MeituanBoundaryTests(unittest.TestCase):
             size = payload["page"]["pageSize"]
             page = payload["page"]["pageNo"]
             seen.append(size)
-            if size == 100:
+            if size == 50:
                 rows=[{"jobUnionId": 101}, {"jobUnionId": 101}]
             else:
                 rows=[{"jobUnionId": 101 if page == 1 else 102}]
@@ -20,9 +20,9 @@ class MeituanBoundaryTests(unittest.TestCase):
                 rows, audit=meituan(None)
         self.assertEqual([r["jobUnionId"] for r in rows], [101,102])
         self.assertEqual(audit["unique_ids"],2)
-        self.assertEqual(audit["page_size"],50)
+        self.assertEqual(audit["page_size"],25)
         self.assertTrue(audit["recovered_from_boundary_duplicate"])
-        self.assertIn(100, seen)
+        self.assertIn(50, seen)
 
     def test_persistent_duplicate_fails_closed(self):
         def api(session, method, url, payload, referer):
