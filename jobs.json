@@ -9789,10 +9789,10 @@
       "website": "https://campus-talent.alibaba.com/campus/position?batchId=100000560002&lang=zh"
     },
     "B站": {
-      "source": "官网招聘入口",
-      "coverage": "动态招聘接口尚无法稳定复核；本轮没有可验证的北京AI产品实习岗位，不等于零岗位",
-      "level": "blocked",
-      "website": "https://jobs.bilibili.com/campus/positions"
+      "source": "B站校园招聘官网匿名会话公开 JSON API",
+      "coverage": "2026-10-14 核验本入口 322 个唯一职位 ID；范围：哔哩哔哩官网 type=0 实习频道；目录可能混合岗位性质，逐条核实实习后再筛北京 AI 产品；企业其他招聘项目仍可能存在遗漏",
+      "level": "partial",
+      "website": "https://jobs.bilibili.com/campus/positions?type=0&page=1"
     },
     "滴滴": {
       "source": "第三方岗位来源",
@@ -10614,6 +10614,29 @@
       "scope": "深势科技 飞书官方招聘门户 /index/position/list，页面完整分页范围（需筛北京实习）",
       "capture": "官网公开职位页面标准浏览器渲染（无登录）",
       "last_checked": "2026-10-14"
+    },
+    "B站": {
+      "position_type_counts": {
+        "实习": 322
+      },
+      "explicit_internships": 322,
+      "non_internship_rows": 0,
+      "reported": 322,
+      "raw_records": 322,
+      "unique_ids": 322,
+      "pages": 4,
+      "page_sizes": [
+        100,
+        100,
+        100,
+        22
+      ],
+      "failed_pages": 0,
+      "status": "官网公开实习项目完整职位ID核验通过",
+      "scope": "哔哩哔哩官网 type=0 实习频道；目录可能混合岗位性质，逐条核实实习后再筛北京 AI 产品",
+      "capture": "B站校园招聘官网匿名会话公开 JSON API",
+      "page_size": 100,
+      "last_checked": "2026-10-14"
     }
   },
   "source_attempts": {
@@ -10739,6 +10762,12 @@
       "checked": "2026-10-14",
       "reported": 239,
       "unique_ids": 239
+    },
+    "B站": {
+      "status": "成功（当前接口）",
+      "checked": "2026-10-14",
+      "reported": 322,
+      "unique_ids": 322
     }
   },
   "search_scope": "仅北京 AI 产品相关日常实习；其他实习项目与未证实日常属性职位保留在主库，不在默认网页展示",
