@@ -27,8 +27,9 @@ PRODUCT_WORK = re.compile(
 # Title exclusions are narrow, to avoid suppressing a legitimate AI PM role
 # just because the JD discusses engineering collaboration.
 NON_PRODUCT_TITLE = re.compile(
-    r"工程师|算法研究员|算法实习|开发实习|测试开发|"
-    r"数据标注|训练师|销售专员|招聘专员|人力资源|"
+    r"工程师|前端实习|后端实习|PE实习|数据科学|算法|开发实习|测试开发|"
+    r"数据标注|训练师|模型研究|配音导演|内容创意|"
+    r"活动运营|商家及供给运营|销售专员|招聘专员|人力资源|"
     r"视觉设计师|平面设计师|法务|财务|行政实习",
     re.I,
 )
@@ -38,8 +39,15 @@ def is_product_candidate(title, duty="", category=""):
     title, duty, category = str(title or ""), str(duty or ""), str(category or "")
     if NON_PRODUCT_TITLE.search(title):
         return False
+    # Elite research programmes without a product title are R&D leads, not PM.
+    if "Ace顶尖实习生" in title or ("Ace 顶尖实习生" in category and "产品" not in title):
+        return False
+    ai = bool(AI_SIGNALS.search(title + " " + duty))
+    # Pure operations and generic growth roles require clear AI context.
+    if re.search(r"产品运营|增长策略|体验运营", title) and not ai:
+        return False
     if TITLE_PRODUCTS.search(title):
         return True
     # Do not treat a generic AI mention or the use of AI tools as PM work:
     # there must be explicit product responsibility, not just a model keyword.
-    return bool(AI_SIGNALS.search(title + " " + duty) and PRODUCT_WORK.search(duty))
+    return bool(ai and PRODUCT_WORK.search(duty))

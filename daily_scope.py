@@ -5,6 +5,7 @@ visible for the user, and retain unqualified records in the audit archive.
 """
 
 import re
+from candidate_scope import is_product_candidate as matches_product_scope
 
 DAILY_IQIYI = {"iqiyi-A01585", "iqiyi-A10460", "iqiyi-A15887"}
 # Historic Tencent mapping=2 is the graduating-cohort intern route, unlike daily mapping=104.
@@ -80,6 +81,11 @@ def is_product_candidate(job):
         return False
     if "工程师" in title and not re.search(r"产品经理|产品实习", title):
         return False
+    # Preserve historically researched leads, but apply the stronger discovery
+    # policy to newly imported API/list entries. Low-match new records remain
+    # in jobs.json for auditing, not on the public PM shortlist.
+    if job.get("first_seen") or job.get("auto_discovered"):
+        return matches_product_scope(title, job.get("summary", ""), job.get("team", ""))
     return True
 
 def eligible_jobs(jobs):
