@@ -46,7 +46,8 @@ for name, url in official_directories.items():
         "level": "todo",
         "coverage": "官方招聘入口已定位，尚未完成稳定职位分页核验",
     })
-    if not (name == "月之暗面" and str(info.get("level")) == "complete_public_html"):
+    if not ((name == "月之暗面" and str(info.get("level")) == "complete_public_html")
+            or (name == "字节跳动" and "字节跳动官方" in str(info.get("source")))):
         info["website"] = url
 
 # Use the current successful audit to replace stale human-written claims
