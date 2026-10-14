@@ -338,6 +338,8 @@ def main():
                             existing["source_post_id"] = job.get("source_post_id")
                             existing["source_job_code"] = job.get("source_job_code")
                     elif ident not in all_jobs:
+                        job["first_seen"] = TODAY()
+                        job["last_seen"] = TODAY()
                         all_jobs[ident] = job
                         new += 1
                     else:
