@@ -43,7 +43,7 @@ class DuplicateIdForensicsTests(unittest.TestCase):
         self.assertEqual(len(jobs), 2)
         self.assertEqual(audit["unique_ids"], 2)
         self.assertEqual(audit["page_size"], 20)
-        self.assertEqual([x["page_size"] for x in audit["retry_recovered"]], [100, 50])
+        self.assertEqual([x["page_size"] for x in audit["retry_recovered"]], [50])
         self.assertIn(20, sizes)
 
     def test_persistent_xiaohongshu_collision_fails_closed(self):
@@ -61,7 +61,7 @@ class DuplicateIdForensicsTests(unittest.TestCase):
                              "page": {"totalCount": 2}}}
         with patch("refresh_sources.request_json", fake):
             with patch("refresh_sources.time.sleep", return_value=None):
-                with self.assertRaisesRegex(ValueError, r"both 100- and 50-row pages failed"):
+                with self.assertRaisesRegex(ValueError, r"both 50- and 25-row pages failed"):
                     meituan(None)
 
 
