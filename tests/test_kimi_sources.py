@@ -45,6 +45,15 @@ class KimiMokaTests(unittest.TestCase):
         self.assertEqual(rows[0]["id"], UUID)
         self.assertEqual(rows[0]["date"], "发布于 2026-10-10")
 
+    def test_fragment_only_links_are_resolved_to_official_site(self):
+        html = ('<div>已选 0 条件 | 1 结果</div>'
+                '<div class="results-X"><div class="jobs-Y">'
+                + card("AI harness 产品实习生", "实习").replace(URL, "#/job/" + UUID)
+                + '</div></div>')
+        total, rows = parse_list_html(html)
+        self.assertEqual(total, 1)
+        self.assertEqual(rows[0]["url"], URL)
+
     def test_missing_count_fails_closed(self):
         with self.assertRaises(ValueError):
             parse_list_html('<div>已选 0 条件 | 0 结果</div>')
