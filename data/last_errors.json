@@ -1,4 +1,7 @@
 {
-  "date": "2026-10-14",
-  "errors": []
+  "date": "2026-10-15",
+  "errors": [
+    "美团: ValueError: 美团 both 50- and 25-row pages failed integrity; first=美团: reported=364 retrieved=364 unique=362; duplicate_id_diagnostics=[{\"job_id\":\"4348779862\",\"first_page\":4,\"again_page\":5,\"scope\":\"cross_page\",\"identical_payload\":true},{\"job_id\":\"3153761434\",\"first_page\":7,\"again_page\":8,\"scope\":\"cross_page\",\"identical_payload\":true}]; second=美团: reported=364 retrieved=364 unique=363; duplicate_id_diagnostics=[{\"job_id\":\"4347049317\",\"first_page\":8,\"again_page\":9,\"scope\":\"cross_page\",\"identical_payload\":true}]",
+    "智谱: HTTPError: 404 Client Error: Not Found for url: https://zhipu-ai.jobs.feishu.cn/index/position/list?current=1&limit=10"
+  ]
 }
