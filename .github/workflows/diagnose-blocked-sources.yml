@@ -48,3 +48,8 @@ jobs:
           else
             echo "Audit-only collector completed. Review the audit log and unique-ID checks before enabling daily publication." >> "$GITHUB_STEP_SUMMARY"
           fi
+      - name: Fail diagnostic when official source remains unavailable
+        if: steps.diagnose.outputs.collector_exit_code != '0'
+        run: |
+          echo "Official job source did not pass complete validation."
+          exit 1
