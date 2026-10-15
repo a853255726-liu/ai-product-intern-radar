@@ -109,7 +109,7 @@ def meituan(s):
     smaller pages must still reconcile the complete reported total and IDs.
     """
     duplicate_error = None
-    for page_size in (50, 25):
+    for page_size in (50, 25, 10):
         def one(page):
             return request_json(s, "POST", "https://zhaopin.meituan.com/api/official/job/getJobList",
                 {"page": {"pageNo": page, "pageSize": page_size}, "jobShareType": "1",
@@ -123,8 +123,8 @@ def meituan(s):
         except ValueError as exc:
             if "unique=" not in str(exc):
                 raise
-            if page_size == 25:
-                raise ValueError("美团 both 50- and 25-row pages failed integrity; "
+            if page_size == 10:
+                raise ValueError("美团 50-, 25- and 10-row pages failed integrity; "
                                  + "first=" + str(duplicate_error or "")[:800]
                                  + "; second=" + str(exc)[:800]) from exc
             duplicate_error = str(exc)
