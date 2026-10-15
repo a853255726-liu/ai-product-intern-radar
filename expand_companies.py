@@ -41,6 +41,7 @@ official_directories = {
     "字节跳动": "https://jobs.bytedance.com/campus/position",
     "阶跃星辰": "https://app.mokahr.com/campus-recruitment/step/94905#/jobs",
     "B站": "https://jobs.bilibili.com/campus/positions?type=0&page=1",
+    "蚂蚁集团": "https://talent.antgroup.com/campus/home",
 }
 for name, url in official_directories.items():
     info = coverage.setdefault(name, {
@@ -52,6 +53,21 @@ for name, url in official_directories.items():
             or (name == "字节跳动" and "字节跳动官方" in str(info.get("source")))
             or (name == "B站" and str(info.get("source", "")).startswith("B站校园招聘官网"))):
         info["website"] = url
+
+
+# Ant Group's official campus homepage explicitly lists 日常实习 for all
+# current students, without a graduation-year limit. Its job list still has
+# no verified paginated collector: do not mark the channel automated or live.
+ant = coverage.get("蚂蚁集团")
+if ant and ant.get("level") not in ("complete_api", "complete_public_html"):
+    ant["source"] = "蚂蚁集团官方日常实习入口（职位接口待核验）"
+    ant["level"] = "partial"
+    ant["coverage"] = (
+        "2026-10-15 官方校园招聘首页确认日常实习面向全体在校生、"
+        "毕业时间不限；尚未取得可稳定分页的官方职位ID，"
+        "不能宣称北京AI产品实习岗位已自动采集。"
+    )
+
 
 # Use the current successful audit to replace stale human-written claims
 # about raw result counts. Do not overwrite a source's last good evidence
