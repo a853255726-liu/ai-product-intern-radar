@@ -21,9 +21,11 @@ class AuditModeTests(unittest.TestCase):
                 "pages": 1, "page_sizes": [0], "failed_pages": 0,
             }
             fake_sources = {"小米": lambda _: ([], meta)}
-            with patch.object(refresh_sources, "ROOT", root), \\
-                 patch.object(refresh_sources, "SOURCES", fake_sources), \\
-                 patch("sys.argv", ["refresh_sources.py", "--sources", "xiaomi", "--audit-only"]):
+            with (
+                patch.object(refresh_sources, "ROOT", root),
+                patch.object(refresh_sources, "SOURCES", fake_sources),
+                patch("sys.argv", ["refresh_sources.py", "--sources", "xiaomi", "--audit-only"]),
+            ):
                 refresh_sources.main()
             self.assertEqual(jobs_path.read_bytes(), before)
             self.assertFalse((root / "data").exists())
