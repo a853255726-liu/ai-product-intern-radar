@@ -1,0 +1,48 @@
+name: Diagnose blocked official internship sources
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - source: bytedance-daily
+            label: ByteDance Beijing daily internship
+          - source: xiaomi
+            label: Xiaomi Beijing internship
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install collector dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Test public endpoint without publishing or persisting data
+        id: diagnose
+        shell: bash
+        run: |
+          set +e
+          python refresh_sources.py --audit-only --sources "${{ matrix.source }}" > diagnostic.log 2>&1
+          status=$?
+          cat diagnostic.log
+          echo "collector_exit_code=$status" >> "$GITHUB_OUTPUT"
+          # Diagnostic failures are expected; report them in the job summary.
+          exit 0
+      - name: Write diagnostic result
+        shell: bash
+        run: |
+          echo "### ${{ matrix.label }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Collector exit code: \`${{ steps.diagnose.outputs.collector_exit_code }}\`" >> "$GITHUB_STEP_SUMMARY"
+          if [[ "${{ steps.diagnose.outputs.collector_exit_code }}" != "0" ]]; then
+            echo "Public source was not verified. No job data was published." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Audit-only collector completed. Review the audit log and unique-ID checks before enabling daily publication." >> "$GITHUB_STEP_SUMMARY"
+          fi
