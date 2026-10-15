@@ -6,6 +6,8 @@ Only standard publicly accessible endpoints are used, without auth/bypass.
 """
 from __future__ import annotations
 import re
+import requests
+from bytedance_browser import collect_bytedance_browser
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from candidate_scope import is_product_candidate
@@ -36,7 +38,7 @@ def payload_for_page(page):
     }
 
 
-def bytedance(session):
+def bytedance_direct(session):
     """Check API count, all pages and unique IDs before accepting any update."""
     headers = {
         "User-Agent": "Mozilla/5.0 (compatible; InternshipRadar/1.0)",
@@ -91,6 +93,26 @@ def bytedance(session):
                   + "；北京 CT_11；产品、产品运营、用户研究、策略四类"),
         "capture": "字节跳动官方校园招聘公开职位 API",
     }
+
+
+
+def bytedance(session):
+    """Prefer public JSON; on site-level blocking try only the ordinary public UI."""
+    try:
+        return bytedance_direct(session)
+    except requests.HTTPError as exc:
+        status = exc.response.status_code if exc.response is not None else None
+        if status not in (403, 405):
+            raise
+        try:
+            records, audit = collect_bytedance_browser()
+        except Exception as browser_exc:
+            raise ValueError(
+                f"ByteDance direct API HTTP {status}; standard public browser "
+                f"fallback also failed ({type(browser_exc).__name__}: {browser_exc})"
+            ) from browser_exc
+        audit["direct_api_http_status"] = status
+        return records, audit
 
 
 def _city_text(row):
