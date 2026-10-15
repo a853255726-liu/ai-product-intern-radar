@@ -7,6 +7,8 @@ from __future__ import annotations
 from datetime import datetime
 from zoneinfo import ZoneInfo
 import re
+import requests
+from xiaomi_browser import collect_xiaomi_browser
 from urllib.parse import urlencode
 
 
@@ -72,8 +74,21 @@ def make_sources(fetch_json, paginate, today):
             if data.get("code") != 0 or not isinstance(data.get("data"), dict):
                 raise ValueError("Xiaomi official job API returned unsuccessful status")
             return data
-        records, audit = paginate("xiaomi-beijing-internship", one,
-            lambda x: (x["data"].get("list"), x["data"].get("total"), "jobPostId"))
+        try:
+            records, audit = paginate("xiaomi-beijing-internship", one,
+                lambda x: (x["data"].get("list"), x["data"].get("total"), "jobPostId"))
+        except requests.HTTPError as exc:
+            status = exc.response.status_code if exc.response is not None else None
+            if status not in (403, 405):
+                raise
+            try:
+                records, audit = collect_xiaomi_browser()
+            except Exception as browser_exc:
+                raise ValueError(
+                    f"Xiaomi direct API HTTP {status}; official public browser "
+                    f"fallback also failed ({type(browser_exc).__name__}: {browser_exc})"
+                ) from browser_exc
+            audit["direct_api_http_status"] = status
         audit.update(capture="小米官网 searchJobPage 公开接口",
             scope="type=3实习，北京，所有关键词；不包括社招或其他项目",
             caveat="官方接口职位是岗位线索，不等于确认剩余招聘名额；部分含2027届或专项限制")
