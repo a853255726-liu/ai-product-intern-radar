@@ -198,3 +198,14 @@ GitHub Actions 配置：`.github/workflows/site.yml`；每日自动更新和网�
 - 首次 GitHub Actions 发现 type=0 招聘频道存在非标准的职位性质字段，采集器已改为原始记录全量审计且保存 `position_type_counts`、`explicit_internships`、`non_internship_rows`；仅职位性质明确含“实习”的记录才可发布。未知或正式职位不进入实习看板。
 
 **文档维护说明：** 上述较早的“首次发现/试接入”小节保留历史测试过程，判定当前状态时请优先看本节来源表以及 `jobs.json.source_attempts`、`source_audits`。B站本次定向运行成功，但不代表其他19个来源在同一时刻均成功。
+
+
+## 2026-10-15｜受限招聘源修复与安全验收
+
+- **字节跳动**：`bytedance_sources.py` 首先请求原有官方公开校园 API。仅在 HTTP 403/405 时尝试 `bytedance_browser.py`：用正常 Chromium 打开招聘官网的北京、日常实习、产品相关类别筛选页，观察网页自身返回的职位 API 响应。必须核对网页实际发出的招聘类型 202、日常项目 ID、北京城市、四个指定类别以及分页 offset/limit，再检查返回总数、每页记录、全部职位 ID 唯一性。不登录、不模拟受保护签名、不解决验证码。**新逻辑尚未通过 GitHub Actions 的云端全量验证，因此仍未加入每日正式源。**
+- **小米**：`extra_sources.py` 在原有公开 `searchJobPage` API 遇到 HTTP 403/405 时，调用 `xiaomi_browser.py` 从官方职位页面中使用其公开同源接口读取北京、实习类型=3的数据。只有完整分页和全部职位 ID 对账成功才接受更新；否则保留带日期的官方快照。**暂未恢复每日自动更新。**
+- **蚂蚁集团**：`https://talent.antgroup.com/campus/home` 官方首页明确列出「日常实习」面向全体在校生、毕业时间不限。现作为单独已确认的招聘入口列入 `company_coverage`，**未验证全量职位分页与职位 ID，不纳入自动岗位记录**。不要和仅面向特定毕业届次的转正实习混用。
+- **诊断工作流**：`.github/workflows/diagnose-blocked-sources.yml` 可在 Actions 中手动运行，分别检查字节和小米。已安装 Chromium，失败会显示为失败检查，而不再是误导性的绿色成功状态。
+- **只读审计**：`refresh_sources.py --audit-only --sources bytedance-daily xiaomi` 仅在运行进程内检查、打印结果，不写回 `jobs.json`、`data/last_errors.json` 或 `data/raw`。离线测试见 `tests/test_bytedance_browser.py`、`tests/test_xiaomi_browser.py`、`tests/test_audit_read_only.py`。
+
+请先手动运行上述诊断工作流，查看两家公司实际云端请求结果和唯一职位 ID。**只有某一来源当次真实对账成功，且岗位性质、城市、JD 资格校验可靠后**，才将它加入正式定时刷新列表。HTTP 403/405、验证码、部分分页或详情失效均不构成“零在招岗位”的证据。
