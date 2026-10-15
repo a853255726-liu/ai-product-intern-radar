@@ -133,10 +133,11 @@ def collect_feishu(session, company, page_size=10, max_pages=MAX_PAGES):
                 "Accept": "text/html,application/xhtml+xml",
             }, timeout=28)
             response.raise_for_status()
-        except (requests.Timeout, requests.ConnectionError):
-            if page == 1:
-                # A transient first-page network failure is not proof of an
-                # empty board; try the same public page in a normal browser.
+        except (requests.Timeout, requests.ConnectionError, requests.HTTPError) as exc:
+            if page == 1 and (not isinstance(exc, requests.HTTPError) or response.status_code in (404, 403, 405)):
+                # Some public Feishu boards reject direct HTTP even while their
+                # standard visitor-facing browser pages remain accessible.
+                # Use only the ordinary public UI; never bypass challenges.
                 return collect_feishu_browser(company, page_size, max_pages)
             raise
         try:
