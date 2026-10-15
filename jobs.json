@@ -10003,10 +10003,10 @@
       "website": "https://hr.xiaomi.com/website/opportunities.html"
     },
     "蚂蚁集团": {
-      "source": "公司网站（招聘接口尚未定位）",
-      "coverage": "尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索",
-      "level": "todo",
-      "website": "https://talent.antgroup.com"
+      "source": "蚂蚁集团官方日常实习入口（职位接口待核验）",
+      "coverage": "2026-10-15 官网确认日常实习面向全体在校生、毕业时间不限；未完成北京AI产品职位全量分页与唯一职位ID验证，尚未自动采集",
+      "level": "partial",
+      "website": "https://talent.antgroup.com/campus/home"
     },
     "美图": {
       "source": "官网招聘详情",
