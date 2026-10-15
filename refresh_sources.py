@@ -361,13 +361,15 @@ def main():
     attempts = data.setdefault("source_attempts", {})
     errors, successes = [], 0
     rawdir = ROOT / "data" / "raw"
-    rawdir.mkdir(parents=True, exist_ok=True)
+    if not args.audit_only:
+        rawdir.mkdir(parents=True, exist_ok=True)
     for company in selected:
         try:
             with requests.Session() as session:
                 records, meta = SOURCES[company](session)
-            (rawdir / (company + "_latest.json")).write_text(
-                json.dumps({"checked": TODAY(), "records": records}, ensure_ascii=False), encoding="utf-8")
+            if not args.audit_only:
+                (rawdir / (company + "_latest.json")).write_text(
+                    json.dumps({"checked": TODAY(), "records": records}, ensure_ascii=False), encoding="utf-8")
             meta.setdefault("last_checked", TODAY())
             audits[company] = meta
             if company in ("快手", "米哈游", "小米", "月之暗面", "字节跳动", "阿里巴巴", "阶跃星辰", "B站") or company in FEISHU_PORTALS:
@@ -464,12 +466,15 @@ def main():
             attempts[company] = {"status": "失败；保留上次完整快照",
                                  "checked": TODAY(), "error": str(exc)[:320]}
             print("FAIL:", message)
-    (ROOT / "data").mkdir(exist_ok=True)
-    (ROOT / "data" / "last_errors.json").write_text(
-        json.dumps({"date": TODAY(), "errors": errors}, ensure_ascii=False, indent=2), encoding="utf-8")
-    data["jobs"] = list(all_jobs.values())
-    data["snapshot"] = TODAY()
-    dbpath.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    if not args.audit_only:
+        (ROOT / "data").mkdir(exist_ok=True)
+        (ROOT / "data" / "last_errors.json").write_text(
+            json.dumps({"date": TODAY(), "errors": errors}, ensure_ascii=False, indent=2), encoding="utf-8")
+        data["jobs"] = list(all_jobs.values())
+        data["snapshot"] = TODAY()
+        dbpath.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    else:
+        print("AUDIT ONLY: no repository job data, raw captures or error files written")
     if not successes:
         raise SystemExit("No sources completed; retain previous published site")
     if errors:
