@@ -25,8 +25,7 @@ jobs:
           python-version: '3.11'
       - name: Install collector dependencies
         run: python -m pip install -r requirements.txt
-      - name: Install Chromium for public recruitment browser fallback
-        if: matrix.source == 'bytedance-daily'
+      - name: Install Chromium for public official-site fallbacks
         run: python -m playwright install chromium --with-deps
       - name: Test public endpoint without publishing or persisting data
         id: diagnose
