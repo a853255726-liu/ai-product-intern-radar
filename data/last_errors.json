@@ -1,7 +1,7 @@
 {
   "date": "2026-10-16",
   "errors": [
-    "好未来: ValueError: TAL campus job list did not render",
-    "OPPO: ValueError: OPPO count zero or beyond auditable bound"
+    "好未来: ValueError: TAL public Moka job list did not render; evidence={\"page_index\": 1, \"url\": \"https://job.tal.com/campus/home#/jobs/?page=1\", \"title\": \"首页 - 好未来招聘官网｜校园招聘、实习生招聘、社会招聘\", \"job_anchors\": 0, \"body_preview\": \"首页\\n全部职位\\n了解好未来\\n人才计划\\n招聘动态\\n事业部招聘\\n登录\\n\\nMORE POSSIBILITIES, BETTER FUTURE\\n\\n选择你的加入方式\\n\\n从实习到正式校招，每一种身份都能在好未来找到清晰的成长路径\\n\\nINTERN\\nRECRUITMENT\\n\\n实习生招聘\\n\\n面向在校学生开放真实业务课题，在 AI 教育、产品技术、内容教研等场景中提前体验职业成长。\\n\\n立即投递\\n\\nCAMPUS\\nRECRUITMENT\\n\\n校园招聘\\n\\n面向应届毕业生提供研发、产品、设计、运营、教研等岗位，配套导师制和校招生培养计划。\\n\\n立即投递\\n\\nCAMPUS\\nAMBASSADOR\\n\\n校园大使招聘\\n\\n成为好未来与高校之间的连接者，参与校园活动策划、雇主品牌传播和同学答疑。\\n\\n立即投递\\n\\n使命愿景\\n\\n以初心定义方向，以创新驱动未来\\n\\n使命：\\n爱与科技助力终身成长\\n\\n\\\"爱\\\"是坚持初心、创造社会价值，\\\"科技\\\"是先进的理念、技术和持续创新的精神，终身成长是每一个人的成长、全龄段人群的成长、全方位的身心成长、多领域综合的成长。\\n\\n愿景：\\n成为持续创新的组织\\n\\n客户层面:以人为本，深刻洞察每一代消费者对美好生活的需求，并为他们持续提供高科技、高品质、可信赖的产品与服务，让用户口碑造就伟大品牌。\\n\\n员工层面:吸引全球优秀/创新人才、发掘人才的闪光点和潜能，赋予员工更多的自主权，让员工获得终身成长，与公司共享发展成果。\\n\\n行业层面:立足行业开展科技、产品和内容创新，连接整合全球范围内优质资源，与各领域合作伙伴共同成长，\"}",
+    "OPPO: ValueError: OPPO official page parsing failed: OPPO public listing announced 0 jobs; accepted range is 1..1500; this is not proof of zero Beijing AI PM positions; public evidence={\"url\": \"https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-RECRUITMENT\", \"title\": \"OPPO招聘 - 加入我们 join us - 岗位列表\", \"visible_count_matches\": [\"0\"], \"visible_job_id_count\": 0, \"visible_preview\": \"首页\\n社会招聘\\n校园招聘\\n人在 OPPO\\n工作地点\\n员工故事\\n个人中心\\n筛选\\n清空选项\\n面向应届生申请入口点击查看\\n职位类别\\n城市\\n\\n暂无数据\\n\\n在招职位(0)\\n\\n暂无相关岗位，请尝试其他关键字\\n\\n关于 OPPO\\n新闻中心\\nColorOS 官方网站\\n猎头/PRO 门户\\n隐私政策\\n关注我们\\n粤公网安备 44190002001935号 © 2004 - 2026 OPPO 版权所有 粤ICP备08130115号-1\\n我们会使用 Cookie 和类似相关技术来使本网站正常操作运行，并分析流量及优化您的浏览体验 详情\\n同意\"}"
   ]
 }
