@@ -92,6 +92,11 @@ def eligible_jobs(jobs):
     """Published job pool: every candidate except explicitly graduation-only roles."""
     result = []
     for job in jobs:
+        # Retain historical evidence in jobs.json, but do not advertise a
+        # previously auto-discovered vacancy absent from a fully reconciled
+        # new capture of the same official recruitment channel.
+        if job.get("listing_inactive") is True:
+            continue
         tag = classify(job)
         if tag == "graduate_only" or not is_product_candidate(job):
             continue
