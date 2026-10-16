@@ -259,3 +259,12 @@ GitHub Actions 配置：`.github/workflows/site.yml`；每日自动更新和网�
 - 定向云端验证：在 `main` 上提交包含 `[refresh:batch1]` 的消息触发只采集好未来、OPPO、腾讯，运行所有离线测试、入口监测并重新生成页面。定时运行现在尝试 26 个来源。
 - **发布门槛**：`source_attempts.好未来` 和 `source_attempts.OPPO` 有当日成功记录，并且职位ID数与全部分页校验通过，才可说自动采集已验收。当前完成的是代码和来源入口接入；不能把「已配置」说成「成功更新」或「目前有北京AI产品HC」。
 
+
+### 2026-10-16｜第一批验收加固
+
+- **好未来资格校验**：`tal_sources.explicit_grad_only` 对完整公开 JD 检查毕业届次限制，不受面向看板的 `summary/requirements` 摘录长度影响；对明确仅招2027届等条件保留原始限制证据，使 `daily_scope.eligible_jobs` 能排除。增加超长 JD 的回归测试。
+- **来源计数**：已核验来源的 `source_attempts` 增加 `candidate_count` 和 `new_candidate_count`；这是北京 AI 产品初筛候选，不是已确认可投职位、剩余 HC 或日报新增数量。网页仅展示经过筛选和去重后的记录。
+- **工作流顺序**：依赖安装后立即运行离线测试，再下载 Chromium、执行多来源网络采集。若采集失败，GitHub Actions 保留 `source-errors-<run id>` 诊断工件 14 天。
+- **官方入口监测**：公开页面 HTTP 200 但静态 HTML 没出现「实习」时，`directory_attempts` 标记「入口可达，待浏览器复核」，而非「网站不可访问」或「零岗位」。
+- **未通过的验收不能提前宣传**：截至这一轮仓库检查，`jobs.json` 仍为2026-10-15快照，`source_attempts.好未来` 与 `source_attempts.OPPO` 尚无成功记录。请以最新 GitHub Actions 运行日志为准。
+
