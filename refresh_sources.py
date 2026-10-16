@@ -14,6 +14,7 @@ import requests
 from extra_sources import make_sources, normalize_extra
 from feishu_sources import PORTALS as FEISHU_PORTALS, collect_feishu, normalize_feishu
 from candidate_scope import is_product_candidate
+from daily_scope import eligible_jobs
 from kimi_sources import collect_kimi, normalize_kimi, BASE as KIMI_BASE
 from bytedance_sources import bytedance, normalize_bytedance
 from alibaba_sources import collect_alibaba, normalize_alibaba
@@ -527,8 +528,12 @@ def main():
             # A successful source can legitimately yield zero Beijing AI PM
             # candidates; surface that separately from raw feed completeness.
             attempts[company]["candidate_count"] = len(found)
+            attempts[company]["eligible_candidate_count"] = len(eligible_jobs(found))
             attempts[company]["new_candidate_count"] = new
-            attempts[company]["candidate_count_definition"] = "来源初筛；非确认仍可申请的岗位数"
+            attempts[company]["candidate_count_definition"] = (
+                "candidate_count是来源初筛，eligible_candidate_count再排除明确届次限制；"
+                "均非确认仍可申请的名额"
+            )
             print(company, "reported", meta["reported"], "unique", meta["unique_ids"],
                   "candidates", len(found), "new", new)
         except Exception as exc:
