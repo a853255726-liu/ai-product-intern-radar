@@ -111,7 +111,7 @@ def meituan(s):
     A page-boundary duplicate does NOT count as success. A retry using
     smaller pages must still reconcile the complete reported total and IDs.
     """
-    duplicate_error = None
+    retry_errors = []
     for page_size in (50, 25, 10):
         def one(page):
             return request_json(s, "POST", "https://zhaopin.meituan.com/api/official/job/getJobList",
@@ -126,17 +126,22 @@ def meituan(s):
         except ValueError as exc:
             if "unique=" not in str(exc):
                 raise
+            retry_errors.append((page_size, str(exc)))
             if page_size == 10:
-                raise ValueError("美团 50-, 25- and 10-row pages failed integrity; "
-                                 + "first=" + str(duplicate_error or "")[:800]
-                                 + "; second=" + str(exc)[:800]) from exc
-            duplicate_error = str(exc)
+                details = "; ".join(f"{size}-row={message[:800]}"
+                                    for size, message in retry_errors)
+                raise ValueError(
+                    "美团 50-, 25- and 10-row pages failed integrity; "
+                    + details
+                ) from exc
             time.sleep(0.6)
             continue
         meta["scope"] = "官网校招实习类别，不代表其他渠道"
         meta["page_size"] = page_size
-        if duplicate_error:
-            meta["recovered_from_boundary_duplicate"] = duplicate_error[:180]
+        if retry_errors:
+            meta["recovered_from_boundary_duplicate"] = "; ".join(
+                f"{size}-row={message[:180]}" for size, message in retry_errors
+            )
         return records, meta
     raise ValueError("美团 strict pagination could not reconcile unique IDs")
 
