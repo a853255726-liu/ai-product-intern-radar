@@ -19,7 +19,7 @@ MiniMax,官网公开职位页面标准浏览器渲染（无登录）,complete_pu
 阶跃星辰,阶跃星辰 Moka 校园招聘公开浏览器渲染,complete_public_html,2026-10-15 核验本入口 129 个唯一职位 ID；范围：阶跃星辰官网 campus/step/94905 校园招聘混合目录；需独立识别实习、北京与 AI 产品岗位；企业其他招聘项目仍可能存在遗漏,https://app.mokahr.com/campus-recruitment/step/94905#/jobs,1
 月之暗面,官网 Moka 招聘公开浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 94 个唯一职位 ID；范围：月之暗面 Moka 官方校园招聘全部职位；先筛实习再筛北京 AI 产品；企业其他招聘项目仍可能存在遗漏,https://app.mokahr.com/campus-recruitment/moonshot/148507#/jobs,23
 科大讯飞,北森招聘 API,partial,2026-10-13 实测 Category=3 的实习结果为0；其它入口仍未完全检索。,https://iflytek.zhiye.com/,0
-商汤科技,招聘官网,todo,尚未核对北京AI产品实习,https://www.sensetime.com/,0
+商汤科技,商汤官方实习职位目录（采集器待验收）,partial,2026-10-16 已确认官方实习频道、北京与产品筛选；采集器已配置但完整分页及唯一ID仍需云端验证,https://hr-jobs.sensetime.com/edu/m/,0
 第四范式,企业招聘渠道,todo,尚未核对北京AI产品实习,https://www.4paradigm.com/,0
 得物,企业招聘渠道,todo,尚未核对北京AI产品实习,https://www.dewu.com/,0
 作业帮,企业招聘渠道,todo,尚未核对北京AI学习产品实习,https://www.zuoyebang.com/,0
@@ -27,7 +27,7 @@ MiniMax,官网公开职位页面标准浏览器渲染（无登录）,complete_pu
 快看,企业招聘渠道,todo,尚未核对北京AI产品实习,https://www.kuaikanmanhua.com/,0
 Keep,企业招聘渠道,todo,尚未核对北京AI健康产品实习,https://www.gotokeep.com/,0
 Boss直聘,企业招聘渠道,todo,尚未核对北京AI招聘产品实习,https://www.zhipin.com/,0
-地平线机器人,企业招聘渠道,todo,尚未核对北京AI平台产品实习,https://www.horizon.auto/,0
+地平线机器人,官方校园招聘入口（日常实习待核验）,partial,2026-10-16 确认有日常实习计划且北京在招聘城市范围；北京AI产品职位尚未全量核验,https://horizon-campus.hotjob.cn/,0
 面壁智能,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 63 个唯一职位 ID；范围：面壁智能 飞书官方招聘门户 /campus/m/position/list，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://modelbest.jobs.feishu.cn/campus/m/position/list,2
 携程集团,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.ctrip.com,0
 网易,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://hr.163.com,0
