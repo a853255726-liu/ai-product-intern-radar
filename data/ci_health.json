@@ -1,8 +1,8 @@
 {
   "kind": "offline_python_regression",
-  "source_sha": "792d9122e6ed1bf16489e8d1def602678be48aab",
-  "github_run_id": "38910685402",
-  "checked_at_utc": "2026-10-16T13:48:21+00:00",
+  "source_sha": "1f7d68f8057fdc3916a0f43df413c5c196fe3a1e",
+  "github_run_id": "38910718831",
+  "checked_at_utc": "2026-10-16T13:48:40+00:00",
   "status": "failed",
   "github_step_outcome": "failure",
   "log_highlights": [
@@ -10,8 +10,8 @@
     "----------------------------------------------------------------------",
     "Traceback (most recent call last):",
     "File \"/home/runner/work/ai-product-intern-radar/ai-product-intern-radar/refresh_sources.py\", line 123, in meituan",
-    "AssertionError: \"both 50- and 25-row pages failed\" does not match \"美团 50-, 25- and 10-row pages failed integrity; first=美团: reported=2 retrieved=2 unique=1; duplicate_id_diagnostics=[{\"job_id\":\"7\",\"first_page\":1,\"again_page\":1,\"scope\":\"same_page\",\"identical_payload\":true}]; second=美团: reported=2 ret",
-    "Ran 128 tests in 0.242s",
+    "AssertionError: \"both 50- and 25-row pages failed\" does not match \"美团 50-, 25- and 10-row pages failed integrity; 50-row=美团: reported=2 retrieved=2 unique=1; duplicate_id_diagnostics=[{\"job_id\":\"7\",\"first_page\":1,\"again_page\":1,\"scope\":\"same_page\",\"identical_payload\":true}]; 25-row=美团: reported=2 re",
+    "Ran 128 tests in 0.212s",
     "FAILED (failures=1)",
     "FAIL: OPPO: ValueError: bad job record",
     "OPPO reported 1 unique 1 candidates 0 new 0",
