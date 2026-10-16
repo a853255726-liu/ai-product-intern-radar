@@ -4,6 +4,7 @@ import unittest
 from feishu_sources import (
     COMPANY_CODES, PORTALS, list_url, parse_list_html, normalize_feishu,
 )
+from official_links import classify_link
 
 
 class SenseTimeSourceTests(unittest.TestCase):
@@ -13,6 +14,7 @@ class SenseTimeSourceTests(unittest.TestCase):
             ("https://hr-jobs.sensetime.com", "/edu/m/"),
         )
         self.assertEqual(COMPANY_CODES["商汤科技"], "sensetime")
+        self.assertEqual(classify_link("https://hr-jobs.sensetime.com/edu/m/"), "official_list")
         self.assertEqual(
             list_url("商汤科技", 3, 10),
             "https://hr-jobs.sensetime.com/edu/m/?current=3&limit=10",
@@ -42,6 +44,7 @@ class SenseTimeSourceTests(unittest.TestCase):
         self.assertEqual(len(jobs), 1)
         self.assertEqual(jobs[0]["company"], "商汤科技")
         self.assertEqual(jobs[0]["source_post_id"], "7611234567890123456")
+        self.assertEqual(classify_link(jobs[0]["link"]), "official_detail")
 
     def test_non_beijing_and_non_intern_excluded(self):
         for subtitle in ("上海 / 校招实习 / 产品", "北京 / 校招正式 / 产品"):
