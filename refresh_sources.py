@@ -459,6 +459,21 @@ def main():
                         existing = all_jobs[ident]
                         existing["checked"] = TODAY()
                         existing["last_seen"] = TODAY()
+                        # Recheck eligibility on every successful TAL/OPPO
+                        # refresh. A previously eligible internship may become
+                        # cohort-restricted later; leaving its old graduation
+                        # metadata would incorrectly keep it on the public list.
+                        # Only update our original auto-import, never manually
+                        # curated records or unrelated third-party evidence.
+                        if (company in ("好未来", "OPPO")
+                                and existing.get("first_seen")
+                                and existing.get("source") == job.get("source")
+                                and existing.get("verify") == job.get("verify")):
+                            for field in ("graduation", "requirements", "summary",
+                                          "title", "team", "posted", "date_type",
+                                          "days", "duration", "note", "status"):
+                                if field in job:
+                                    existing[field] = job[field]
                         # Fresh official Alibaba batch evidence improves the
                         # system-generated fit and time metadata on later runs.
                         # Never rewrite a separately curated historical lead.
