@@ -146,6 +146,7 @@ def normalize_tal(rows, today):
             "requirements": text[:2400],
             "note": "仅北京AI产品相关实习；暑期或定向实习的届次限制仍须核查",
             "source": "好未来官网 Moka 校园招聘",
+            "graduation_restriction_confirmed": bool(explicit_grad_only(title + " " + text)),
             "graduation": explicit_grad_only(title + " " + text) or
                           ("2027届条件需核实" if "2027届" in title + " " + text else "未核实"),
             "checked": today(),
