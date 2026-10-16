@@ -2,6 +2,11 @@ name: Diagnose first-batch internship sources
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'probe_first_batch.py'
+      - '.github/workflows/diagnose-first-batch.yml'
   schedule:
     # Daily independent audit: 03:47 UTC = 11:47 Beijing time
     - cron: '47 3 * * *'
@@ -41,6 +46,12 @@ jobs:
         run: |
           set -o pipefail
           python refresh_sources.py --audit-only --sources "${{ matrix.source }}" 2>&1 | tee audit.log
+      - name: Probe public recruiting navigation and response statuses
+        if: always()
+        shell: bash
+        run: |
+          set -o pipefail
+          python probe_first_batch.py --source "${{ matrix.source }}" 2>&1 | tee public-page-probe.log
       - name: Write concise independent audit summary
         if: always()
         shell: bash
@@ -60,5 +71,6 @@ jobs:
           path: |
             test.log
             audit.log
+            public-page-probe.log
           if-no-files-found: warn
           retention-days: 7
