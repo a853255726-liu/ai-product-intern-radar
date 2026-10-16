@@ -483,6 +483,29 @@ def main():
                             for field in ("fit", "days", "duration",
                                           "internship_kind", "daily_evidence"):
                                 existing[field] = job.get(field, existing.get(field))
+            if not args.audit_only and company in ("好未来", "OPPO"):
+                # This branch runs ONLY after a complete, successfully
+                # normalized official listing. Keep historical records in the
+                # database but hide vanished auto-imports from the public site.
+                # Never apply disappearance logic to manual leads or a failed
+                # source attempt.
+                prefix = "tal-moka-" if company == "好未来" else "oppo-daily-"
+                current_ids = {str(x["id"]) for x in found}
+                for existing_id, existing_job in all_jobs.items():
+                    if (not existing_id.startswith(prefix)
+                            or existing_job.get("company") != company
+                            or not existing_job.get("first_seen")):
+                        continue
+                    if existing_id in current_ids:
+                        existing_job.pop("listing_inactive", None)
+                        existing_job.pop("listing_missing_since", None)
+                    else:
+                        existing_job["listing_inactive"] = True
+                        existing_job.setdefault("listing_missing_since", TODAY())
+                        existing_job["status"] = (
+                            "该官方招聘渠道本次完整列表未检出，暂停公开展示；"
+                            "保留历史记录供核查"
+                        )
             # A successful source can legitimately yield zero Beijing AI PM
             # candidates; surface that separately from raw feed completeness.
             attempts[company]["candidate_count"] = len(found)
