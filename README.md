@@ -320,3 +320,10 @@ GitHub Actions 配置：`.github/workflows/site.yml`；每日自动更新和网�
 主工作流最近的岗位快照在检查时仍为2026-10-15，不能根据代码提交记录判断 GitHub Actions 的实际运行成败。新增 [Diagnose radar publication](https://github.com/a853255726-liu/ai-product-intern-radar/actions/workflows/diagnose-publication.yml) 定时与手动工作流，**只读取 GitHub Actions 最近8次主工作流运行、最近4次运行的 job/step 结果，并读取仓库 jobs.json 快照日期**。会生成 report.md、recent_runs.json 和 jobs-*.json 的诊断工件（保留14天），清楚区分根本未执行、代码测试失败、采集失败、构建/发布失败以及快照滞后。
 
 此诊断无需额外招聘 API 或浏览器，不会发布职位，也不会修改 jobs.json。**只有在这个诊断显示实际失败步骤后，才能有根据地修复导致网站不更新的根因。** 如果该诊断本身无法执行，应先检查仓库的 Actions 启用状态、工作流文件有效性和 GitHub Pages 环境权限。最新工作流执行情况仍必须以 GitHub Actions 运行页面为准。
+
+## 2026-10-16｜首次云端验收与下一批入口勘察
+
+- **已确认的故障与恢复**：2026-10-16 北京时间约13:53的主定时任务在离线测试环节失败，未进入采集阶段。失败来自美团重试提示语的旧测试期望以及好未来长JD测试的筛选问题，详见 [Actions 38858115098](https://github.com/a853255726-liu/ai-product-intern-radar/actions/runs/38858115098)。后续2026-10-16的 [主工作流成功运行 38914100175](https://github.com/a853255726-liu/ai-product-intern-radar/actions/runs/38914100175) 已通过测试、定向刷新和Pages部署，岗位快照已经恢复到2026-10-16。
+- **第一批采集实测**：好未来新版官网 `https://job.tal.com/campus/positions` 日常实习项目当天完整对账 6/6 个职位UUID，符合北京AI产品实习初筛 0；OPPO官网独立日常实习列表完整对账 10/10 个职位代码，符合初筛 0。两家来源成功并不意味着存在可投北京AI产品职位，也不代表企业所有招聘渠道已全覆盖。
+- **汽车之家精确入口**：已定位官方职位列表 `https://talent.autohome.com.cn/campus-recruit-list.html`，页面提供实习生、北京、产品等选择，且展示分页和不同招聘类型。仅查询列表，不声称完成自动全量采集；职位是否属于AI产品方向需实际JD确认。
+- **其他三家公开页面排查**：`probe_remaining_batch.py` 和 [独立DOM勘察工作流](https://github.com/a853255726-liu/ai-product-intern-radar/actions/workflows/probe-remaining-batch.yml) 对华为、汽车之家、搜狐的雇主官网进行只读浏览器检查，最多采样公开可见文字、岗位列表锚点和分页提示，不登录、不模拟投递、不写入正式岗位。只有确认分页、职位ID、招聘性质和北京筛选以后才能做真正采集器。
