@@ -69,16 +69,27 @@ def open_daily_directory(page):
     from playwright.sync_api import TimeoutError as BrowserTimeout
     page.goto(LIST_URL, wait_until="domcontentloaded", timeout=30000)
     try:
+        # Establish the unfiltered catalog baseline before selecting a
+        # project. Otherwise the SPA can still display all 132 vacancies
+        # after the checkbox click, with a temporarily misleading count.
+        page.locator(".job-card").first.wait_for(timeout=16000)
+        initial_body = page.locator("body").inner_text()
+        original = re.search(r"全部在招职位[（(]\\s*(\\d+)\\s*[）)]", initial_body)
+        if not original:
+            raise ValueError("TAL all-jobs baseline missing, cannot prove filter scope")
+        unfiltered_count = int(original.group(1))
         page.get_by_text("日常实习", exact=True).first.click(timeout=14000)
-        # A fresh load first displays all jobs (132 in October 2026);
-        # only the project-filtered '共 N 个职位' count is acceptable.
-        page.wait_for_function("""() => {
+        # The filter must ACTUALLY change the employer's visible source scope,
+        # not merely show a clickable label while all-job cards remain.
+        page.wait_for_function("""baseline => {
             const t = document.body?.innerText || "";
-            return /共\\s*\\d+\\s*个职位/.test(t)
-                   && document.querySelectorAll(".job-card").length > 0;
-        }""", timeout=16000)
+            const result = t.match(/共\\s*(\\d+)\\s*个职位/);
+            return Boolean(result && Number(result[1]) > 0
+                && Number(result[1]) < baseline
+                && document.querySelectorAll(".job-card").length === Number(result[1]));
+        }""", arg=unfiltered_count, timeout=18000)
     except BrowserTimeout as exc:
-        raise ValueError("TAL official daily-project filter failed to render") from exc
+        raise ValueError("TAL daily filter did not finish updating the public cards") from exc
     body = page.locator("body").inner_text()
     m = JOB_COUNT.search(body)
     if not m:
