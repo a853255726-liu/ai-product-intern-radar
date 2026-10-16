@@ -10178,9 +10178,9 @@
     },
     "好未来": {
       "source": "雇主官方实习入口（已配置采集器，待验收）",
-      "coverage": "2026-10-16：官方Moka campus/tal/95443列表可访问，2027暑期实习和其他招聘项目混合；已配置完整分页、职位UUID及北京AI产品实习JD校验，尚待云端首次验收",
+      "coverage": "2026-10-16：2026-10-16 旧Moka官网已跳转到新job.tal.com招聘站；新站职位总数与招聘性质可见，但职位卡片、分页和ID采集器仍在适配，不宣称正式自动采集成功",
       "level": "partial",
-      "website": "https://app.mokahr.com/campus-recruitment/tal/95443#/jobs"
+      "website": "https://job.tal.com/campus/positions"
     },
     "搜狐": {
       "source": "雇主官方实习入口（未上线采集）",
