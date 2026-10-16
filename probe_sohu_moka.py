@@ -97,6 +97,25 @@ def inspect():
                             "first_rows":[{"title":row["title"],"tags":row["tags"],
                                            "id":row["id"]} for row in items[:23]]
                         }
+                        # Confirm official detail includes usable nature/city
+                        # evidence for product internships; do not submit any
+                        # application, and never guess a direct job URL.
+                        result["candidate_detail_evidence"]=[]
+                        targets=[r for r in items if (
+                            "产品" in r["title"] or "AI " in r["title"] or
+                            "商业分析" in r["title"])][:7]
+                        from kimi_sources import parse_detail_html
+                        for row in targets:
+                            evidence={"title":row["title"],"id":row["id"]}
+                            try:
+                                page.goto(row["url"],wait_until="domcontentloaded",timeout=30000)
+                                page.locator('div[class*="job-description-"]').first.wait_for(timeout=14000)
+                                evidence["url"]=page.url
+                                evidence["body"]=page.locator("body").inner_text()[:3000]
+                                evidence["jd"]=parse_detail_html(page.content())[:1750]
+                            except Exception as exc:
+                                evidence["error"]=type(exc).__name__+": "+str(exc)[:150]
+                            result["candidate_detail_evidence"].append(evidence)
                     except Exception as exc:
                         result["dedicated_listing_error"]=type(exc).__name__+": "+str(exc)[:300]
             except Exception as exc:
