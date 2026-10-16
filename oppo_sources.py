@@ -84,8 +84,20 @@ def collect_oppo(session=None):
                 raise ValueError("OPPO careers URL redirected to unknown host")
             try:
                 page.get_by_text(COUNT).first.wait_for(timeout=25000)
+                # The OPPO client initially renders '在招职位(0)' before
+                # asynchronous vacancies arrive. A zero DOM count at first
+                # paint is a loading state, NOT proof there are no jobs.
+                page.wait_for_function("""() => {
+                    const text = document.body?.innerText || "";
+                    const found = text.match(/在招职位\\s*[（(]\\s*(\\d+)\\s*[）)]/);
+                    return Boolean(found && Number(found[1]) > 0 &&
+                                   text.includes("职位ID："));
+                }""", timeout=25000)
             except BrowserTimeout as exc:
-                raise ValueError("OPPO public daily internship list did not render") from exc
+                raise ValueError(
+                    "OPPO daily internship page did not finish public list "
+                    "loading; zero before timeout is not job availability"
+                ) from exc
             # A visible enabled Next control invalidates a single-page audit.
             pager = page.locator(
                 'button[aria-label="Next"],button[aria-label="下一页"],'
