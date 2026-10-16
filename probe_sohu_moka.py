@@ -50,6 +50,34 @@ def inspect():
                 except Exception as e:
                     item["page_error"]=type(e).__name__+": "+str(e)[:290]
                 result.setdefault("entries",[]).append(item)
+            # The employer Moka frontend has a distinct 实习生职位 navigation.
+            # It is NOT safe to assume a job labelled 2027 is a daily intern.
+            # Verify the actual listing behind that public navigation.
+            try:
+                page.goto(APPLY_BASE,wait_until="domcontentloaded",timeout=30000)
+                page.wait_for_timeout(1900)
+                nav=page.get_by_text("实习生职位",exact=True)
+                result["intern_nav_count"]=nav.count()
+                result["intern_nav_html"]=[
+                    x.evaluate("el=>el.outerHTML.slice(0,650)")
+                    for x in nav.all()[:4]
+                ]
+                if nav.count():
+                    nav.first.click(timeout=9000)
+                    page.wait_for_timeout(3000)
+                    fragment=urlsplit(page.url)
+                    result["intern_nav_resolved"]=(fragment.scheme+"://"+
+                        (fragment.hostname or "")+fragment.path+"#"+fragment.fragment[:180])
+                    result["intern_listing_text"]=page.locator("body").inner_text()[:3600]
+                    try:
+                        count,rows=parse_list_html(page.content(),base=BASE)
+                        result["intern_parser"]={"reported":count,"cards":len(rows),
+                            "titles":[{"title":row["title"],"tags":row["tags"]}
+                                      for row in rows[:15]]}
+                    except Exception as exc:
+                        result["intern_parser_error"]=type(exc).__name__+": "+str(exc)[:260]
+            except Exception as exc:
+                result["intern_nav_error"]=type(exc).__name__+": "+str(exc)[:260]
         finally:
             browser.close()
     return result
