@@ -141,6 +141,21 @@ AI产品经理实习生
         self.assertEqual(len(captured), 1)
         self.assertEqual(len(eligible_jobs(captured)), 1)
 
+    def test_oppo_last_jd_never_truncates_grad_only_clause(self):
+        raw = ("在招职位(1)\nAI产品经理实习生\n"
+               "2026-10-16 发布\n北京市\n产品及运营类\n"
+               "日常实习生招聘\n本科及以上\n经验不限\n"
+               "职位ID：J251114000008\n"
+               + "小布智能体AI产品需求分析及PRD。\n"
+               + ("项目研究、需求分析与评估。\n" * 45)
+               + "仅招2027届毕业生。\n")
+        rows, audit = parse_public_listing(raw)
+        self.assertEqual(audit["unique_ids"], 1)
+        self.assertIn("仅招2027届", rows[0]["description"])
+        jobs = normalize_oppo(rows, lambda: "2026-10-16")
+        self.assertEqual(len(jobs), 1)
+        self.assertEqual(eligible_jobs(jobs), [])
+
     def test_oppo_rejects_partial_or_mixed_hiring(self):
         short = """在招职位(2)
 产品实习生
