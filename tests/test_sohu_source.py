@@ -52,6 +52,21 @@ class SohuSourceTests(unittest.TestCase):
         self.assertEqual(normalize_sohu(
             [candidate(city="上海市")],lambda:"2026-10-16"),[])
 
+    def test_ai_eval_city_uses_narrow_external_corrob_not_imagined_official(self):
+        r=candidate(city="")
+        r["description"]="参与评测集的筛选、构建与维护。AIGC质量及大模型自动评估。"
+        jobs=normalize_sohu([r],lambda:"2026-10-16")
+        self.assertEqual(len(jobs),1)
+        self.assertEqual(jobs[0]["official_work_city"],"")
+        self.assertIn("LinkedIn",jobs[0]["location_evidence"])
+        self.assertIn("linkedin.com",jobs[0]["location_evidence_url"])
+        self.assertEqual(normalize_sohu([
+            dict(r,id="44444444-4444-4444-8444-444444444444")
+        ],lambda:"2026-10-16"),[])
+        self.assertEqual(normalize_sohu([
+            dict(r,title="不相关的评测实习")
+        ],lambda:"2026-10-16"),[])
+
     def test_graduate_restrictions_and_non_ai_roles_fail_closed(self):
         sample=[
             candidate(title="【2027】AI 产品实习生"),
