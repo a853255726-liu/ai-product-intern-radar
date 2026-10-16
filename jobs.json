@@ -1,5 +1,5 @@
 {
-  "snapshot": "2026-10-15",
+  "snapshot": "2026-10-16",
   "city": "北京",
   "scope": "仅北京/可北京实习；AI产品与策略优先；官网核验、第三方线索分队列；不保证全行业完整性",
   "jobs": [
@@ -671,8 +671,8 @@
       "note": "通用岗位入口；不可将事业群个数视为招聘名额",
       "source": "企业官网",
       "graduation": "",
-      "checked": "2026-10-15",
-      "last_seen": "2026-10-15",
+      "checked": "2026-10-16",
+      "last_seen": "2026-10-16",
       "official_detail_url": "https://join.qq.com/post_detail.html?postid=1284862486247711744",
       "link_kind": "official_detail",
       "link_label": "官网职位详情",
@@ -699,8 +699,8 @@
       "note": "一个岗位 ID 包含多个招聘团队方向",
       "source": "企业官网",
       "graduation": "",
-      "checked": "2026-10-15",
-      "last_seen": "2026-10-15",
+      "checked": "2026-10-16",
+      "last_seen": "2026-10-16",
       "official_detail_url": "https://join.qq.com/post_detail.html?postid=1212183855952704514",
       "link_kind": "official_detail",
       "link_label": "官网职位详情",
@@ -727,8 +727,8 @@
       "note": "",
       "source": "企业官网",
       "graduation": "",
-      "checked": "2026-10-15",
-      "last_seen": "2026-10-15",
+      "checked": "2026-10-16",
+      "last_seen": "2026-10-16",
       "official_detail_url": "https://join.qq.com/post_detail.html?postid=1210646470286783490",
       "link_kind": "official_detail",
       "link_label": "官网职位详情",
@@ -9800,7 +9800,7 @@
     },
     "腾讯": {
       "source": "官网职位API",
-      "coverage": "2026-10-15 核验本入口 25 个唯一职位 ID；范围：仅北京日常实习项目 mapping=104，不包括应届实习/青云/部门直招；企业其他招聘项目仍可能存在遗漏",
+      "coverage": "2026-10-16 核验本入口 25 个唯一职位 ID；范围：仅北京日常实习项目 mapping=104，不包括应届实习/青云/部门直招；企业其他招聘项目仍可能存在遗漏",
       "level": "good",
       "website": "https://join.qq.com/post.html"
     },
@@ -10212,7 +10212,7 @@
         "日常实习": 25
       },
       "status": "分页数量一致",
-      "last_checked": "2026-10-15",
+      "last_checked": "2026-10-16",
       "scope": "仅北京日常实习项目 mapping=104，不包括应届实习/青云/部门直招"
     },
     "美团": {
@@ -10766,9 +10766,13 @@
     },
     "腾讯": {
       "status": "成功（当前接口）",
-      "checked": "2026-10-15",
+      "checked": "2026-10-16",
       "reported": 25,
-      "unique_ids": 25
+      "unique_ids": 25,
+      "candidate_count": 3,
+      "eligible_candidate_count": 3,
+      "new_candidate_count": 0,
+      "candidate_count_definition": "candidate_count是来源初筛，eligible_candidate_count再排除明确届次限制；均非确认仍可申请的名额"
     },
     "京东": {
       "status": "成功（当前接口）",
@@ -10880,6 +10884,16 @@
       "checked": "2026-10-15",
       "reported": 320,
       "unique_ids": 320
+    },
+    "好未来": {
+      "status": "失败；保留上次完整快照",
+      "checked": "2026-10-16",
+      "error": "TAL campus job list did not render"
+    },
+    "OPPO": {
+      "status": "失败；保留上次完整快照",
+      "checked": "2026-10-16",
+      "error": "OPPO count zero or beyond auditable bound"
     }
   },
   "search_scope": "仅北京 AI 产品相关日常实习；其他实习项目与未证实日常属性职位保留在主库，不在默认网页展示",
@@ -10936,6 +10950,29 @@
       "selected": 27,
       "auto": false,
       "snapshot": "data/xiaomi_official_20261013.json"
+    }
+  },
+  "directory_attempts": {
+    "华为": {
+      "status": "招聘官网入口可访问（非岗位核验）",
+      "internship_marker_in_html": true,
+      "http_status": 200,
+      "url": "https://career.huawei.com/reccampportal/portal5/campus-recruitment.html",
+      "checked": "2026-10-16"
+    },
+    "汽车之家": {
+      "status": "招聘官网可访问；静态HTML未提供实习文案（待浏览器复核）",
+      "internship_marker_in_html": false,
+      "http_status": 200,
+      "url": "https://talent.autohome.com.cn/campus_index.html",
+      "checked": "2026-10-16"
+    },
+    "搜狐": {
+      "status": "招聘官网入口可访问（非岗位核验）",
+      "internship_marker_in_html": true,
+      "http_status": 200,
+      "url": "https://campus.sohu.com/",
+      "checked": "2026-10-16"
     }
   }
 }
