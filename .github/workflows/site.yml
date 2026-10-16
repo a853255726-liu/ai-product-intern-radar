@@ -46,7 +46,9 @@ jobs:
         run: |
           # A labeled push can validate modified sources quickly; schedules
           # and manual dispatches always run every configured source.
-          if [[ "$REFRESH_EVENT" == "push" && "$HEAD_COMMIT_MSG" == *"[refresh:batch1]"* ]]; then
+          if [[ "$REFRESH_EVENT" == "push" && "$HEAD_COMMIT_MSG" == *"[refresh:oppo]"* ]]; then
+            python refresh_sources.py --sources oppo-daily tencent
+          elif [[ "$REFRESH_EVENT" == "push" && "$HEAD_COMMIT_MSG" == *"[refresh:batch1]"* ]]; then
             python refresh_sources.py --sources tal-moka oppo-daily tencent
           elif [[ "$REFRESH_EVENT" == "push" && "$HEAD_COMMIT_MSG" == *"[refresh:expand-ai]"* ]]; then
             python refresh_sources.py --sources feishu-ai2robotics feishu-infinigence feishu-robotera tencent
