@@ -10258,9 +10258,9 @@
     },
     "华为": {
       "source": "雇主官方实习入口（未上线采集）",
-      "coverage": "2026-10-16：华为勇敢星实习生计划与官网实习生职位搜索入口已核实；页面依赖客户端渲染，尚未定位可稳定复现完整分页的官方职位接口",
+      "coverage": "2026-10-16：已核对新版华为校园职位列表和公开分页字段jobId、jobType；但实习生筛选控件尚未生效，默认102条多为应届生；只允许已证实的实习岗位候选入库，不能声称华为实习全覆盖",
       "level": "partial",
-      "website": "https://career.huawei.com/reccampportal/portal5/campus-recruitment.html"
+      "website": "https://career.huawei.com/cn/campus-recruitment-job-list"
     },
     "OPPO": {
       "source": "OPPO官方日常实习公开招聘页面",
