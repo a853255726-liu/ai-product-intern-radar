@@ -120,6 +120,7 @@ def normalize_oppo(rows, today):
             "requirements": duty[:2400] or "官网公开列表；详细条件须逐条核验",
             "note": "职位ID已核验，但未取得与其一一对应的数字详情URL，不虚构职位直达",
             "source": "OPPO官方日常实习官网",
+            "graduation_restriction_confirmed": bool(explicit_grad_only(title + " " + duty)),
             "graduation": explicit_grad_only(title + " " + duty) or "在校生日常实习（细则待核）",
             "checked": today(), "source_post_id": row["id"],
         })
