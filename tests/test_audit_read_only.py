@@ -56,5 +56,41 @@ class AuditModeTests(unittest.TestCase):
             self.assertFalse((root / "data" / "raw" / "OPPO_latest.json").exists())
 
 
+    def test_refreshed_tal_graduation_limit_replaces_stale_auto_import(self):
+        from daily_scope import eligible_jobs
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            key = "tal-moka-123e4567-e89b-12d3-a456-426614174000"
+            original = {
+                "id": key, "company": "好未来", "first_seen": "2026-10-14",
+                "checked": "2026-10-14", "title": "AI产品实习生",
+                "source": "好未来官网 Moka 校园招聘",
+                "verify": "官网详情（剩余名额待确认）",
+                "graduation": "未核实", "requirements": "待核",
+            }
+            (root / "jobs.json").write_text(
+                json.dumps({"snapshot": "2026-10-14", "jobs": [original],
+                            "source_attempts": {}, "source_audits": {}}),
+                encoding="utf-8",
+            )
+            records = [{"id": "123e4567-e89b-12d3-a456-426614174000"}]
+            meta = {"reported": 1, "raw_records": 1, "unique_ids": 1}
+            updated = dict(original, graduation="仅招2027届毕业生",
+                           requirements="仅招2027届毕业生")
+            with (
+                patch.object(refresh_sources, "ROOT", root),
+                patch.object(refresh_sources, "SOURCES",
+                             {"好未来": lambda session: (records, meta)}),
+                patch.object(refresh_sources, "normalize", return_value=[updated]),
+                patch("sys.argv", ["refresh_sources.py", "--sources", "tal-moka"]),
+            ):
+                refresh_sources.main()
+            data = json.loads((root / "jobs.json").read_text(encoding="utf-8"))
+            self.assertEqual(data["jobs"][0]["graduation"], "仅招2027届毕业生")
+            self.assertEqual(eligible_jobs(data["jobs"]), [])
+            self.assertEqual(data["source_attempts"]["好未来"]["candidate_count"], 1)
+
+
 if __name__ == "__main__":
     unittest.main()
