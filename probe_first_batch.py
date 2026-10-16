@@ -29,9 +29,17 @@ def probe(source):
                 parts = urlsplit(response.url)
                 # Public employer calls only. Exclude query strings, cookies,
                 # credentials and response bodies from logs.
-                if (parts.hostname in allowed_hosts
-                        and ("job" in parts.path.lower() or "position" in parts.path.lower()
-                             or "recruit" in parts.path.lower())):
+                employer_domain = (
+                    parts.hostname in allowed_hosts
+                    or (source == "tal-moka" and bool(parts.hostname)
+                        and parts.hostname.endswith(".tal.com"))
+                )
+                media_type = response.headers.get("content-type", "").lower()
+                if (employer_domain and (
+                        "json" in media_type
+                        or "job" in parts.path.lower()
+                        or "position" in parts.path.lower()
+                        or "recruit" in parts.path.lower())):
                     if len(result["observed_responses"]) < 30:
                         result["observed_responses"].append({
                             "method": response.request.method,
@@ -70,6 +78,34 @@ def probe(source):
                 if len(link_rows) == 35:
                     break
             result["candidate_links"] = link_rows
+            if source == "tal-moka":
+                # The redesigned site renders clickable job cards without
+                # <a> tags. Inspect only public DOM structure, not applicant
+                # data, to support a future robust adapter.
+                result["card_dom_samples"] = page.evaluate("""() => {
+                    const needles = ["27实习转正-AI动画设计实习生",
+                                     "英文动画视频实习生",
+                                     "AI Agent 儿童智能硬件产品经理"];
+                    return needles.map(needle => {
+                        const matches = [...document.querySelectorAll("body *")]
+                            .filter(el => el.children.length === 0
+                                      && (el.textContent || "").includes(needle));
+                        return {needle, ancestors: matches.slice(0, 1).map(el => {
+                            const path = [];
+                            for (let i = 0; i < 5 && el; i++, el = el.parentElement) {
+                                path.push({
+                                    tag: el.tagName, class: String(el.className).slice(0, 190),
+                                    role: el.getAttribute("role"),
+                                    dataId: el.getAttribute("data-id"),
+                                    html: el.outerHTML.slice(0, 550)
+                                });
+                            }
+                            return path;
+                        })};
+                    });
+                }""")
+                result["pagination_text"] = body[-750:]
+
         finally:
             browser.close()
     return result
