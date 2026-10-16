@@ -10183,10 +10183,10 @@
       "website": "https://job.tal.com/campus/positions"
     },
     "搜狐": {
-      "source": "雇主官方实习入口（未上线采集）",
-      "coverage": "2026-10-16：官网校园招聘明确有面向在校生的实习项目，但2027秋招FAQ只对2026/2027届开放；独立日常实习职位详情和可分页接口尚未核实",
+      "source": "雇主官方实习入口（已配置采集器，待验收）",
+      "coverage": "2026-10-16：官网实习生职位明确跳转到独立Moka项目sohu/28313，云端已核实59条结果和唯一UUID卡片；已接入完整分页与JD筛选代码，待首次正式采集验收",
       "level": "partial",
-      "website": "https://campus.sohu.com/"
+      "website": "https://app.mokahr.com/campus-recruitment/sohu/28313#/jobs"
     }
   },
   "quality": {

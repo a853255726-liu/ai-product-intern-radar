@@ -64,4 +64,4 @@ RealAI,官网公开职位页面标准浏览器渲染（无登录）,complete_pub
 OPPO,OPPO官方日常实习公开招聘页面,partial,2026-10-16 核验本入口 10 个唯一职位 ID；范围：仅OPPO官网OFFEN-RECRUITMENT日常实习，不包括限定毕业届次的寻梦/应届招聘；企业其他招聘项目仍可能存在遗漏,https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-RECRUITMENT,0,成功（当前接口）,2026-10-16
 汽车之家,雇主官方实习入口（未上线采集）,partial,2026-10-16：2026-10-16 官网浏览器筛选实习生+北京+产品后显示3项：C1产品实习生、出口业务产品运营实习生、产品运营实习生（代查）；尚未核验AI职责与专属职位ID，不自动写入AI产品岗位,https://talent.autohome.com.cn/campus-recruit-list.html,0,无自动采集记录（可能仅登记官网入口）,
 好未来,好未来新版招聘官网公开项目筛选及职位详情（无登录）,complete_public_html,2026-10-16 核验本入口 6 个唯一职位 ID；范围：仅job.tal.com公开日常实习项目，岗位性质须为实习，北京AI产品另筛；企业其他招聘项目仍可能存在遗漏,https://job.tal.com/campus/positions,0,成功（当前接口）,2026-10-16
-搜狐,雇主官方实习入口（未上线采集）,partial,2026-10-16：官网校园招聘明确有面向在校生的实习项目，但2027秋招FAQ只对2026/2027届开放；独立日常实习职位详情和可分页接口尚未核实,https://campus.sohu.com/,0,无自动采集记录（可能仅登记官网入口）,
+搜狐,雇主官方实习入口（已配置采集器，待验收）,partial,2026-10-16：官网实习生职位明确跳转到独立Moka项目sohu/28313，云端已核实59条结果和唯一UUID卡片；已接入完整分页与JD筛选代码，待首次正式采集验收,https://app.mokahr.com/campus-recruitment/sohu/28313#/jobs,0,无自动采集记录（可能仅登记官网入口）,
