@@ -51,7 +51,8 @@ def _specific_official(url):
     if h == "app.mokahr.com":
         # Handle each employer's Moka path before rejecting other Moka pages.
         if p in ("/campus-recruitment/moonshot/148507",
-                 "/campus-recruitment/step/94905"):
+                 "/campus-recruitment/step/94905",
+                 "/campus-recruitment/tal/95443"):
             return re.fullmatch(r"/job/[0-9a-f]{8}-[0-9a-f-]{27,36}", f) is not None
         return False
     if h == "campus-talent.alibaba.com":
