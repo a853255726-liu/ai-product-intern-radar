@@ -59,6 +59,8 @@ def _specific_official(url):
         return re.fullmatch(r"/campus/position/" + POSITIVE + r"/?", p) is not None
     if h == "jobs.bilibili.com":
         return re.fullmatch(r"/campus/positions/" + POSITIVE + r"/?", p) is not None
+    if h == "job.tal.com":
+        return re.fullmatch(r"/campus/positions/"+UUID+r"/?", p) is not None
     if h == "jobs.bytedance.com":
         return re.fullmatch(r"/(?:campus|experienced)/position/"+POSITIVE+r"/detail/?",p) is not None
     if h == "hr-jobs.sensetime.com":
@@ -75,7 +77,7 @@ def _official_listing(url):
         "careers.iqiyi.com","job.xiaohongshu.com","jobs.bytedance.com",
         "zhaopin.meituan.com","campus.kuaishou.cn","app.mokahr.com",
         "campus-talent.alibaba.com","jobs.bilibili.com","hr-jobs.sensetime.com",
-        "career.oppo.com","careers.oppo.com","career.huawei.com",
+        "career.oppo.com","careers.oppo.com","career.huawei.com","job.tal.com",
         "talent.autohome.com.cn","campus.sohu.com"} or host.endswith(".jobs.feishu.cn")
 
 def classify_link(url):
