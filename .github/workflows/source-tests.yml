@@ -12,6 +12,12 @@ on:
 permissions:
   contents: write
 
+# Keep only the newest source check on main. Older concurrent runs can
+# otherwise race while committing the same ci_health.json file.
+concurrency:
+  group: source-tests-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   regression:
     runs-on: ubuntu-latest
@@ -39,25 +45,30 @@ jobs:
         run: python ci_health_report.py
       - name: Persist independent source test result
         if: always() && github.ref == 'refs/heads/main'
+        continue-on-error: true
         shell: bash
         run: |
           set -e
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/ci_health.json
-          git diff --cached --quiet && exit 0
-          git commit -m 'ci: record offline source regression result'
+          # The report is generated in this checked-out test run, while the
+          # target branch may have moved. Save the report before refreshing.
+          cp data/ci_health.json "$RUNNER_TEMP/ci-health-report.json"
           for attempt in 1 2 3; do
             git fetch origin main
-            if ! git rebase origin/main; then
-              git rebase --abort
-              echo "CI health report conflicted, keeping original test artifacts"
-              exit 1
-            fi
+            # Safe here: the runner is ephemeral and only the report is
+            # persisted. Never rewrite or force-push someone else's work.
+            git reset --hard origin/main
+            mkdir -p data
+            cp "$RUNNER_TEMP/ci-health-report.json" data/ci_health.json
+            git add data/ci_health.json
+            git diff --cached --quiet && exit 0
+            git commit -m 'ci: record offline source regression result'
             if git push origin HEAD:main; then
               exit 0
             fi
           done
+          echo "CI report could not be written, consult attached test logs."
           exit 1
       - name: Fail on compilation or regression errors
         if: always() && steps.regress.outcome != 'success'
