@@ -31,5 +31,30 @@ class AuditModeTests(unittest.TestCase):
             self.assertFalse((root / "data").exists())
 
 
+    def test_failed_normalizer_must_not_record_a_valid_source(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "jobs.json").write_text(
+                json.dumps({"snapshot": "2026-01-01", "jobs": [],
+                            "source_attempts": {}, "source_audits": {}}),
+                encoding="utf-8",
+            )
+            valid_meta = {"reported": 1, "raw_records": 1, "unique_ids": 1}
+            with (
+                patch.object(refresh_sources, "ROOT", root),
+                patch.object(refresh_sources, "SOURCES",
+                             {"OPPO": lambda session: ([{"id": "123"}], valid_meta)}),
+                patch.object(refresh_sources, "normalize",
+                             side_effect=ValueError("bad job record")),
+                patch("sys.argv", ["refresh_sources.py", "--sources", "oppo-daily"]),
+            ):
+                with self.assertRaises(SystemExit):
+                    refresh_sources.main()
+            db = json.loads((root / "jobs.json").read_text(encoding="utf-8"))
+            self.assertNotIn("OPPO", db["source_audits"])
+            self.assertTrue(db["source_attempts"]["OPPO"]["status"].startswith("失败"))
+            self.assertFalse((root / "data" / "raw" / "OPPO_latest.json").exists())
+
+
 if __name__ == "__main__":
     unittest.main()
