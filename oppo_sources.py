@@ -7,6 +7,7 @@ from __future__ import annotations
 import re
 from urllib.parse import urlparse
 from candidate_scope import is_product_candidate
+from tal_sources import explicit_grad_only
 
 URL = "https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-RECRUITMENT"
 COUNT = re.compile(r"在招职位\s*[（(]\s*(\d+)\s*[）)]")
@@ -57,7 +58,9 @@ def parse_public_listing(text):
                     break
         else:
             next_boundary = min(len(lines), index + 30)
-        duty = "\n".join(lines[index + 1:next_boundary])[:3000]
+        duty = "\n".join(lines[index + 1:next_boundary])
+        if len(duty) > 20000:
+            raise ValueError("OPPO role description unexpectedly long; eligibility may be truncated")
         rows.append({"id": code, "title": title, "city": city,
                      "posted": date, "description": duty})
         previous_end = next_boundary
@@ -114,10 +117,10 @@ def normalize_oppo(rows, today):
             "status": "OPPO日常实习列表公开显示；剩余名额待核",
             "team": "OPPO官网日常实习 · " + row["id"],
             "summary": duty[:2000] or "详情请见官方列表",
-            "requirements": "官网公开列表；详细条件须逐条核验",
+            "requirements": duty[:2400] or "官网公开列表；详细条件须逐条核验",
             "note": "职位ID已核验，但未取得与其一一对应的数字详情URL，不虚构职位直达",
             "source": "OPPO官方日常实习官网",
-            "graduation": "在校生日常实习（细则待核）",
+            "graduation": explicit_grad_only(title + " " + duty) or "在校生日常实习（细则待核）",
             "checked": today(), "source_post_id": row["id"],
         })
     return out
