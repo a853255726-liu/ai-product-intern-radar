@@ -245,7 +245,7 @@ SOURCES["字节跳动"] = bytedance
 SOURCES["阿里巴巴"] = collect_alibaba
 SOURCES["阶跃星辰"] = collect_step
 SOURCES["B站"] = collect_bilibili
-KEYS = {"meituan": "美团", "xhs": "小红书", "tencent": "腾讯", "jd": "京东", "baidu": "百度", "kuaishou": "快手", "mihoyo": "米哈游", "xiaomi": "小米", "feishu-zeroone": "零一万物", "feishu-minimax": "MiniMax", "feishu-zhipu": "智谱", "feishu-realai": "RealAI", "feishu-baichuan": "百川智能", "feishu-iqiyi": "爱奇艺", "feishu-shengshu": "生数科技", "feishu-modelbest": "面壁智能", "feishu-dptechnology": "深势科技", "feishu-sensetime": "商汤科技", "kimi-moka": "月之暗面", "bytedance-daily": "字节跳动", "alibaba-public": "阿里巴巴", "step-moka": "阶跃星辰", "bilibili-public": "B站"}
+KEYS = {"meituan": "美团", "xhs": "小红书", "tencent": "腾讯", "jd": "京东", "baidu": "百度", "kuaishou": "快手", "mihoyo": "米哈游", "xiaomi": "小米", "feishu-zeroone": "零一万物", "feishu-minimax": "MiniMax", "feishu-zhipu": "智谱", "feishu-realai": "RealAI", "feishu-baichuan": "百川智能", "feishu-iqiyi": "爱奇艺", "feishu-shengshu": "生数科技", "feishu-modelbest": "面壁智能", "feishu-dptechnology": "深势科技", "feishu-sensetime": "商汤科技", "feishu-ai2robotics": "智平方", "feishu-infinigence": "无问芯穹", "feishu-robotera": "星动纪元", "kimi-moka": "月之暗面", "bytedance-daily": "字节跳动", "alibaba-public": "阿里巴巴", "step-moka": "阶跃星辰", "bilibili-public": "B站"}
 
 def normalize(company, records):
     if company in ('快手', '米哈游', '小米'):
@@ -349,7 +349,7 @@ def normalize(company, records):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--sources", nargs="+", choices=["meituan", "xhs", "tencent", "jd", "baidu", "kuaishou", "mihoyo", "xiaomi", "feishu-zeroone", "feishu-minimax", "feishu-zhipu", "feishu-realai", "feishu-baichuan", "feishu-iqiyi", "feishu-shengshu", "feishu-modelbest", "feishu-dptechnology", "feishu-sensetime", "kimi-moka", "bytedance-daily", "alibaba-public", "step-moka", "bilibili-public", "all"],
+    ap.add_argument("--sources", nargs="+", choices=["meituan", "xhs", "tencent", "jd", "baidu", "kuaishou", "mihoyo", "xiaomi", "feishu-zeroone", "feishu-minimax", "feishu-zhipu", "feishu-realai", "feishu-baichuan", "feishu-iqiyi", "feishu-shengshu", "feishu-modelbest", "feishu-dptechnology", "feishu-sensetime", "feishu-ai2robotics", "feishu-infinigence", "feishu-robotera", "kimi-moka", "bytedance-daily", "alibaba-public", "step-moka", "bilibili-public", "all"],
                     default=["meituan", "xhs", "tencent"])
     ap.add_argument("--audit-only", action="store_true")
     args = ap.parse_args()
