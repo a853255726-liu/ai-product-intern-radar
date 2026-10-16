@@ -345,3 +345,11 @@ GitHub Actions 配置：`.github/workflows/site.yml`；每日自动更新和网�
 - **新增采集器与校验**：`sohu_sources.py` 对独立实习项目核验全部页、唯一 UUID，并读取产品相关 JD；城市以搜狐公开实习首页可见的「职位标题+城市」映射或详情明确工作地点为准。页面分页数不符、职位ID重复、JD加载失败都失败保留旧数据。专属官网 UUID 路由在 `official_links.py` 登记；已增加 `tests/test_sohu_source.py`，`site.yml` 每日刷新新增此来源。
 - **华为还在调查**：官方新职位系统 `https://career.huawei.com/cn/campus-recruitment-job-list` 的浏览器真实请求使用公开列表响应 `getJobPage`；页面初始102条主要是应届生。即使精确点击「招聘类别/实习生」控件，本轮云端界面仍返回102条且控件未显示选中，**不能宣称已筛出实习职位**。只完成源发现与诊断，不自动发布应届生岗位。
 - **定向验收**：在 main 提交消息包含 `[refresh:sohu]` 时，主工作流对 `sohu-moka` 和 `tencent` 执行完整官方源抓取、对账、页面重建与Pages部署，结果以 `jobs.json.source_attempts.搜狐`、`source_audits.搜狐` 和 Actions 日志为准。尚无成功结果之前不宣称实际上线。
+
+
+### 2026-10-16｜搜狐初次完整采集结果和额外城市佐证
+
+- `sohu-moka` 首次云端完成 **59/59** 个唯一职位 UUID 对账，公开分页为 **30 + 29**，审核了产品相关官方 JD，成功运行见 [GitHub Actions](https://github.com/a853255726-liu/ai-product-intern-radar/actions/runs/38919510659)。首次正式入库 2 个北京 AI 产品相关实习岗位，均为搜狐官方独立实习项目的岗位，不是2027届应届校招。
+- **官网已确认城市的职位**：数据分析/数据产品实习生、数据产品实习生；产品职责均在搜狐官方 Moka 详情中涉及模型/Prompt方案及评测。严禁把官网JD写的「北京高校优先」单独当作实际办公城市。
+- **AI 产品实习生（评测方向）**：官方 UUID 为 `7e078123-8764-4b6c-8a21-905680360bd5`，官方职位介绍含评测集、AIGC质量评测、自动评估；官网详情未显示城市。另一份与标题及JD吻合的近期 LinkedIn 职位页面明确标「搜狐网·海淀区」，所以使用限定此 UUID、完整标题和关键JD片段的交叉城市佐证；`location_evidence` 与 `location_evidence_url` 明确记录其**非官网**性质，绝不套用到其他职位。后续仍应向招聘方确认办公地址和剩余 HC。
+- 代码变更均已配套回归测试。另对华为公开官网返回的 `getJobPage` 职位数据继续核查字段结构、页码与实习类别，不跳过筛选证据直接发布应届生岗位。
