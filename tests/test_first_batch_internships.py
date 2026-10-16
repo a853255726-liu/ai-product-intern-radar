@@ -66,6 +66,27 @@ class TalOpPoTests(unittest.TestCase):
             "另一个岗位注明2028届及以后也可以申请。"
         ))
 
+    def test_explicit_restriction_overrides_unrelated_nonexclusive_phrase(self):
+        # Even a separate broad eligibility sentence cannot override an
+        # explicit graduating-only statement elsewhere in the same JD.
+        body = (
+            "负责九章大模型Agent产品规划。仅招2027届毕业生。" +
+            "岗位协作细节。" * 100 +
+            "另外2028届及以后也可参与校招宣讲。"
+        )
+        candidate = {
+            "id": "123e4567-e89b-12d3-a456-426614174002",
+            "title": "AI教育产品实习生",
+            "tags": ["实习", "北京"],
+            "url": TAL_BASE + "#/job/123e4567-e89b-12d3-a456-426614174002",
+            "description": body, "date": "2026-10-16",
+        }
+        job = normalize_tal([candidate], lambda: "2026-10-16")[0]
+        self.assertIs(job["graduation_restriction_confirmed"], True)
+        self.assertEqual(eligible_jobs([job]), [])
+        job["graduation_restriction_confirmed"] = False
+        self.assertEqual(len(eligible_jobs([job])), 1)
+
     def test_oppo_full_visible_list_reconciles_job_ids(self):
         text = """岗位列表
 在招职位(2)
