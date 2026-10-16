@@ -74,7 +74,9 @@ def _official_listing(url):
     return host in {"talent.baidu.com","campus.jd.com","join.qq.com","ke.zhiye.com",
         "careers.iqiyi.com","job.xiaohongshu.com","jobs.bytedance.com",
         "zhaopin.meituan.com","campus.kuaishou.cn","app.mokahr.com",
-        "campus-talent.alibaba.com","jobs.bilibili.com","hr-jobs.sensetime.com"} or host.endswith(".jobs.feishu.cn")
+        "campus-talent.alibaba.com","jobs.bilibili.com","hr-jobs.sensetime.com",
+        "career.oppo.com","careers.oppo.com","career.huawei.com",
+        "talent.autohome.com.cn","campus.sohu.com"} or host.endswith(".jobs.feishu.cn")
 
 def classify_link(url):
     if _specific_official(url):
