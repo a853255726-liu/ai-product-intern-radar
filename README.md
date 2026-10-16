@@ -314,3 +314,9 @@ GitHub Actions 配置：`.github/workflows/site.yml`；每日自动更新和网�
 ### 2026-10-16｜好未来新版招聘页二次验收
 
 已修正日常实习项目筛选后页面异步更新造成的全站 132 条误读：只有确认职位总数从全站基线变为日常项目独立数量、且可见卡片数与该数量完全一致时，才打开每条官网 UUID 详情，核对岗位性质、北京地点和唯一职位 ID。明确标注「全职」的职位即使处于日常实习项目也不会入库。保留失败保护，不因单次未渲染清空历史候选。
+
+### 2026-10-16｜主工作流不更新的诊断入口
+
+主工作流最近的岗位快照在检查时仍为2026-10-15，不能根据代码提交记录判断 GitHub Actions 的实际运行成败。新增 [Diagnose radar publication](https://github.com/a853255726-liu/ai-product-intern-radar/actions/workflows/diagnose-publication.yml) 定时与手动工作流，**只读取 GitHub Actions 最近8次主工作流运行、最近4次运行的 job/step 结果，并读取仓库 jobs.json 快照日期**。会生成 report.md、recent_runs.json 和 jobs-*.json 的诊断工件（保留14天），清楚区分根本未执行、代码测试失败、采集失败、构建/发布失败以及快照滞后。
+
+此诊断无需额外招聘 API 或浏览器，不会发布职位，也不会修改 jobs.json。**只有在这个诊断显示实际失败步骤后，才能有根据地修复导致网站不更新的根因。** 如果该诊断本身无法执行，应先检查仓库的 Actions 启用状态、工作流文件有效性和 GitHub Pages 环境权限。最新工作流执行情况仍必须以 GitHub Actions 运行页面为准。
