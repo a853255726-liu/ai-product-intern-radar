@@ -33,8 +33,15 @@ def check_entrance(session, url, allowed_hosts, marker):
     if len(resp.content) > MAX_HTML_BYTES or not resp.content:
         raise ValueError("Recruitment page response is empty or unexpectedly large")
     if marker not in resp.text:
-        raise ValueError("Recruitment entrance lacks visible internship evidence")
+        # A client-rendered recruiting site often serves an empty HTML shell.
+        # This proves reachability, not that its internship content disappeared.
+        return {
+            "status": "招聘官网可访问；静态HTML未提供实习文案（待浏览器复核）",
+            "internship_marker_in_html": False,
+            "http_status": resp.status_code, "url": resp.url,
+        }
     return {"status": "招聘官网入口可访问（非岗位核验）",
+            "internship_marker_in_html": True,
             "http_status": resp.status_code, "url": resp.url}
 
 def update_directory_audits(data, session=None, today=None):
