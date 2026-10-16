@@ -36,10 +36,15 @@ class DirectoryMonitorTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             check_entrance(session, url, hosts, marker)
 
-    def test_missing_internship_marker_rejected(self):
+    def test_missing_marker_is_unverified_not_unreachable(self):
         url, hosts, marker = ENTRANCES["搜狐"]
-        with self.assertRaises(ValueError):
-            check_entrance(FakeSession(FakeResponse(url, "没有相应类别")), url, hosts, marker)
+        result = check_entrance(
+            FakeSession(FakeResponse(url, "普通公开招聘页面，岗位动态加载")),
+            url, hosts, marker,
+        )
+        self.assertFalse(result["internship_marker_in_html"])
+        self.assertIn("待浏览器复核", result["status"])
+        self.assertEqual(result["http_status"], 200)
 
     def test_monitor_does_not_change_jobs_and_existing_source_attempts(self):
         original_job = {"id": "stored-job", "status": "历史已核验"}
