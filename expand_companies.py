@@ -140,7 +140,7 @@ for name, (description, website) in new_ai_watch.items():
 # First-batch company coverage: an official internship entry is not a
 # confirmed paginated feed or an available Beijing AI product vacancy.
 first_batch = {
-    "华为": ("华为勇敢星实习生计划与官网实习生职位搜索入口已核实；页面依赖客户端渲染，尚未定位可稳定复现完整分页的官方职位接口", "https://career.huawei.com/reccampportal/portal5/campus-recruitment.html"),
+    "华为": ("已核对新版华为校园职位列表和公开分页字段jobId、jobType；但实习生筛选控件尚未生效，默认102条多为应届生；只允许已证实的实习岗位候选入库，不能声称华为实习全覆盖", "https://career.huawei.com/cn/campus-recruitment-job-list"),
     "OPPO": ("日常实习为独立公开职位列表（区别2027届寻梦项目）；已配置普通浏览器职位ID和公开记录总数校验，尚待云端首次验收；已查看的北京职位以算法类为主", "https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-RECRUITMENT"),
     "汽车之家": ("2026-10-16 官网浏览器筛选实习生+北京+产品后显示3项：C1产品实习生、出口业务产品运营实习生、产品运营实习生（代查）；尚未核验AI职责与专属职位ID，不自动写入AI产品岗位", "https://talent.autohome.com.cn/campus-recruit-list.html"),
     "好未来": ("2026-10-16 旧Moka官网已跳转到新job.tal.com招聘站；新站职位总数与招聘性质可见，但职位卡片、分页和ID采集器仍在适配，不宣称正式自动采集成功", "https://job.tal.com/campus/positions"),
@@ -150,6 +150,21 @@ for name, (detail, url) in first_batch.items():
     info = coverage.setdefault(name, {})
     last_attempt = (db.get("source_attempts") or {}).get(name) or {}
     last_audit = (db.get("source_audits") or {}).get(name) or {}
+    if (name == "华为"
+            and str(last_attempt.get("status") or "").startswith("成功")
+            and last_audit.get("last_checked") == last_attempt.get("checked")):
+        info.update({
+            "source": last_audit.get("capture") or "华为公开校园职位列表",
+            "level": "partial",
+            "coverage": (
+                f"{last_attempt['checked']} 默认校园目录核对 "
+                f"{last_audit.get('unique_ids', '未知')} 个唯一职位ID；"
+                "实习专项筛选未获验证，不代表华为全部日常实习；"
+                f"北京AI产品候选 {last_attempt.get('eligible_candidate_count', 0)}"
+            ),
+            "website": url,
+        })
+        continue
     if (name in ("OPPO", "好未来", "搜狐")
             and str(last_attempt.get("status") or "").startswith("成功")
             and last_audit.get("last_checked") == last_attempt.get("checked")
