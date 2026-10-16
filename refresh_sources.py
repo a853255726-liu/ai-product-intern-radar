@@ -490,15 +490,19 @@ def main():
                 # Never apply disappearance logic to manual leads or a failed
                 # source attempt.
                 prefix = "tal-moka-" if company == "好未来" else "oppo-daily-"
-                current_ids = {str(x["id"]) for x in found}
+                current_by_id = {str(x["id"]): x for x in found}
+                current_ids = set(current_by_id)
                 for existing_id, existing_job in all_jobs.items():
                     if (not existing_id.startswith(prefix)
                             or existing_job.get("company") != company
                             or not existing_job.get("first_seen")):
                         continue
                     if existing_id in current_ids:
-                        existing_job.pop("listing_inactive", None)
+                        was_hidden = existing_job.pop("listing_inactive", False)
                         existing_job.pop("listing_missing_since", None)
+                        if was_hidden:
+                            existing_job["status"] = current_by_id[existing_id].get(
+                                "status", "官方完整目录重新检出；具体资格及HC待核")
                     else:
                         existing_job["listing_inactive"] = True
                         existing_job.setdefault("listing_missing_since", TODAY())
