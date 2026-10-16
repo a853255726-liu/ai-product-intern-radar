@@ -61,7 +61,7 @@ RealAI,官网公开职位页面标准浏览器渲染（无登录）,complete_pub
 星动纪元,AI企业公开招聘官网（职位采集待核验）,partial,2026-10-16：官方招聘目录可访问，北京机器人/技术产品方向以全职为主；已配置采集，仅明确北京实习职位入库，首次全量验收待完成,https://k0fqxcszc9.jobs.feishu.cn/,0,无自动采集记录（可能仅登记官网入口）,
 清程极智,AI企业公开招聘官网（职位采集待核验）,partial,2026-10-16：官网确认在北京招聘，并有飞书雇主招聘主页；具体可分页职位目录和北京AI产品日常实习尚未核验，不自动采集,https://chitu-ai.jobs.feishu.cn/,0,无自动采集记录（可能仅登记官网入口）,
 华为,雇主官方实习入口（未上线采集）,partial,2026-10-16：华为勇敢星实习生计划与官网实习生职位搜索入口已核实；页面依赖客户端渲染，尚未定位可稳定复现完整分页的官方职位接口,https://career.huawei.com/reccampportal/portal5/campus-recruitment.html,0,无自动采集记录（可能仅登记官网入口）,
-OPPO,雇主官方实习入口（已配置采集器，待验收）,partial,2026-10-16：日常实习为独立公开职位列表（区别2027届寻梦项目）；已配置普通浏览器职位ID和公开记录总数校验，尚待云端首次验收；已查看的北京职位以算法类为主,https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-RECRUITMENT,0,失败；保留上次完整快照,2026-10-16
+OPPO,雇主官方实习入口（已配置采集器，待验收）,partial,2026-10-16 核验本入口 10 个唯一职位 ID；范围：仅OPPO官网OFFEN-RECRUITMENT日常实习，不包括限定毕业届次的寻梦/应届招聘；企业其他招聘项目仍可能存在遗漏,https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-RECRUITMENT,0,成功（当前接口）,2026-10-16
 汽车之家,雇主官方实习入口（未上线采集）,partial,2026-10-16：官网明确列出在校生日常实习项目；现有职位展示混合类型，日常实习专属列表/全量岗位ID及AI产品职责尚待核查,https://talent.autohome.com.cn/campus_index.html,0,无自动采集记录（可能仅登记官网入口）,
 好未来,雇主官方实习入口（已配置采集器，待验收）,partial,2026-10-16：2026-10-16 旧Moka官网已跳转到新job.tal.com招聘站；新站职位总数与招聘性质可见，但职位卡片、分页和ID采集器仍在适配，不宣称正式自动采集成功,https://job.tal.com/campus/positions,0,失败；保留上次完整快照,2026-10-16
 搜狐,雇主官方实习入口（未上线采集）,partial,2026-10-16：官网校园招聘明确有面向在校生的实习项目，但2027秋招FAQ只对2026/2027届开放；独立日常实习职位详情和可分页接口尚未核实,https://campus.sohu.com/,0,无自动采集记录（可能仅登记官网入口）,

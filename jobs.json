@@ -10166,7 +10166,7 @@
     },
     "OPPO": {
       "source": "雇主官方实习入口（已配置采集器，待验收）",
-      "coverage": "2026-10-16：日常实习为独立公开职位列表（区别2027届寻梦项目）；已配置普通浏览器职位ID和公开记录总数校验，尚待云端首次验收；已查看的北京职位以算法类为主",
+      "coverage": "2026-10-16 核验本入口 10 个唯一职位 ID；范围：仅OPPO官网OFFEN-RECRUITMENT日常实习，不包括限定毕业届次的寻梦/应届招聘；企业其他招聘项目仍可能存在遗漏",
       "level": "partial",
       "website": "https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-RECRUITMENT"
     },
@@ -10750,6 +10750,21 @@
       "capture": "B站校园招聘官网匿名会话公开 JSON API",
       "page_size": 100,
       "last_checked": "2026-10-15"
+    },
+    "OPPO": {
+      "reported": 10,
+      "raw_records": 10,
+      "unique_ids": 10,
+      "pages": 1,
+      "page_sizes": [
+        10
+      ],
+      "failed_pages": 0,
+      "status": "OPPO官网公开日常实习列表数量及职位代码对账通过",
+      "capture": "OPPO官方日常实习公开招聘页面",
+      "scope": "仅OPPO官网OFFEN-RECRUITMENT日常实习，不包括限定毕业届次的寻梦/应届招聘",
+      "caveat": "仅当公开页面展示全部职位而非分页时适用；没有职位专属数字ID时不伪造直达URL",
+      "last_checked": "2026-10-16"
     }
   },
   "source_attempts": {
@@ -10891,9 +10906,14 @@
       "error": "TAL public Moka job list did not render; evidence={\"page_index\": 1, \"url\": \"https://job.tal.com/campus/home#/jobs/?page=1\", \"title\": \"首页 - 好未来招聘官网｜校园招聘、实习生招聘、社会招聘\", \"job_anchors\": 0, \"body_preview\": \"首页\\n全部职位\\n了解好未来\\n人才计划\\n招聘动态\\n事业部招聘\\n登录\\n\\nMORE POSSIBILITIES, BETTER FUTURE\\n\\n选择你的加入方式\\n\\n从实习到正式校招，每一种身份都能在好未来找到清晰的成长路径"
     },
     "OPPO": {
-      "status": "失败；保留上次完整快照",
+      "status": "成功（当前接口）",
       "checked": "2026-10-16",
-      "error": "OPPO official page parsing failed: OPPO public listing announced 0 jobs; accepted range is 1..1500; this is not proof of zero Beijing AI PM positions; public evidence={\"url\": \"https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-RECRUITMENT\", \"title\": \"OPPO招聘 - 加入我们 join us - 岗位列表\", \"visible_count_m"
+      "reported": 10,
+      "unique_ids": 10,
+      "candidate_count": 0,
+      "eligible_candidate_count": 0,
+      "new_candidate_count": 0,
+      "candidate_count_definition": "candidate_count是来源初筛，eligible_candidate_count再排除明确届次限制；均非确认仍可申请的名额"
     }
   },
   "search_scope": "仅北京 AI 产品相关日常实习；其他实习项目与未证实日常属性职位保留在主库，不在默认网页展示",
