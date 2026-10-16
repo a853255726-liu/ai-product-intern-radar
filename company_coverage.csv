@@ -60,7 +60,7 @@ RealAI,官网公开职位页面标准浏览器渲染（无登录）,complete_pub
 无问芯穹,AI企业公开招聘官网（职位采集待核验）,partial,2026-10-16：官方职位目录可访问，包含北京及产品职能；当前可见产品岗以全职为主；已配置采集，仅明确北京实习职位入库，首次全量验收待完成,https://infinigence.jobs.feishu.cn/,0,无自动采集记录（可能仅登记官网入口）,
 星动纪元,AI企业公开招聘官网（职位采集待核验）,partial,2026-10-16：官方招聘目录可访问，北京机器人/技术产品方向以全职为主；已配置采集，仅明确北京实习职位入库，首次全量验收待完成,https://k0fqxcszc9.jobs.feishu.cn/,0,无自动采集记录（可能仅登记官网入口）,
 清程极智,AI企业公开招聘官网（职位采集待核验）,partial,2026-10-16：官网确认在北京招聘，并有飞书雇主招聘主页；具体可分页职位目录和北京AI产品日常实习尚未核验，不自动采集,https://chitu-ai.jobs.feishu.cn/,0,无自动采集记录（可能仅登记官网入口）,
-华为,雇主官方实习入口（未上线采集）,partial,2026-10-16：已核对新版华为校园职位列表和公开分页字段jobId、jobType；但实习生筛选控件尚未生效，默认102条多为应届生；只允许已证实的实习岗位候选入库，不能声称华为实习全覆盖,https://career.huawei.com/cn/campus-recruitment-job-list,0,无自动采集记录（可能仅登记官网入口）,
+华为,华为官方公开校招职位UI及浏览器响应（无登录）,partial,2026-10-16 核验本入口 102 个唯一职位 ID；范围：仅career.huawei.com默认公开校招列表；实习生筛选控件暂未实际生效，可能遗漏其他实习；绝不将应届生职位计入日常实习；企业其他招聘项目仍可能存在遗漏,https://career.huawei.com/cn/campus-recruitment-job-list,0,成功（当前接口）,2026-10-16
 OPPO,OPPO官方日常实习公开招聘页面,partial,2026-10-16 核验本入口 10 个唯一职位 ID；范围：仅OPPO官网OFFEN-RECRUITMENT日常实习，不包括限定毕业届次的寻梦/应届招聘；企业其他招聘项目仍可能存在遗漏,https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-RECRUITMENT,0,成功（当前接口）,2026-10-16
 汽车之家,雇主官方实习入口（未上线采集）,partial,2026-10-16：2026-10-16 官网浏览器筛选实习生+北京+产品后显示3项：C1产品实习生、出口业务产品运营实习生、产品运营实习生（代查）；尚未核验AI职责与专属职位ID，不自动写入AI产品岗位,https://talent.autohome.com.cn/campus-recruit-list.html,0,无自动采集记录（可能仅登记官网入口）,
 好未来,好未来新版招聘官网公开项目筛选及职位详情（无登录）,complete_public_html,2026-10-16 核验本入口 6 个唯一职位 ID；范围：仅job.tal.com公开日常实习项目，岗位性质须为实习，北京AI产品另筛；企业其他招聘项目仍可能存在遗漏,https://job.tal.com/campus/positions,0,成功（当前接口）,2026-10-16

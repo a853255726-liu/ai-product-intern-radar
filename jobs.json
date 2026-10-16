@@ -10257,8 +10257,8 @@
       "website": "https://chitu-ai.jobs.feishu.cn/"
     },
     "华为": {
-      "source": "雇主官方实习入口（未上线采集）",
-      "coverage": "2026-10-16：已核对新版华为校园职位列表和公开分页字段jobId、jobType；但实习生筛选控件尚未生效，默认102条多为应届生；只允许已证实的实习岗位候选入库，不能声称华为实习全覆盖",
+      "source": "华为官方公开校招职位UI及浏览器响应（无登录）",
+      "coverage": "2026-10-16 核验本入口 102 个唯一职位 ID；范围：仅career.huawei.com默认公开校招列表；实习生筛选控件暂未实际生效，可能遗漏其他实习；绝不将应届生职位计入日常实习；企业其他招聘项目仍可能存在遗漏",
       "level": "partial",
       "website": "https://career.huawei.com/cn/campus-recruitment-job-list"
     },
@@ -10895,6 +10895,34 @@
       "caveat": "城市优先官网证据；评测岗位仅以同一官方JD的近期LinkedIn海淀区信息交叉佐证，显式保留出处；职位HC未确认",
       "location_labels_from_official_home": 19,
       "last_checked": "2026-10-16"
+    },
+    "华为": {
+      "reported": 102,
+      "raw_records": 102,
+      "unique_ids": 102,
+      "pages": 11,
+      "page_sizes": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        2
+      ],
+      "failed_pages": 0,
+      "status": "华为官网默认公开校招页完整分页和职位ID已核验；不代表全部实习项目",
+      "scope": "仅career.huawei.com默认公开校招列表；实习生筛选控件暂未实际生效，可能遗漏其他实习；绝不将应届生职位计入日常实习",
+      "capture": "华为官方公开校招职位UI及浏览器响应（无登录）",
+      "caveat": "不是华为全部实习职位完整覆盖；无正式官方详情链接验证时仅展示官网列表",
+      "job_type_distribution": {
+        "0": 102
+      },
+      "last_checked": "2026-10-16"
     }
   },
   "source_attempts": {
@@ -11058,6 +11086,16 @@
       "candidate_count": 3,
       "eligible_candidate_count": 3,
       "new_candidate_count": 1,
+      "candidate_count_definition": "candidate_count是来源初筛，eligible_candidate_count再排除明确届次限制；均非确认仍可申请的名额"
+    },
+    "华为": {
+      "status": "成功（当前接口）",
+      "checked": "2026-10-16",
+      "reported": 102,
+      "unique_ids": 102,
+      "candidate_count": 0,
+      "eligible_candidate_count": 0,
+      "new_candidate_count": 0,
       "candidate_count_definition": "candidate_count是来源初筛，eligible_candidate_count再排除明确届次限制；均非确认仍可申请的名额"
     }
   },
