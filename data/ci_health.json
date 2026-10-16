@@ -1,12 +1,12 @@
 {
   "kind": "offline_python_regression",
-  "source_sha": "b77cff49a3862566fd52f4e390f90a178830c5f0",
-  "github_run_id": "38919413838",
-  "checked_at_utc": "2026-10-16T14:53:28+00:00",
+  "source_sha": "251545c00b036635c695987908dced4b395c8de0",
+  "github_run_id": "38919832821",
+  "checked_at_utc": "2026-10-16T14:56:31+00:00",
   "status": "passed",
   "github_step_outcome": "success",
   "log_highlights": [
-    "Ran 136 tests in 0.308s",
+    "Ran 136 tests in 0.349s",
     "OK",
     "FAIL: OPPO: ValueError: bad job record",
     "OPPO reported 1 unique 1 candidates 0 new 0",
