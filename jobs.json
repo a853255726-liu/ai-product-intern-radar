@@ -10165,7 +10165,7 @@
       "website": "https://career.huawei.com/reccampportal/portal5/campus-recruitment.html"
     },
     "OPPO": {
-      "source": "雇主官方实习入口（已配置采集器，待验收）",
+      "source": "OPPO官方日常实习公开招聘页面",
       "coverage": "2026-10-16 核验本入口 10 个唯一职位 ID；范围：仅OPPO官网OFFEN-RECRUITMENT日常实习，不包括限定毕业届次的寻梦/应届招聘；企业其他招聘项目仍可能存在遗漏",
       "level": "partial",
       "website": "https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-RECRUITMENT"
