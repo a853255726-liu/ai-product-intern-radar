@@ -56,3 +56,7 @@ DeepSeek,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产
 生数科技,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 109 个唯一职位 ID；范围：生数科技 飞书官方招聘门户 /index/position/list，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://shengshu.jobs.feishu.cn/index/position/list,6
 RealAI,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 11 个唯一职位 ID；范围：RealAI 飞书官方招聘门户 /272867/，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://realai.jobs.feishu.cn/272867/,1
 深势科技,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 239 个唯一职位 ID；范围：深势科技 飞书官方招聘门户 /index/position/list，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://dptechnology.jobs.feishu.cn/index/position/list,6
+智平方,AI企业公开招聘目录（自动采集待验收）,partial,2026-10-16官网发现北京具身智能软件平台产品日常实习（每周4至5天、至少3个月）；已配置官方采集器，待完整分页和唯一ID验收,https://ai2robotics.jobs.feishu.cn/,0
+无问芯穹,AI基础设施官方招聘目录（自动采集待验收）,partial,2026-10-16官网职位列表含北京及产品类别；当前明确产品岗位以全职为主，仅合格实习岗位入库,https://infinigence.jobs.feishu.cn/,0
+星动纪元,具身智能官方招聘目录（自动采集待验收）,partial,2026-10-16官网职位列表含北京产品方向；当前明确岗位主要为全职，不将其计作实习,https://k0fqxcszc9.jobs.feishu.cn/,0
+清程极智,AI基础设施官方招聘主页（职位采集待核验）,partial,2026-10-16已确认官网列出北京岗位，但尚未确认可分页的北京AI产品实习目录,https://chitu-ai.jobs.feishu.cn/,0
