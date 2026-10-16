@@ -13,7 +13,7 @@
 
 ## 当前来源配置（2026-10-16）
 
-主工作流目前**配置了24个公开招聘查询源**：原有20个、后续加入的商汤科技，以及本轮新配置的智平方、无问芯穹、星动纪元。来源已配置 ≠ 本次云端执行成功 ≠ 有符合北京 AI 产品日常实习的职位。须逐个以 `jobs.json.source_attempts`、`jobs.json.source_audits` 的最近实测结果判断。清程极智仅进入官方来源核查池，**不包含在上述24个自动采集源内**。
+截至2026-10-16主工作流现**配置了26个公开招聘查询源**：原有20个、商汤科技、智平方、无问芯穹、星动纪元，以及好未来、OPPO两个首批新增来源。来源已配置 ≠ 本次云端执行成功 ≠ 有符合北京 AI 产品日常实习的职位。须逐个以 `jobs.json.source_attempts`、`jobs.json.source_audits` 的最近实测结果判断。清程极智仅进入官方来源核查池，**不包含在上述24个自动采集源内**。
 
 以下2026-10-14章节保留历史成功快照与早期修复记录，不应解释为2026-10-16所有来源的实时状态。
 
@@ -238,3 +238,22 @@ GitHub Actions 配置：`.github/workflows/site.yml`；每日自动更新和网�
 `feishu_sources.py` 继续要求本来源总数、全量分页和全部唯一职位 ID 一致，筛选北京实习与真实 AI 产品职责后才会入库。官网存在全职产品岗不等于当前存在实习机会。链接优先官网职位详情而非招聘目录，未取得职位 ID 时不伪造详情页。
 
 首次诊断可通过 `python refresh_sources.py --audit-only --sources feishu-ai2robotics feishu-infinigence feishu-robotera`（只读，不更新数据）。每日定时刷新已经配置这些来源；每一家真实运行成功与否须查看 `jobs.json.source_attempts` 和 `source_audits`。定向 CI 验证使用 `[refresh:expand-ai]` 提交标记（额外运行已知可用的腾讯来源保障流程）；测试见 `tests/test_ai_employer_expansion.py`。**完成代码接入不等于已经完成云端采集验收。**
+
+
+## 2026-10-16｜第一批大厂/中厂接入（华为、OPPO、汽车之家、好未来、搜狐）
+
+| 公司 | 官方入口 | 当前实现与不确定性 |
+| --- | --- | --- |
+| 华为 | https://career.huawei.com/reccampportal/portal5/campus-recruitment.html | 「勇敢星」实习生官网入口已确认；客户端职位接口、完整分页和稳定ID尚未验收，仅监测官方页面可访问性 |
+| OPPO | https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-RECRUITMENT | 已接入 `oppo-daily`，独立于2027届寻梦/正式校园招聘；核验页面公布岗位数量与全部职位ID，筛北京AI产品。若有未抓取分页则失败；未取得对应数字详情ID时只保留官网列表 |
+| 汽车之家 | https://talent.autohome.com.cn/campus_index.html | 2027届正式校招之外，另有面向在校生的日常实习。实习专属可分页职位接口待定位；仅监测官方入口可达性 |
+| 好未来 | https://app.mokahr.com/campus-recruitment/tal/95443#/jobs | 已接入 `tal-moka`，使用现有Moka解析器核对列表总数/唯一UUID，读取产品实习完整JD并严筛北京AI产品岗位；2027暑期实习有届次限制风险，显式仅限应届者不在公开看板展示 |
+| 搜狐 | https://campus.sohu.com/ | 2027秋招官网也列有面向在校生的实习项目；秋招2026/27届条件不自动适用于日常实习，专属职位接口待确认；仅监测官网入口可达性 |
+
+### 运行与验收
+
+- 新代码：`tal_sources.py`、`oppo_sources.py`；只读官网入口健康检查：`directory_monitor.py`。入口监测只记录「官网可访问」，绝不产生岗位或把 403 判成零职位。
+- 检查：`python -m unittest discover -s tests -p 'test_*.py' -v`；`python refresh_sources.py --audit-only --sources tal-moka oppo-daily`（只读，检查完整性）；`python directory_monitor.py`（记录华为/汽车之家/搜狐页面可达性，不抓岗位）。
+- 定向云端验证：在 `main` 上提交包含 `[refresh:batch1]` 的消息触发只采集好未来、OPPO、腾讯，运行所有离线测试、入口监测并重新生成页面。定时运行现在尝试 26 个来源。
+- **发布门槛**：`source_attempts.好未来` 和 `source_attempts.OPPO` 有当日成功记录，并且职位ID数与全部分页校验通过，才可说自动采集已验收。当前完成的是代码和来源入口接入；不能把「已配置」说成「成功更新」或「目前有北京AI产品HC」。
+
