@@ -31,7 +31,9 @@ jobs:
       - name: Install public browser
         run: python -m playwright install chromium --with-deps
       - name: Check collector syntax and contracts
+        shell: bash
         run: |
+          set -o pipefail
           python -m compileall -q tal_sources.py oppo_sources.py refresh_sources.py tests
           python -m unittest discover -s tests -p 'test_first_batch_*.py' -v 2>&1 | tee test.log
       - name: Check source without writing job snapshots
