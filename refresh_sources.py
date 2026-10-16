@@ -19,6 +19,7 @@ from bytedance_sources import bytedance, normalize_bytedance
 from alibaba_sources import collect_alibaba, normalize_alibaba
 from step_sources import collect_step, normalize_step, BASE as STEP_BASE
 from tal_sources import collect_tal, normalize_tal, BASE as TAL_BASE
+from oppo_sources import collect_oppo, normalize_oppo
 from bilibili_sources import collect_bilibili, normalize_bilibili, CATALOG as BILIBILI_CATALOG
 
 ROOT = Path(__file__).resolve().parent
@@ -247,7 +248,8 @@ SOURCES["阿里巴巴"] = collect_alibaba
 SOURCES["阶跃星辰"] = collect_step
 SOURCES["B站"] = collect_bilibili
 SOURCES["好未来"] = collect_tal
-KEYS = {"meituan": "美团", "xhs": "小红书", "tencent": "腾讯", "jd": "京东", "baidu": "百度", "kuaishou": "快手", "mihoyo": "米哈游", "xiaomi": "小米", "feishu-zeroone": "零一万物", "feishu-minimax": "MiniMax", "feishu-zhipu": "智谱", "feishu-realai": "RealAI", "feishu-baichuan": "百川智能", "feishu-iqiyi": "爱奇艺", "feishu-shengshu": "生数科技", "feishu-modelbest": "面壁智能", "feishu-dptechnology": "深势科技", "feishu-sensetime": "商汤科技", "feishu-ai2robotics": "智平方", "feishu-infinigence": "无问芯穹", "feishu-robotera": "星动纪元", "kimi-moka": "月之暗面", "bytedance-daily": "字节跳动", "alibaba-public": "阿里巴巴", "step-moka": "阶跃星辰", "bilibili-public": "B站", "tal-moka": "好未来"}
+SOURCES["OPPO"] = collect_oppo
+KEYS = {"meituan": "美团", "xhs": "小红书", "tencent": "腾讯", "jd": "京东", "baidu": "百度", "kuaishou": "快手", "mihoyo": "米哈游", "xiaomi": "小米", "feishu-zeroone": "零一万物", "feishu-minimax": "MiniMax", "feishu-zhipu": "智谱", "feishu-realai": "RealAI", "feishu-baichuan": "百川智能", "feishu-iqiyi": "爱奇艺", "feishu-shengshu": "生数科技", "feishu-modelbest": "面壁智能", "feishu-dptechnology": "深势科技", "feishu-sensetime": "商汤科技", "feishu-ai2robotics": "智平方", "feishu-infinigence": "无问芯穹", "feishu-robotera": "星动纪元", "kimi-moka": "月之暗面", "bytedance-daily": "字节跳动", "alibaba-public": "阿里巴巴", "step-moka": "阶跃星辰", "bilibili-public": "B站", "tal-moka": "好未来", "oppo-daily": "OPPO"}
 
 def normalize(company, records):
     if company in ('快手', '米哈游', '小米'):
@@ -266,6 +268,8 @@ def normalize(company, records):
         return normalize_bilibili(records, TODAY)
     if company == "好未来":
         return normalize_tal(records, TODAY)
+    if company == "OPPO":
+        return normalize_oppo(records, TODAY)
     out = []
     for r in records:
         name, city, key, url, team, date, date_type, duty, requirements = (
@@ -353,7 +357,7 @@ def normalize(company, records):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--sources", nargs="+", choices=["meituan", "xhs", "tencent", "jd", "baidu", "kuaishou", "mihoyo", "xiaomi", "feishu-zeroone", "feishu-minimax", "feishu-zhipu", "feishu-realai", "feishu-baichuan", "feishu-iqiyi", "feishu-shengshu", "feishu-modelbest", "feishu-dptechnology", "feishu-sensetime", "feishu-ai2robotics", "feishu-infinigence", "feishu-robotera", "kimi-moka", "bytedance-daily", "alibaba-public", "step-moka", "bilibili-public", "tal-moka", "all"],
+    ap.add_argument("--sources", nargs="+", choices=["meituan", "xhs", "tencent", "jd", "baidu", "kuaishou", "mihoyo", "xiaomi", "feishu-zeroone", "feishu-minimax", "feishu-zhipu", "feishu-realai", "feishu-baichuan", "feishu-iqiyi", "feishu-shengshu", "feishu-modelbest", "feishu-dptechnology", "feishu-sensetime", "feishu-ai2robotics", "feishu-infinigence", "feishu-robotera", "kimi-moka", "bytedance-daily", "alibaba-public", "step-moka", "bilibili-public", "tal-moka", "oppo-daily", "all"],
                     default=["meituan", "xhs", "tencent"])
     ap.add_argument("--audit-only", action="store_true")
     args = ap.parse_args()
@@ -376,12 +380,12 @@ def main():
                     json.dumps({"checked": TODAY(), "records": records}, ensure_ascii=False), encoding="utf-8")
             meta.setdefault("last_checked", TODAY())
             audits[company] = meta
-            if company in ("快手", "米哈游", "小米", "月之暗面", "字节跳动", "阿里巴巴", "阶跃星辰", "B站", "好未来") or company in FEISHU_PORTALS:
+            if company in ("快手", "米哈游", "小米", "月之暗面", "字节跳动", "阿里巴巴", "阶跃星辰", "B站", "好未来", "OPPO") or company in FEISHU_PORTALS:
                 info = data.setdefault("company_coverage", {}).setdefault(company, {})
                 info.update({"source": meta.get("capture", "官方公开招聘接口"),
                              "level": "complete_public_html" if company in FEISHU_PORTALS or company in ("月之暗面","阶跃星辰","好未来") else "partial" if company in ("字节跳动", "阿里巴巴", "B站") else "complete_api",
                              "coverage": f"已核对本接口 {meta['unique_ids']} 个唯一职位 ID；企业其他渠道尚未全量核验",
-                             "website": (FEISHU_PORTALS[company][0] + FEISHU_PORTALS[company][1]) if company in FEISHU_PORTALS else (KIMI_BASE+"#/jobs" if company == "月之暗面" else STEP_BASE+"#/jobs" if company == "阶跃星辰" else TAL_BASE+"#/jobs" if company == "好未来" else BILIBILI_CATALOG if company == "B站" else "https://jobs.bytedance.com/campus/position" if company == "字节跳动" else "https://campus-talent.alibaba.com/campus/position?batchId=100000560002&lang=zh" if company == "阿里巴巴" else "https://campus.kuaishou.cn/" if company == "快手" else "https://jobs.mihoyo.com/" if company == "米哈游" else "https://hr.xiaomi.com/website/opportunities.html")})
+                             "website": (FEISHU_PORTALS[company][0] + FEISHU_PORTALS[company][1]) if company in FEISHU_PORTALS else (KIMI_BASE+"#/jobs" if company == "月之暗面" else STEP_BASE+"#/jobs" if company == "阶跃星辰" else "https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-RECRUITMENT" if company == "OPPO" else TAL_BASE+"#/jobs" if company == "好未来" else BILIBILI_CATALOG if company == "B站" else "https://jobs.bytedance.com/campus/position" if company == "字节跳动" else "https://campus-talent.alibaba.com/campus/position?batchId=100000560002&lang=zh" if company == "阿里巴巴" else "https://campus.kuaishou.cn/" if company == "快手" else "https://jobs.mihoyo.com/" if company == "米哈游" else "https://hr.xiaomi.com/website/opportunities.html")})
             attempts[company] = {"status": "成功（当前接口）", "checked": TODAY(),
                                  "reported": meta["reported"], "unique_ids": meta["unique_ids"]}
             successes += 1
