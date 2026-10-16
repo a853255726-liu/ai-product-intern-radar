@@ -49,6 +49,11 @@ official_directories = {
     "商汤科技": "https://hr-jobs.sensetime.com/edu/m/",
     "地平线机器人": "https://horizon-campus.hotjob.cn/",
     "蚂蚁集团": "https://talent.antgroup.com/campus/home",
+    "华为": "https://career.huawei.com/reccampportal/portal5/campus-recruitment.html",
+    "OPPO": "https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-RECRUITMENT",
+    "汽车之家": "https://talent.autohome.com.cn/campus_index.html",
+    "好未来": "https://app.mokahr.com/campus-recruitment/tal/95443#/jobs",
+    "搜狐": "https://campus.sohu.com/",
 }
 for name, url in official_directories.items():
     info = coverage.setdefault(name, {
@@ -130,6 +135,25 @@ for name, (description, website) in new_ai_watch.items():
             "level": "partial",
             "coverage": "2026-10-16：" + description,
             "website": website,
+        })
+
+# First-batch company coverage: an official internship entry is not a
+# confirmed paginated feed or an available Beijing AI product vacancy.
+first_batch = {
+    "华为": ("华为勇敢星实习生计划与官网实习生职位搜索入口已核实；页面依赖客户端渲染，尚未定位可稳定复现完整分页的官方职位接口", "https://career.huawei.com/reccampportal/portal5/campus-recruitment.html"),
+    "OPPO": ("日常实习为独立公开职位列表（区别2027届寻梦项目）；已配置普通浏览器职位ID和公开记录总数校验，尚待云端首次验收；已查看的北京职位以算法类为主", "https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-RECRUITMENT"),
+    "汽车之家": ("官网明确列出在校生日常实习项目；现有职位展示混合类型，日常实习专属列表/全量岗位ID及AI产品职责尚待核查", "https://talent.autohome.com.cn/campus_index.html"),
+    "好未来": ("官方Moka campus/tal/95443列表可访问，2027暑期实习和其他招聘项目混合；已配置完整分页、职位UUID及北京AI产品实习JD校验，尚待云端首次验收", "https://app.mokahr.com/campus-recruitment/tal/95443#/jobs"),
+    "搜狐": ("官网校园招聘明确有面向在校生的实习项目，但2027秋招FAQ只对2026/2027届开放；独立日常实习职位详情和可分页接口尚未核实", "https://campus.sohu.com/"),
+}
+for name, (detail, url) in first_batch.items():
+    info = coverage.setdefault(name, {})
+    if info.get("level") not in ("complete_api", "complete_public_html"):
+        info.update({
+            "source": "雇主官方实习入口" + ("（已配置采集器，待验收）" if name in ("OPPO", "好未来") else "（未上线采集）"),
+            "level": "partial",
+            "coverage": "2026-10-16：" + detail,
+            "website": url,
         })
 
 # Use the current successful audit to replace stale human-written claims
