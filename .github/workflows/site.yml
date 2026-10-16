@@ -20,7 +20,7 @@ concurrency:
 jobs:
   refresh-build-deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     environment: github-pages
     steps:
       - name: Checkout source
@@ -44,7 +44,9 @@ jobs:
         run: |
           # A labeled push can validate modified sources quickly; schedules
           # and manual dispatches always run every configured source.
-          if [[ "$REFRESH_EVENT" == "push" && "$HEAD_COMMIT_MSG" == *"[refresh:sensetime]"* ]]; then
+          if [[ "$REFRESH_EVENT" == "push" && "$HEAD_COMMIT_MSG" == *"[refresh:expand-ai]"* ]]; then
+            python refresh_sources.py --sources feishu-ai2robotics feishu-infinigence feishu-robotera tencent
+          elif [[ "$REFRESH_EVENT" == "push" && "$HEAD_COMMIT_MSG" == *"[refresh:sensetime]"* ]]; then
             python refresh_sources.py --sources feishu-sensetime tencent
           elif [[ "$REFRESH_EVENT" == "push" && "$HEAD_COMMIT_MSG" == *"[refresh:focus]"* ]]; then
             python refresh_sources.py --sources meituan xhs feishu-dptechnology
@@ -55,7 +57,7 @@ jobs:
           elif [[ "$REFRESH_EVENT" == "push" && "$HEAD_COMMIT_MSG" == *"[refresh:dptechnology]"* ]]; then
             python refresh_sources.py --sources feishu-dptechnology
           else
-            python refresh_sources.py --sources meituan xhs tencent jd baidu kuaishou mihoyo feishu-zeroone feishu-minimax feishu-zhipu feishu-realai feishu-baichuan feishu-iqiyi feishu-shengshu feishu-modelbest feishu-dptechnology feishu-sensetime kimi-moka alibaba-public step-moka bilibili-public
+            python refresh_sources.py --sources meituan xhs tencent jd baidu kuaishou mihoyo feishu-zeroone feishu-minimax feishu-zhipu feishu-realai feishu-baichuan feishu-iqiyi feishu-shengshu feishu-modelbest feishu-dptechnology feishu-sensetime feishu-ai2robotics feishu-infinigence feishu-robotera kimi-moka alibaba-public step-moka bilibili-public
           fi
       - name: Validate collector
         run: python -m unittest discover -s tests -p 'test_*.py' -v
