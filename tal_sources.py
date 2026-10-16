@@ -52,10 +52,15 @@ def explicit_grad_only(text):
     that other current students are ineligible.
     """
     text = str(text or "")
-    if re.search(r"20\d{2}届及以后|非应届(?:生)?也可|不限应届|应届(?:生)?优先", text):
-        return ""
-    match = GRAD_ONLY.search(text)
-    return match.group(0) if match else ""
+    for match in GRAD_ONLY.finditer(text):
+        # A broad non-exclusive statement elsewhere in a long JD must not
+        # silently erase a distinct explicit restriction. Negation applies
+        # only when near the particular cohort-only phrase.
+        nearby = text[max(0, match.start() - 16): min(len(text), match.end() + 18)]
+        if re.search(r"20\d{2}届及以后|非应届(?:生)?也可|不限应届|应届(?:生)?优先", nearby):
+            continue
+        return match.group(0)
+    return ""
 
 
 def collect_tal(session=None):
