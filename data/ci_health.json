@@ -1,8 +1,8 @@
 {
   "kind": "offline_python_regression",
-  "source_sha": "efbf035acc177f6bf68885c0cd833cd9256a95ef",
-  "github_run_id": "38920655953",
-  "checked_at_utc": "2026-10-16T15:02:33+00:00",
+  "source_sha": "5fa0df9f73bbbbb48776d6d6afa600e7b7bf5622",
+  "github_run_id": "38920780375",
+  "checked_at_utc": "2026-10-16T15:03:25+00:00",
   "status": "passed",
   "github_step_outcome": "success",
   "log_highlights": [
