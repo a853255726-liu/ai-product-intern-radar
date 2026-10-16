@@ -209,3 +209,10 @@ GitHub Actions 配置：`.github/workflows/site.yml`；每日自动更新和网�
 - **只读审计**：`refresh_sources.py --audit-only --sources bytedance-daily xiaomi` 仅在运行进程内检查、打印结果，不写回 `jobs.json`、`data/last_errors.json` 或 `data/raw`。离线测试见 `tests/test_bytedance_browser.py`、`tests/test_xiaomi_browser.py`、`tests/test_audit_read_only.py`。
 
 请先手动运行上述诊断工作流，查看两家公司实际云端请求结果和唯一职位 ID。**只有某一来源当次真实对账成功，且岗位性质、城市、JD 资格校验可靠后**，才将它加入正式定时刷新列表。HTTP 403/405、验证码、部分分页或详情失效均不构成“零在招岗位”的证据。
+
+ 
+## 2026-10-16｜商汤与地平线渠道增补
+
+- **商汤科技**：确认官网校园招聘 `https://hr.sensetime.com/campus/?c=1` 将实习生招聘单列，公开的 `https://hr-jobs.sensetime.com/edu/m/` 可见实习、城市、职能类别。新增 `feishu-sensetime`，复用公开 HTML/浏览器分页、报告总数和唯一职位ID完整性校验，筛选仅北京实习及AI产品职责，并产生官方专属职位链接。不采纳仅有“27届校招”的正式岗位。
+- **地平线机器人**：官方校园招聘入口 `https://horizon-campus.hotjob.cn/` 已列入公司来源核查，日常实习是独立关注渠道。招聘入口发现不等于已采集到可投递的北京AI产品岗位；没有完整稳定分页/职位ID之前，保持 `partial` 且不写入岗位候选。
+- **验收**：添加 `tests/test_sensetime_source.py` 核对商汤官网域名、职位链接、北京与实习筛选。定时任务已添加商汤作为待验收来源，首次完整抓取成功与否以 `jobs.json.source_attempts.商汤科技` 为准。可用 GitHub commit 标记 `[refresh:sensetime]` 定向刷新商汤和腾讯，不修改其他来源。**本节不宣称商汤已完成云端自动化验收。**
