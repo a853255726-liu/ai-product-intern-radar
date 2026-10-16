@@ -61,8 +61,12 @@ class DuplicateIdForensicsTests(unittest.TestCase):
                              "page": {"totalCount": 2}}}
         with patch("refresh_sources.request_json", fake):
             with patch("refresh_sources.time.sleep", return_value=None):
-                with self.assertRaisesRegex(ValueError, r"both 50- and 25-row pages failed"):
+                with self.assertRaisesRegex(
+                        ValueError, r"50-, 25- and 10-row pages failed") as caught:
                     meituan(None)
+        message = str(caught.exception)
+        for size in (50, 25, 10):
+            self.assertIn(f"{size}-row=", message)
 
 
 if __name__ == "__main__":
