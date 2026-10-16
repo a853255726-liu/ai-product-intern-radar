@@ -13,7 +13,7 @@ URL = "https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-
 COUNT = re.compile(r"在招职位\s*[（(]\s*(\d+)\s*[）)]")
 POST_ID = re.compile(r"^职位\s*ID\s*[：:]\s*(J\d{8,14})$", re.I)
 DATE = re.compile(r"^(\d{4}-\d{2}-\d{2})\s*发布$")
-MAX_LIST = 200
+MAX_LIST = 1500
 
 def parse_public_listing(text):
     """Fail closed if the visible browser listing is paginated or truncated."""
@@ -24,7 +24,7 @@ def parse_public_listing(text):
         raise ValueError("OPPO public listing count missing")
     total = int(match.group(1))
     if total <= 0 or total > MAX_LIST:
-        raise ValueError("OPPO count zero or beyond auditable bound")
+        raise ValueError(f"OPPO public listing announced {total} jobs; accepted range is 1..{MAX_LIST}; this is not proof of zero Beijing AI PM positions")
     lines = [s.strip() for s in text[match.end():].splitlines() if s.strip()]
     id_indices = [(idx, POST_ID.fullmatch(line).group(1)) for idx, line in enumerate(lines)
                   if POST_ID.fullmatch(line)]
@@ -93,7 +93,22 @@ def collect_oppo(session=None):
             )
             if pager.count() and any(pager.nth(i).is_enabled() for i in range(pager.count())):
                 raise ValueError("OPPO listing has additional uncollected pages")
-            return parse_public_listing(page.locator("body").inner_text())
+            visible = page.locator("body").inner_text()
+            try:
+                return parse_public_listing(visible)
+            except ValueError as exc:
+                import json
+                evidence = {
+                    "url": page.url, "title": page.title(),
+                    "visible_count_matches": COUNT.findall(visible)[:4],
+                    "visible_job_id_count": sum(
+                        bool(POST_ID.fullmatch(x.strip()))
+                        for x in visible.splitlines()),
+                    "visible_preview": visible[:600],
+                }
+                raise ValueError("OPPO official page parsing failed: "
+                                 + str(exc) + "; public evidence="
+                                 + json.dumps(evidence, ensure_ascii=False)) from exc
         finally:
             browser.close()
 
