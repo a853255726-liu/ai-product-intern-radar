@@ -142,7 +142,7 @@ for name, (description, website) in new_ai_watch.items():
 first_batch = {
     "华为": ("华为勇敢星实习生计划与官网实习生职位搜索入口已核实；页面依赖客户端渲染，尚未定位可稳定复现完整分页的官方职位接口", "https://career.huawei.com/reccampportal/portal5/campus-recruitment.html"),
     "OPPO": ("日常实习为独立公开职位列表（区别2027届寻梦项目）；已配置普通浏览器职位ID和公开记录总数校验，尚待云端首次验收；已查看的北京职位以算法类为主", "https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-RECRUITMENT"),
-    "汽车之家": ("已定位官方职位目录，提供实习生、北京和产品类别筛选；搜索页目前混合校招/实习，尚未验证完整分页和职位专属ID，不将普通产品运营误标为AI产品", "https://talent.autohome.com.cn/campus-recruit-list.html"),
+    "汽车之家": ("2026-10-16 官网浏览器筛选实习生+北京+产品后显示3项：C1产品实习生、出口业务产品运营实习生、产品运营实习生（代查）；尚未核验AI职责与专属职位ID，不自动写入AI产品岗位", "https://talent.autohome.com.cn/campus-recruit-list.html"),
     "好未来": ("2026-10-16 旧Moka官网已跳转到新job.tal.com招聘站；新站职位总数与招聘性质可见，但职位卡片、分页和ID采集器仍在适配，不宣称正式自动采集成功", "https://job.tal.com/campus/positions"),
     "搜狐": ("官网校园招聘明确有面向在校生的实习项目，但2027秋招FAQ只对2026/2027届开放；独立日常实习职位详情和可分页接口尚未核实", "https://campus.sohu.com/"),
 }
