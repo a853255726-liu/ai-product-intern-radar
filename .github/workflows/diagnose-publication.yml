@@ -29,7 +29,14 @@ jobs:
           from pathlib import Path
           info=json.loads(Path("jobs.json").read_text(encoding="utf-8"))
           stamp=info.get("snapshot") or ""
-          print("snapshot=",stamp)
+          today=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8))).date()
+          try:
+              age=(today-datetime.date.fromisoformat(stamp)).days
+          except (ValueError, TypeError):
+              age=None
+          print("snapshot=",stamp,"age_days=",age)
+          if age is None or age >= 2:
+              print("STALE SNAPSHOT: publication refresh has not updated recent data")
           print("attempt_TAL=",info.get("source_attempts",{}).get("好未来","missing"))
           print("attempt_OPPO=",info.get("source_attempts",{}).get("OPPO","missing"))
           PY
