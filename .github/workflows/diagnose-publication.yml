@@ -1,0 +1,80 @@
+name: Diagnose radar publication
+
+on:
+  workflow_dispatch:
+  schedule:
+    # After the normal morning build: 04:12 UTC = 12:12 Beijing time.
+    - cron: '12 4 * * *'
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect latest main workflow runs and latest data snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import datetime
+          import json
+          from pathlib import Path
+          info=json.loads(Path("jobs.json").read_text(encoding="utf-8"))
+          stamp=info.get("snapshot") or ""
+          print("snapshot=",stamp)
+          print("attempt_TAL=",info.get("source_attempts",{}).get("好未来","missing"))
+          print("attempt_OPPO=",info.get("source_attempts",{}).get("OPPO","missing"))
+          PY
+          echo "## Recruitment radar: publication health" >> "$GITHUB_STEP_SUMMARY"
+          echo "Current published jobs.json snapshot: $(python -c 'import json;print(json.load(open("jobs.json"))["snapshot"])')" >> "$GITHUB_STEP_SUMMARY"
+          gh api "repos/$GH_REPO/actions/workflows/site.yml/runs?per_page=8" > recent_runs.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          runs=json.loads(Path("recent_runs.json").read_text()).get("workflow_runs",[])
+          with open("report.md","w",encoding="utf-8") as out:
+              out.write("# Recent main radar workflow runs\n\n")
+              out.write("| Run | Event | Created | Status | Result | URL |\n|---|---|---|---|---|---|\n")
+              for run in runs:
+                  out.write(f"| {run.get('id')} | {run.get('event')} | {run.get('created_at')} | {run.get('status')} | {run.get('conclusion')} | {run.get('html_url')} |\n")
+              if not runs:
+                  out.write("\nNo workflow runs visible: check that repository Actions is enabled and site.yml is valid.\n")
+          PY
+          cat report.md >> "$GITHUB_STEP_SUMMARY"
+          for run_id in $(python -c 'import json; r=json.load(open("recent_runs.json"))["workflow_runs"];print(" ".join(str(x["id"]) for x in r[:4]))'); do
+            gh api "repos/$GH_REPO/actions/runs/$run_id/jobs?per_page=50" > "jobs-$run_id.json" || continue
+            python - "$run_id" <<'PY'
+          import json,sys
+          rid=sys.argv[1]
+          jobs=json.load(open("jobs-"+rid+".json")).get("jobs",[])
+          print("run",rid,"job status",[(j.get("name"),j.get("conclusion")) for j in jobs])
+          with open("report.md","a",encoding="utf-8") as out:
+              out.write(f"\n## Run {rid}: job and step outcomes\n")
+              for job in jobs:
+                  out.write(f"\n- {job.get('name')}: {job.get('conclusion')} ({job.get('html_url')})\n")
+                  for step in job.get("steps",[]):
+                      if step.get("conclusion") in ("failure","cancelled","timed_out"):
+                          out.write(f"  - Failed step: {step.get('name')} [{step.get('conclusion')}]\n")
+          PY
+          done
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "See attached report.md for failed step names. No scraping is performed here." >> "$GITHUB_STEP_SUMMARY"
+      - name: Save workflow health report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: radar-publication-health
+          path: |
+            report.md
+            recent_runs.json
+            jobs-*.json
+          if-no-files-found: ignore
+          retention-days: 14
