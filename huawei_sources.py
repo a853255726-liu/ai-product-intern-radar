@@ -78,8 +78,9 @@ def collect_huawei(session=None):
             for number in range(2,meta["total_pages"]+1):
                 # The Vue pagination control is public and uses an exact
                 # numbered <li data-tag="pager-item-pager"> element.
-                target=page.locator('li[data-tag="pager-item-pager"]').filter(
-                    has_text=re.compile(r"^"+str(number)+r"$"))
+                target=page.locator(
+                    'li[data-tag="pager-item-pager"],li[data-tag="pager-item-active"]'
+                ).filter(has_text=re.compile(r"^"+str(number)+r"$"))
                 if target.count()!=1:
                     # Huawei's compact pagination hides the final page number
                     # near the end; use an ordinary public Next control only.
