@@ -44,7 +44,9 @@ jobs:
         run: |
           # A labeled push can validate modified sources quickly; schedules
           # and manual dispatches always run every configured source.
-          if [[ "$REFRESH_EVENT" == "push" && "$HEAD_COMMIT_MSG" == *"[refresh:focus]"* ]]; then
+          if [[ "$REFRESH_EVENT" == "push" && "$HEAD_COMMIT_MSG" == *"[refresh:sensetime]"* ]]; then
+            python refresh_sources.py --sources feishu-sensetime
+          elif [[ "$REFRESH_EVENT" == "push" && "$HEAD_COMMIT_MSG" == *"[refresh:focus]"* ]]; then
             python refresh_sources.py --sources meituan xhs feishu-dptechnology
           elif [[ "$REFRESH_EVENT" == "push" && "$HEAD_COMMIT_MSG" == *"[refresh:diagnostics]"* ]]; then
             python refresh_sources.py --sources meituan xhs
