@@ -76,6 +76,29 @@ def inspect():
                                       for row in rows[:15]]}
                     except Exception as exc:
                         result["intern_parser_error"]=type(exc).__name__+": "+str(exc)[:260]
+                    result["more_jobs_links"]=page.evaluate("""() => [...document.querySelectorAll('a[href]')]
+                      .filter(a => /更多职位|校招职位|实习生职位/.test(a.innerText || ''))
+                      .map(a => ({text:(a.innerText||'').slice(0,80),
+                                  href:(a.getAttribute('href')||'').slice(0,250)}))
+                      .slice(0,12)""")
+                    # The employer's new Moka internship programme has a
+                    # dedicated project identifier. Inspect the ordinary job
+                    # list, not a hiring application or external lead.
+                    intern_base="https://app.mokahr.com/campus-recruitment/sohu/28313"
+                    page.goto(intern_base+"#/jobs/?page=1",
+                              wait_until="domcontentloaded",timeout=30000)
+                    page.wait_for_timeout(2800)
+                    result["dedicated_listing_url"]=page.url
+                    result["dedicated_listing_excerpt"]=page.locator("body").inner_text()[:4300]
+                    try:
+                        num,items=parse_list_html(page.content(),base=intern_base)
+                        result["dedicated_listing"]={
+                            "reported":num,"cards":len(items),
+                            "first_rows":[{"title":row["title"],"tags":row["tags"],
+                                           "id":row["id"]} for row in items[:23]]
+                        }
+                    except Exception as exc:
+                        result["dedicated_listing_error"]=type(exc).__name__+": "+str(exc)[:300]
             except Exception as exc:
                 result["intern_nav_error"]=type(exc).__name__+": "+str(exc)[:260]
         finally:
