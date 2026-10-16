@@ -74,7 +74,7 @@ def open_daily_directory(page):
         # after the checkbox click, with a temporarily misleading count.
         page.locator(".job-card").first.wait_for(timeout=16000)
         initial_body = page.locator("body").inner_text()
-        original = re.search(r"全部在招职位[（(]\\s*(\\d+)\\s*[）)]", initial_body)
+        original = re.search(r"全部在招职位[（(]\s*(\d+)\s*[）)]", initial_body)
         if not original:
             raise ValueError("TAL all-jobs baseline missing, cannot prove filter scope")
         unfiltered_count = int(original.group(1))
