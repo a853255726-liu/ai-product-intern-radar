@@ -251,6 +251,8 @@ GitHub Actions 配置：`.github/workflows/site.yml`；每日自动更新和网�
 | 搜狐 | https://campus.sohu.com/ | 2027秋招官网也列有面向在校生的实习项目；秋招2026/27届条件不自动适用于日常实习，专属职位接口待确认；仅监测官网入口可达性 |
 
 ### 运行与验收
+专项手动诊断：[GitHub Actions - Diagnose first-batch internship sources](https://github.com/a853255726-liu/ai-product-intern-radar/actions/workflows/diagnose-first-batch.yml)，分别运行 `tal-moka` 与 `oppo-daily`。诊断使用 `--audit-only`，失败有红色状态及7天日志工件；不更新招聘数据。华为、汽车之家、搜狐的入口可访问性每天由 `directory_monitor.py` 单独记录在 `jobs.json.directory_attempts`，与完整岗位源的 `source_attempts` 完全分离。
+
 
 - 新代码：`tal_sources.py`、`oppo_sources.py`；只读官网入口健康检查：`directory_monitor.py`。入口监测只记录「官网可访问」，绝不产生岗位或把 403 判成零职位。
 - 检查：`python -m unittest discover -s tests -p 'test_*.py' -v`；`python refresh_sources.py --audit-only --sources tal-moka oppo-daily`（只读，检查完整性）；`python directory_monitor.py`（记录华为/汽车之家/搜狐页面可达性，不抓岗位）。
