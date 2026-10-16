@@ -9789,6 +9789,70 @@
       "link_label": "官网职位详情",
       "link_check": "职位专属URL；实时可访问性及HC未逐条确认",
       "source_url": "https://job.xiaohongshu.com/campus/position/20205"
+    },
+    {
+      "id": "sohu-moka-0275ba75-dd35-4828-88db-3f0fd89ed22d",
+      "company": "搜狐",
+      "title": "数据分析/数据产品实习生",
+      "link": "https://app.mokahr.com/campus-recruitment/sohu/28313#/job/0275ba75-dd35-4828-88db-3f0fd89ed22d",
+      "posted": "",
+      "date_type": "未提供",
+      "group": "中型/行业科技",
+      "track": "AI评测/策略",
+      "fit": "优先关注",
+      "days": "≥5天",
+      "duration": "≥3个月",
+      "verify": "搜狐官方Moka职位详情（剩余HC待核）",
+      "status": "官方日常实习项目仍在列表中，具体HC待核",
+      "team": "搜狐 · 集团商业部",
+      "summary": "职位描述:\n1、负责对接数据分析师/产品/运营的数据需求，并根据研究目标洞察数据结果；\n2、深入理解一线广告业务和重点广告策略，并依据数据指标进行归因分析、漏斗分析、用户行为分析等；\n3、了解品牌广告和效果广告的含义与区别，配合分析师针对已确定的营销分析课题进行分析执行，收集和整理数据，并形成数据报表或报告；\n4、深入理解业务需求，挖掘业务场景，结合大模型设计解决方案；\n5、了解prompt相关技术，基于用户场景协助完成prompt的设计、评测、调优工作；\n6、根据业务需求，提供标注样本数据，辅助完成模型优化。\n任职要求:\n1、在读本科、研究生或博士，统计学、市场营销、广告等相关专业，北京本地高校优先；\n2、逻辑性强，认真细致，具有分析问题和解决问题的结构化思维；对数据敏感，具有较强的数据分析和洞察能力；\n3、有互联网实习经验，熟悉互联网广告者优先；有AI、大模型相关经验者优先；\n4、熟悉SQL、Python；精通Excel，熟练使用公式透视表，熟练使用Word、PPT、思维导图等办公软件等；\n5、每周5天实习时间，至少持续3个月，可连续实习6个月及以上者优先。",
+      "requirements": "职位描述:\n1、负责对接数据分析师/产品/运营的数据需求，并根据研究目标洞察数据结果；\n2、深入理解一线广告业务和重点广告策略，并依据数据指标进行归因分析、漏斗分析、用户行为分析等；\n3、了解品牌广告和效果广告的含义与区别，配合分析师针对已确定的营销分析课题进行分析执行，收集和整理数据，并形成数据报表或报告；\n4、深入理解业务需求，挖掘业务场景，结合大模型设计解决方案；\n5、了解prompt相关技术，基于用户场景协助完成prompt的设计、评测、调优工作；\n6、根据业务需求，提供标注样本数据，辅助完成模型优化。\n任职要求:\n1、在读本科、研究生或博士，统计学、市场营销、广告等相关专业，北京本地高校优先；\n2、逻辑性强，认真细致，具有分析问题和解决问题的结构化思维；对数据敏感，具有较强的数据分析和洞察能力；\n3、有互联网实习经验，熟悉互联网广告者优先；有AI、大模型相关经验者优先；\n4、熟悉SQL、Python；精通Excel，熟练使用公式透视表，熟练使用Word、PPT、思维导图等办公软件等；\n5、每周5天实习时间，至少持续3个月，可连续实习6个月及以上者优先。",
+      "note": "工作地点依据搜狐官方实习项目公开城市标签或JD明确标注；AI职责来自官方详情",
+      "source": "搜狐官方Moka日常实习项目",
+      "graduation": "在校生日常实习（详情中无明确限届条件）",
+      "graduation_restriction_confirmed": false,
+      "checked": "2026-10-16",
+      "source_post_id": "0275ba75-dd35-4828-88db-3f0fd89ed22d",
+      "official_work_city": "北京市",
+      "first_seen": "2026-10-16",
+      "last_seen": "2026-10-16",
+      "official_detail_url": "https://app.mokahr.com/campus-recruitment/sohu/28313#/job/0275ba75-dd35-4828-88db-3f0fd89ed22d",
+      "link_kind": "official_detail",
+      "link_label": "官网职位详情",
+      "link_check": "职位专属URL；实时可访问性及HC未逐条确认",
+      "source_url": "https://app.mokahr.com/campus-recruitment/sohu/28313#/job/0275ba75-dd35-4828-88db-3f0fd89ed22d"
+    },
+    {
+      "id": "sohu-moka-eb3be385-d651-4f30-9919-9e0e830f7eb6",
+      "company": "搜狐",
+      "title": "数据产品实习生",
+      "link": "https://app.mokahr.com/campus-recruitment/sohu/28313#/job/eb3be385-d651-4f30-9919-9e0e830f7eb6",
+      "posted": "",
+      "date_type": "未提供",
+      "group": "中型/行业科技",
+      "track": "AI评测/策略",
+      "fit": "优先关注",
+      "days": "≥5天",
+      "duration": "≥3个月",
+      "verify": "搜狐官方Moka职位详情（剩余HC待核）",
+      "status": "官方日常实习项目仍在列表中，具体HC待核",
+      "team": "搜狐 · 集团商业部",
+      "summary": "职位描述:\n1、负责用户画像、标签体系等DMP平台的数据建设，为广告投放提供数据支持；\n2、基于业务需求，梳理并完善重点行业的行业树；\n3、通过分析行业标签数据，制定行业关键词排除词策略；\n4、深入理解业务需求，挖掘业务场景，结合大模型设计解决方案；\n5、了解prompt相关技术，基于用户场景协助完成prompt的设计、评测、调优工作。\n任职要求:\n1、逻辑性强，认真细致，具有分析问题和解决问题的结构化思维；对数据敏感，具有较强的数据分析和洞察能力；\n2、有互联网实习经验，熟悉互联网广告者优先；有AI、大模型相关经验者优先；\n3、熟悉SQL、Python；精通Excel，熟练使用公式、透视表，熟练使用Word、PPT、思维导图等办公软件；\n4、本科及以上学历在校生，统计学、市场营销、广告等相关专业，北京本地高校优先；\n5、每周5天实习时间，至少保证3个月实习时间，可连续实习6个月及以上者优先。",
+      "requirements": "职位描述:\n1、负责用户画像、标签体系等DMP平台的数据建设，为广告投放提供数据支持；\n2、基于业务需求，梳理并完善重点行业的行业树；\n3、通过分析行业标签数据，制定行业关键词排除词策略；\n4、深入理解业务需求，挖掘业务场景，结合大模型设计解决方案；\n5、了解prompt相关技术，基于用户场景协助完成prompt的设计、评测、调优工作。\n任职要求:\n1、逻辑性强，认真细致，具有分析问题和解决问题的结构化思维；对数据敏感，具有较强的数据分析和洞察能力；\n2、有互联网实习经验，熟悉互联网广告者优先；有AI、大模型相关经验者优先；\n3、熟悉SQL、Python；精通Excel，熟练使用公式、透视表，熟练使用Word、PPT、思维导图等办公软件；\n4、本科及以上学历在校生，统计学、市场营销、广告等相关专业，北京本地高校优先；\n5、每周5天实习时间，至少保证3个月实习时间，可连续实习6个月及以上者优先。",
+      "note": "工作地点依据搜狐官方实习项目公开城市标签或JD明确标注；AI职责来自官方详情",
+      "source": "搜狐官方Moka日常实习项目",
+      "graduation": "在校生日常实习（详情中无明确限届条件）",
+      "graduation_restriction_confirmed": false,
+      "checked": "2026-10-16",
+      "source_post_id": "eb3be385-d651-4f30-9919-9e0e830f7eb6",
+      "official_work_city": "北京市",
+      "first_seen": "2026-10-16",
+      "last_seen": "2026-10-16",
+      "official_detail_url": "https://app.mokahr.com/campus-recruitment/sohu/28313#/job/eb3be385-d651-4f30-9919-9e0e830f7eb6",
+      "link_kind": "official_detail",
+      "link_label": "官网职位详情",
+      "link_check": "职位专属URL；实时可访问性及HC未逐条确认",
+      "source_url": "https://app.mokahr.com/campus-recruitment/sohu/28313#/job/eb3be385-d651-4f30-9919-9e0e830f7eb6"
     }
   ],
   "company_coverage": {
@@ -10183,9 +10247,9 @@
       "website": "https://job.tal.com/campus/positions"
     },
     "搜狐": {
-      "source": "雇主官方实习入口（已配置采集器，待验收）",
-      "coverage": "2026-10-16：官网实习生职位明确跳转到独立Moka项目sohu/28313，云端已核实59条结果和唯一UUID卡片；已接入完整分页与JD筛选代码，待首次正式采集验收",
-      "level": "partial",
+      "source": "搜狐官方Moka独立实习项目（普通浏览器）",
+      "coverage": "2026-10-16 核验本入口 59 个唯一职位 ID；范围：仅搜狐官网实习生职位所指向的Moka 28313项目，非2027校招5682；北京AI产品再逐条筛选；企业其他招聘项目仍可能存在遗漏",
+      "level": "complete_public_html",
       "website": "https://app.mokahr.com/campus-recruitment/sohu/28313#/jobs"
     }
   },
@@ -10780,6 +10844,23 @@
       "capture": "好未来新版招聘官网公开项目筛选及职位详情（无登录）",
       "caveat": "全职性质的实习转正或产品岗位不可当作普通实习；官网有职位不保证HC",
       "last_checked": "2026-10-16"
+    },
+    "搜狐": {
+      "reported": 59,
+      "raw_records": 59,
+      "unique_ids": 59,
+      "pages": 2,
+      "page_sizes": [
+        30,
+        29
+      ],
+      "failed_pages": 0,
+      "status": "搜狐官方独立日常实习Moka项目完整分页、唯一UUID及产品候选JD已对账",
+      "scope": "仅搜狐官网实习生职位所指向的Moka 28313项目，非2027校招5682；北京AI产品再逐条筛选",
+      "capture": "搜狐官方Moka独立实习项目（普通浏览器）",
+      "caveat": "官网独立实习项目不等于所有产品职位与HC；城市缺官方证据者不发布",
+      "location_labels_from_official_home": 19,
+      "last_checked": "2026-10-16"
     }
   },
   "source_attempts": {
@@ -10933,6 +11014,16 @@
       "candidate_count": 0,
       "eligible_candidate_count": 0,
       "new_candidate_count": 0,
+      "candidate_count_definition": "candidate_count是来源初筛，eligible_candidate_count再排除明确届次限制；均非确认仍可申请的名额"
+    },
+    "搜狐": {
+      "status": "成功（当前接口）",
+      "checked": "2026-10-16",
+      "reported": 59,
+      "unique_ids": 59,
+      "candidate_count": 2,
+      "eligible_candidate_count": 2,
+      "new_candidate_count": 2,
       "candidate_count_definition": "candidate_count是来源初筛，eligible_candidate_count再排除明确届次限制；均非确认仍可申请的名额"
     }
   },
