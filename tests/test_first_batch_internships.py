@@ -5,6 +5,7 @@ from tal_sources import (
     BASE as TAL_BASE, list_url, is_intern, normalize_tal,
 )
 from official_links import classify_link
+from daily_scope import eligible_jobs
 
 
 class TalOpPoTests(unittest.TestCase):
@@ -33,6 +34,18 @@ class TalOpPoTests(unittest.TestCase):
         self.assertEqual(normalize_tal([{**candidate, "tags": ["实习", "上海"],
                                         "description": "上海办公，大模型产品需求"}],
                                        lambda: "2026-10-16"), [])
+
+    def test_tal_explicit_2027_only_is_not_published(self):
+        row = {
+            "id": "123e4567-e89b-12d3-a456-426614174000",
+            "title": "AI教育产品实习生", "tags": ["实习", "教育", "北京"],
+            "url": TAL_BASE + "#/job/123e4567-e89b-12d3-a456-426614174000",
+            "description": "九章大模型AI产品需求调研。仅招2027届毕业生。工作地点：北京。",
+            "date": "2026-10-15",
+        }
+        captured = normalize_tal([row], lambda: "2026-10-16")
+        self.assertEqual(len(captured), 1)
+        self.assertEqual(eligible_jobs(captured), [])
 
     def test_oppo_full_visible_list_reconciles_job_ids(self):
         text = """岗位列表
