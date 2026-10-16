@@ -216,3 +216,19 @@ GitHub Actions 配置：`.github/workflows/site.yml`；每日自动更新和网�
 - **商汤科技**：确认官网校园招聘 `https://hr.sensetime.com/campus/?c=1` 将实习生招聘单列，公开的 `https://hr-jobs.sensetime.com/edu/m/` 可见实习、城市、职能类别。新增 `feishu-sensetime`，复用公开 HTML/浏览器分页、报告总数和唯一职位ID完整性校验，筛选仅北京实习及AI产品职责，并产生官方专属职位链接。不采纳仅有“27届校招”的正式岗位。
 - **地平线机器人**：官方校园招聘入口 `https://horizon-campus.hotjob.cn/` 已列入公司来源核查，日常实习是独立关注渠道。招聘入口发现不等于已采集到可投递的北京AI产品岗位；没有完整稳定分页/职位ID之前，保持 `partial` 且不写入岗位候选。
 - **验收**：添加 `tests/test_sensetime_source.py` 核对商汤官网域名、职位链接、北京与实习筛选。定时任务已添加商汤作为待验收来源，首次完整抓取成功与否以 `jobs.json.source_attempts.商汤科技` 为准。可用 GitHub commit 标记 `[refresh:sensetime]` 定向刷新商汤和腾讯，不修改其他来源。**本节不宣称商汤已完成云端自动化验收。**
+
+
+## 2026-10-16｜中小型 AI 公司招聘来源扩充
+
+这一批优先纳入招聘页已经存在公开职位列表、且能复用普通飞书 HTML/浏览器采集策略的 AI 公司：
+
+| 公司 | 官网入口 | 纳入范围与现状 |
+| --- | --- | --- |
+| 智平方 | https://ai2robotics.jobs.feishu.cn/ | 北京具身智能软件平台产品日常实习（官网明确每周4–5天、3个月以上）；接入 `feishu-ai2robotics`，待云端首次全量审计 |
+| 无问芯穹 | https://infinigence.jobs.feishu.cn/ | 北京 AI Infra / 算力产品；目前可见产品岗位多为全职，接入 `feishu-infinigence` 但正式岗绝不进入实习看板 |
+| 星动纪元 | https://k0fqxcszc9.jobs.feishu.cn/ | 北京具身智能/机器人产品；可见技术产品岗主要为全职，接入 `feishu-robotera` 并仅在确认实习时入库 |
+| 清程极智 | https://chitu-ai.jobs.feishu.cn/ | 北京 AI 推理平台招聘主页已核实；职位专属全量分页与北京产品实习尚未核实，先进入来源核查池，不启动自动采集 |
+
+`feishu_sources.py` 继续要求本来源总数、全量分页和全部唯一职位 ID 一致，筛选北京实习与真实 AI 产品职责后才会入库。官网存在全职产品岗不等于当前存在实习机会。链接优先官网职位详情而非招聘目录，未取得职位 ID 时不伪造详情页。
+
+首次诊断可通过 `python refresh_sources.py --audit-only --sources feishu-ai2robotics feishu-infinigence feishu-robotera`（只读，不更新数据）。每日定时刷新已经配置这些来源；每一家真实运行成功与否须查看 `jobs.json.source_attempts` 和 `source_audits`。定向 CI 验证使用 `[refresh:expand-ai]` 提交标记（额外运行已知可用的腾讯来源保障流程）；测试见 `tests/test_ai_employer_expansion.py`。**完成代码接入不等于已经完成云端采集验收。**
