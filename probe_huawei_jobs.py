@@ -48,7 +48,24 @@ def inspect():
                     return
                 item={"status":response.status,"method":response.request.method}
                 try:
-                    item["shape"]=bounded_shape(response.json())
+                    obj=response.json()
+                    item["shape"]=bounded_shape(obj)
+                    body=obj.get("data",{}) if isinstance(obj,dict) else {}
+                    rows=body.get("result",[]) if isinstance(body,dict) else []
+                    pagevo=body.get("pageVO",{}) if isinstance(body,dict) else {}
+                    if isinstance(pagevo,dict):
+                        item["public_page_fields"]={
+                            k:v for k,v in pagevo.items()
+                            if isinstance(v,(str,int,float,bool)) and len(str(v))<90}
+                    if isinstance(rows,list) and rows and isinstance(rows[0],dict):
+                        item["public_record_keys"]=list(rows[0])[:65]
+                        item["sample_job_fields"]={
+                            k:str(v)[:180] for k,v in rows[0].items()
+                            if any(t in k.lower() for t in (
+                                "jobid","positionid","postid","jobname",
+                                "positionname","jobtype","recruittype",
+                                "city","workplace","postname","category"
+                            )) and isinstance(v,(str,int,float,bool))}
                 except Exception as e:
                     item["error"]=type(e).__name__
                 results["job_feed_responses"].append(item)
@@ -76,6 +93,18 @@ def inspect():
             # Only consider category correctly applied if selected control AND
             # actual job list change. Do not infer success from click alone.
             results["content_changed"]=results["initial"]["first_results"]!=results["after_intern"]["first_results"]
+            # Inspect ordinary public pagination without hidden endpoint
+            # calls; record whether page 2 really updates the public feed.
+            result_pagination=page.evaluate("""() => [...document.querySelectorAll('*')]
+                .filter(el => el.children.length<=1 && el.textContent.trim()==='2')
+                .slice(0,8).map(el=>el.outerHTML.slice(0,500))""")
+            results["page_two_controls"]=result_pagination
+            try:
+                page.get_by_text("2",exact=True).first.click(timeout=6000)
+                page.wait_for_timeout(1900)
+                results["page_two_view"]=view(page)
+            except Exception as e:
+                results["page_two_error"]=type(e).__name__+": "+str(e)[:180]
             # UI selection of Beijing occurs via nested country list; no
             # unsupported network POSTs or simulated hidden API calls.
         finally:
