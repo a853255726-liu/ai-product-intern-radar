@@ -93,6 +93,28 @@ AI产品经理实习生
         self.assertEqual(jobs[0]["link"], OPPO_URL)
         self.assertEqual(classify_link(jobs[0]["link"]), "official_list")
 
+    def test_oppo_graduation_only_excluded_even_after_long_description(self):
+        rows = [{
+            "id": "J251114000002", "title": "AI产品经理实习生",
+            "city": "北京市", "posted": "2026-10-16",
+            "description": "小布智能体PRD需求调研。" + "产品需求。" * 700
+                           + "仅招2027届毕业生。",
+        }]
+        captured = normalize_oppo(rows, lambda: "2026-10-16")
+        self.assertEqual(len(captured), 1)
+        self.assertIn("仅招2027届", captured[0]["graduation"])
+        self.assertEqual(eligible_jobs(captured), [])
+
+    def test_oppo_nongraduate_cohort_is_not_excluded(self):
+        rows = [{
+            "id": "J251114000003", "title": "AI产品经理实习生",
+            "city": "北京市", "posted": "2026-10-16",
+            "description": "小布智能体用户研究，2027届及以后均可申请。",
+        }]
+        captured = normalize_oppo(rows, lambda: "2026-10-16")
+        self.assertEqual(len(captured), 1)
+        self.assertEqual(len(eligible_jobs(captured)), 1)
+
     def test_oppo_rejects_partial_or_mixed_hiring(self):
         short = """在招职位(2)
 产品实习生
