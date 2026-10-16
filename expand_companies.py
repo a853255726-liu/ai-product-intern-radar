@@ -53,7 +53,7 @@ official_directories = {
     "OPPO": "https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-RECRUITMENT",
     "汽车之家": "https://talent.autohome.com.cn/campus-recruit-list.html",
     "好未来": "https://job.tal.com/campus/positions",
-    "搜狐": "https://campus.sohu.com/",
+    "搜狐": "https://app.mokahr.com/campus-recruitment/sohu/28313#/jobs",
 }
 for name, url in official_directories.items():
     info = coverage.setdefault(name, {
@@ -144,13 +144,13 @@ first_batch = {
     "OPPO": ("日常实习为独立公开职位列表（区别2027届寻梦项目）；已配置普通浏览器职位ID和公开记录总数校验，尚待云端首次验收；已查看的北京职位以算法类为主", "https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-RECRUITMENT"),
     "汽车之家": ("2026-10-16 官网浏览器筛选实习生+北京+产品后显示3项：C1产品实习生、出口业务产品运营实习生、产品运营实习生（代查）；尚未核验AI职责与专属职位ID，不自动写入AI产品岗位", "https://talent.autohome.com.cn/campus-recruit-list.html"),
     "好未来": ("2026-10-16 旧Moka官网已跳转到新job.tal.com招聘站；新站职位总数与招聘性质可见，但职位卡片、分页和ID采集器仍在适配，不宣称正式自动采集成功", "https://job.tal.com/campus/positions"),
-    "搜狐": ("官网校园招聘明确有面向在校生的实习项目，但2027秋招FAQ只对2026/2027届开放；独立日常实习职位详情和可分页接口尚未核实", "https://campus.sohu.com/"),
+    "搜狐": ("官网实习生职位明确跳转到独立Moka项目sohu/28313，云端已核实59条结果和唯一UUID卡片；已接入完整分页与JD筛选代码，待首次正式采集验收", "https://app.mokahr.com/campus-recruitment/sohu/28313#/jobs"),
 }
 for name, (detail, url) in first_batch.items():
     info = coverage.setdefault(name, {})
     last_attempt = (db.get("source_attempts") or {}).get(name) or {}
     last_audit = (db.get("source_audits") or {}).get(name) or {}
-    if (name in ("OPPO", "好未来")
+    if (name in ("OPPO", "好未来", "搜狐")
             and str(last_attempt.get("status") or "").startswith("成功")
             and last_audit.get("last_checked") == last_attempt.get("checked")
             and isinstance(last_audit.get("unique_ids"), int)):
@@ -159,7 +159,7 @@ for name, (detail, url) in first_batch.items():
         # TAL 'complete_public_html' (each official UUID JD audited).
         info.update({
             "source": last_audit.get("capture") or "已验收的招聘官网公开职位列表",
-            "level": "complete_public_html" if name == "好未来" else "partial",
+            "level": "complete_public_html" if name in ("好未来", "搜狐") else "partial",
             "coverage": (
                 f"{last_attempt['checked']} 本入口已验收 "
                 f"{last_audit['unique_ids']} 个唯一职位ID；"
@@ -171,7 +171,7 @@ for name, (detail, url) in first_batch.items():
         continue
     if info.get("level") not in ("complete_api", "complete_public_html"):
         info.update({
-            "source": "雇主官方实习入口" + ("（已配置采集器，待验收）" if name in ("OPPO", "好未来") else "（未上线采集）"),
+            "source": "雇主官方实习入口" + ("（已配置采集器，待验收）" if name in ("OPPO", "好未来", "搜狐") else "（未上线采集）"),
             "level": "partial",
             "coverage": "2026-10-16：" + detail,
             "website": url,
