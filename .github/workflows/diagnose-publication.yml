@@ -48,7 +48,6 @@ jobs:
               if not runs:
                   out.write("\nNo workflow runs visible: check that repository Actions is enabled and site.yml is valid.\n")
           PY
-          cat report.md >> "$GITHUB_STEP_SUMMARY"
           for run_id in $(python -c 'import json; r=json.load(open("recent_runs.json"))["workflow_runs"];print(" ".join(str(x["id"]) for x in r[:4]))'); do
             gh api "repos/$GH_REPO/actions/runs/$run_id/jobs?per_page=50" > "jobs-$run_id.json" || continue
             python - "$run_id" <<'PY'
@@ -66,6 +65,7 @@ jobs:
           PY
           done
           echo "" >> "$GITHUB_STEP_SUMMARY"
+          cat report.md >> "$GITHUB_STEP_SUMMARY"
           echo "See attached report.md for failed step names. No scraping is performed here." >> "$GITHUB_STEP_SUMMARY"
       - name: Save workflow health report
         if: always()
