@@ -469,7 +469,8 @@ def main():
                                 and existing.get("first_seen")
                                 and existing.get("source") == job.get("source")
                                 and existing.get("verify") == job.get("verify")):
-                            for field in ("graduation", "requirements", "summary",
+                            for field in ("graduation", "graduation_restriction_confirmed",
+                                          "requirements", "summary",
                                           "title", "team", "posted", "date_type",
                                           "days", "duration", "note", "status"):
                                 if field in job:
