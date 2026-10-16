@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import re
 from candidate_scope import is_product_candidate
+from daily_scope import GRAD_ONLY
 from kimi_sources import parse_list_html, parse_detail_html
 
 BASE = "https://app.mokahr.com/campus-recruitment/tal/95443"
@@ -43,6 +44,19 @@ def is_ai_product(row):
         r"\bAI\b|Agent|智能体|大模型|AIGC|生成式|九章|学习智能|学而思智能|"
         r"机器学习|智能教育|自适应学习|LLM|模型评测|教育大模型",
         title + " " + desc, re.I))
+
+def explicit_grad_only(text):
+    """Keep exclusion evidence even when a lengthy JD is truncated for UI.
+
+    Mentions of a graduating cohort or non-exclusive preference are not proof
+    that other current students are ineligible.
+    """
+    text = str(text or "")
+    if re.search(r"20\\d{2}届及以后|非应届(?:生)?也可|不限应届|应届(?:生)?优先", text):
+        return ""
+    match = GRAD_ONLY.search(text)
+    return match.group(0) if match else ""
+
 
 def collect_tal(session=None):
     from playwright.sync_api import sync_playwright, TimeoutError as BrowserTimeout
@@ -127,8 +141,8 @@ def normalize_tal(rows, today):
             "requirements": text[:2400],
             "note": "仅北京AI产品相关实习；暑期或定向实习的届次限制仍须核查",
             "source": "好未来官网 Moka 校园招聘",
-            "graduation": "2027届条件需核实" if "2027届" in title + " " + text
-                          else "未核实",
+            "graduation": explicit_grad_only(title + " " + text) or
+                          ("2027届条件需核实" if "2027届" in title + " " + text else "未核实"),
             "checked": today(),
             "source_post_id": row["id"],
         })
