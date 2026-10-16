@@ -10177,9 +10177,9 @@
       "website": "https://talent.autohome.com.cn/campus_index.html"
     },
     "好未来": {
-      "source": "雇主官方实习入口（已配置采集器，待验收）",
-      "coverage": "2026-10-16：2026-10-16 旧Moka官网已跳转到新job.tal.com招聘站；新站职位总数与招聘性质可见，但职位卡片、分页和ID采集器仍在适配，不宣称正式自动采集成功",
-      "level": "partial",
+      "source": "好未来新版招聘官网公开项目筛选及职位详情（无登录）",
+      "coverage": "2026-10-16 核验本入口 6 个唯一职位 ID；范围：仅job.tal.com公开日常实习项目，岗位性质须为实习，北京AI产品另筛；企业其他招聘项目仍可能存在遗漏",
+      "level": "complete_public_html",
       "website": "https://job.tal.com/campus/positions"
     },
     "搜狐": {
@@ -10765,6 +10765,21 @@
       "scope": "仅OPPO官网OFFEN-RECRUITMENT日常实习，不包括限定毕业届次的寻梦/应届招聘",
       "caveat": "仅当公开页面展示全部职位而非分页时适用；没有职位专属数字ID时不伪造直达URL",
       "last_checked": "2026-10-16"
+    },
+    "好未来": {
+      "reported": 6,
+      "raw_records": 6,
+      "unique_ids": 6,
+      "pages": 1,
+      "page_sizes": [
+        6
+      ],
+      "failed_pages": 0,
+      "status": "好未来新版官网日常实习项目全量卡片及专属UUID详情已对账",
+      "scope": "仅job.tal.com公开日常实习项目，岗位性质须为实习，北京AI产品另筛",
+      "capture": "好未来新版招聘官网公开项目筛选及职位详情（无登录）",
+      "caveat": "全职性质的实习转正或产品岗位不可当作普通实习；官网有职位不保证HC",
+      "last_checked": "2026-10-16"
     }
   },
   "source_attempts": {
@@ -10901,9 +10916,14 @@
       "unique_ids": 320
     },
     "好未来": {
-      "status": "失败；保留上次完整快照",
+      "status": "成功（当前接口）",
       "checked": "2026-10-16",
-      "error": "TAL daily project list incomplete: reported=132, visible=20, max=20"
+      "reported": 6,
+      "unique_ids": 6,
+      "candidate_count": 0,
+      "eligible_candidate_count": 0,
+      "new_candidate_count": 0,
+      "candidate_count_definition": "candidate_count是来源初筛，eligible_candidate_count再排除明确届次限制；均非确认仍可申请的名额"
     },
     "OPPO": {
       "status": "成功（当前接口）",

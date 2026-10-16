@@ -1,6 +1,4 @@
 {
   "date": "2026-10-16",
-  "errors": [
-    "好未来: ValueError: TAL daily project list incomplete: reported=132, visible=20, max=20"
-  ]
+  "errors": []
 }
