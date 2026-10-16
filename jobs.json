@@ -9913,10 +9913,10 @@
       "website": "https://iflytek.zhiye.com/"
     },
     "商汤科技": {
-      "source": "招聘官网",
-      "coverage": "尚未核对北京AI产品实习",
-      "level": "todo",
-      "website": "https://www.sensetime.com/"
+      "source": "商汤官网校招与实习公开职位目录（自动采集待验收）",
+      "coverage": "2026-10-16 官网确认在校生实习频道及公开职位列表，支持北京与产品类别筛选；已配置采集器，尚无完整分页成功证据，不能视为实时岗位完成接入",
+      "level": "partial",
+      "website": "https://hr-jobs.sensetime.com/edu/m/"
     },
     "第四范式": {
       "source": "企业招聘渠道",
@@ -9961,10 +9961,10 @@
       "website": "https://www.zhipin.com/"
     },
     "地平线机器人": {
-      "source": "企业招聘渠道",
-      "coverage": "尚未核对北京AI平台产品实习",
-      "level": "todo",
-      "website": "https://www.horizon.auto/"
+      "source": "地平线官方校园招聘入口（日常实习待核验）",
+      "coverage": "2026-10-16 官网招聘渠道已确认；日常实习面向在校生、北京属于可招聘城市，但具体北京AI产品岗位尚未完成唯一职位ID核验",
+      "level": "partial",
+      "website": "https://horizon-campus.hotjob.cn/"
     },
     "面壁智能": {
       "source": "官网公开职位页面标准浏览器渲染（无登录）",
