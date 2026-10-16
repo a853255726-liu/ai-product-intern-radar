@@ -2,7 +2,7 @@
 import unittest
 from oppo_sources import parse_public_listing, normalize_oppo, URL as OPPO_URL
 from tal_sources import (
-    BASE as TAL_BASE, list_url, is_intern, normalize_tal,
+    BASE as TAL_BASE, list_url, is_intern, normalize_tal, explicit_grad_only,
 )
 from official_links import classify_link
 from daily_scope import eligible_jobs
@@ -46,6 +46,20 @@ class TalOpPoTests(unittest.TestCase):
         captured = normalize_tal([row], lambda: "2026-10-16")
         self.assertEqual(len(captured), 1)
         self.assertEqual(eligible_jobs(captured), [])
+
+    def test_grad_only_qualification_is_retained_beyond_ui_excerpt(self):
+        long_duty = "AI产品设计、PRD。" + ("项目协作。" * 700) + "仅招2027届毕业生。工作地点：北京。"
+        row = {
+            "id": "123e4567-e89b-12d3-a456-426614174001",
+            "title": "AI教育产品实习生", "tags": ["实习", "教育", "北京"],
+            "url": TAL_BASE + "#/job/123e4567-e89b-12d3-a456-426614174001",
+            "description": long_duty, "date": "2026-10-16",
+        }
+        output = normalize_tal([row], lambda: "2026-10-16")
+        self.assertEqual(len(output), 1)
+        self.assertTrue(output[0]["graduation"].startswith("仅招2027届"))
+        self.assertEqual(eligible_jobs(output), [])
+        self.assertEqual(explicit_grad_only("2027届及以后均可报名"), "")
 
     def test_oppo_full_visible_list_reconciles_job_ids(self):
         text = """岗位列表
