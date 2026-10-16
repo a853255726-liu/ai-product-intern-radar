@@ -19,7 +19,8 @@ from kimi_sources import collect_kimi, normalize_kimi, BASE as KIMI_BASE
 from bytedance_sources import bytedance, normalize_bytedance
 from alibaba_sources import collect_alibaba, normalize_alibaba
 from step_sources import collect_step, normalize_step, BASE as STEP_BASE
-from tal_sources import collect_tal, normalize_tal, BASE as TAL_BASE
+from tal_sources import normalize_tal
+from tal_portal import collect_tal, LIST_URL as TAL_BASE
 from oppo_sources import collect_oppo, normalize_oppo
 from bilibili_sources import collect_bilibili, normalize_bilibili, CATALOG as BILIBILI_CATALOG
 
@@ -394,7 +395,7 @@ def main():
                 info.update({"source": meta.get("capture", "官方公开招聘接口"),
                              "level": "complete_public_html" if company in FEISHU_PORTALS or company in ("月之暗面","阶跃星辰","好未来") else "partial" if company in ("字节跳动", "阿里巴巴", "B站", "OPPO") else "complete_api",
                              "coverage": f"已核对本接口 {meta['unique_ids']} 个唯一职位 ID；企业其他渠道尚未全量核验",
-                             "website": (FEISHU_PORTALS[company][0] + FEISHU_PORTALS[company][1]) if company in FEISHU_PORTALS else (KIMI_BASE+"#/jobs" if company == "月之暗面" else STEP_BASE+"#/jobs" if company == "阶跃星辰" else "https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-RECRUITMENT" if company == "OPPO" else TAL_BASE+"#/jobs" if company == "好未来" else BILIBILI_CATALOG if company == "B站" else "https://jobs.bytedance.com/campus/position" if company == "字节跳动" else "https://campus-talent.alibaba.com/campus/position?batchId=100000560002&lang=zh" if company == "阿里巴巴" else "https://campus.kuaishou.cn/" if company == "快手" else "https://jobs.mihoyo.com/" if company == "米哈游" else "https://hr.xiaomi.com/website/opportunities.html")})
+                             "website": (FEISHU_PORTALS[company][0] + FEISHU_PORTALS[company][1]) if company in FEISHU_PORTALS else (KIMI_BASE+"#/jobs" if company == "月之暗面" else STEP_BASE+"#/jobs" if company == "阶跃星辰" else "https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-RECRUITMENT" if company == "OPPO" else TAL_BASE if company == "好未来" else BILIBILI_CATALOG if company == "B站" else "https://jobs.bytedance.com/campus/position" if company == "字节跳动" else "https://campus-talent.alibaba.com/campus/position?batchId=100000560002&lang=zh" if company == "阿里巴巴" else "https://campus.kuaishou.cn/" if company == "快手" else "https://jobs.mihoyo.com/" if company == "米哈游" else "https://hr.xiaomi.com/website/opportunities.html")})
             attempts[company] = {"status": "成功（当前接口）", "checked": TODAY(),
                                  "reported": meta["reported"], "unique_ids": meta["unique_ids"]}
             successes += 1
@@ -434,7 +435,8 @@ def main():
                                 if v.get("company") == company and k != ident
                                 and (str(v.get("source_post_id") or "") == sid
                                      or ("/position/"+sid+"/detail") in str(v.get("link") or "")
-                                     or (company in ("月之暗面","阶跃星辰","好未来") and "/job/"+sid in str(v.get("link") or ""))
+                                     or (company in ("月之暗面","阶跃星辰") and "/job/"+sid in str(v.get("link") or ""))
+                                     or (company == "好未来" and "/campus/positions/"+sid in str(v.get("link") or ""))
                                      or (company == "字节跳动" and "/position/"+sid+"/detail" in str(v.get("link") or ""))
                                      or (company == "阿里巴巴" and "/campus/position/"+sid in str(v.get("link") or ""))
                                      or (company == "B站" and "/campus/positions/"+sid in str(v.get("link") or ""))
