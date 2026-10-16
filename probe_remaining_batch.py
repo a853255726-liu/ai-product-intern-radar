@@ -75,6 +75,30 @@ def inspect(site):
                 "[class*=job-item]": page.locator('[class*="job-item"]').count(),
                 "[class*=position-item]": page.locator('[class*="position-item"]').count(),
             }
+            # Optional public UI filter experiment. Only pick employer
+            # search facets; never submit a job application or log in.
+            if site in ("autohome", "huawei"):
+                checks = []
+                labels = ("实习生", "北京", "产品") if site == "autohome" else ("实习生",)
+                for label in labels:
+                    attempt = {"filter": label}
+                    try:
+                        option = page.get_by_text(label, exact=True)
+                        attempt["matching_labels"] = option.count()
+                        if not option.count():
+                            attempt["outcome"] = "option_not_visible"
+                        else:
+                            option.first.click(timeout=6000)
+                            page.wait_for_timeout(1800)
+                            current = page.locator("body").inner_text()
+                            attempt["outcome"] = "clicked_public_filter"
+                            attempt["url"] = safe_link(page.url, cfg["host"])
+                            attempt["visible_excerpt"] = current[-2400:]
+                    except Exception as exc:
+                        attempt["outcome"] = "filter_unavailable"
+                        attempt["reason"] = type(exc).__name__
+                    checks.append(attempt)
+                result["public_filter_checks"] = checks
             result["status"] = (
                 "public_page_renders_recruiting_content"
                 if result["keywords_present"] else "visible_recruiting_content_not_found"
