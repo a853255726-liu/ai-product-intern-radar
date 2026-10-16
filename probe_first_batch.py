@@ -105,6 +105,35 @@ def probe(source):
                     });
                 }""")
                 result["pagination_text"] = body[-750:]
+                # Explore the site's public 日常实习 filter, then open
+                # one visible card only to discover the new official
+                # detail URL format. Never click '申请/投递'.
+                try:
+                    filt = page.get_by_text("日常实习", exact=True)
+                    if filt.count():
+                        filt.first.click(timeout=6000)
+                        page.wait_for_timeout(2000)
+                        result["daily_filter_probe"] = {
+                            "url": safe_url(page.url),
+                            "text": page.locator("body").inner_text()[:1750],
+                            "visible_cards": page.locator(".job-card").count(),
+                        }
+                        cards = page.locator(".job-card")
+                        if cards.count():
+                            result["daily_filter_probe"]["card_preview"] = (
+                                cards.first.inner_text()[:550]
+                            )
+                            cards.first.click(timeout=6000)
+                            page.wait_for_timeout(1250)
+                            result["daily_filter_probe"]["first_detail_url"] = (
+                                safe_url(page.url)
+                            )
+                            result["daily_filter_probe"]["first_detail_text"] = (
+                                page.locator("body").inner_text()[:1800]
+                            )
+                except Exception as exc:
+                    result["daily_filter_probe_error"] = type(exc).__name__ + ": " + str(exc)[:180]
+
 
         finally:
             browser.close()
