@@ -148,6 +148,27 @@ first_batch = {
 }
 for name, (detail, url) in first_batch.items():
     info = coverage.setdefault(name, {})
+    last_attempt = (db.get("source_attempts") or {}).get(name) or {}
+    last_audit = (db.get("source_audits") or {}).get(name) or {}
+    if (name in ("OPPO", "好未来")
+            and str(last_attempt.get("status") or "").startswith("成功")
+            and last_audit.get("last_checked") == last_attempt.get("checked")
+            and isinstance(last_audit.get("unique_ids"), int)):
+        # A formerly pending source has now passed live, complete validation.
+        # Keep OPPO 'partial' (verified listing, not direct job detail links),
+        # TAL 'complete_public_html' (each official UUID JD audited).
+        info.update({
+            "source": last_audit.get("capture") or "已验收的招聘官网公开职位列表",
+            "level": "complete_public_html" if name == "好未来" else "partial",
+            "coverage": (
+                f"{last_attempt['checked']} 本入口已验收 "
+                f"{last_audit['unique_ids']} 个唯一职位ID；"
+                f"北京AI产品候选 {last_attempt.get('eligible_candidate_count', '未提供')}；"
+                f"范围：{last_audit.get('scope', '本公开招聘项目')}"
+            ),
+            "website": url,
+        })
+        continue
     if info.get("level") not in ("complete_api", "complete_public_html"):
         info.update({
             "source": "雇主官方实习入口" + ("（已配置采集器，待验收）" if name in ("OPPO", "好未来") else "（未上线采集）"),
