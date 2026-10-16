@@ -41,6 +41,11 @@ official_directories = {
     "字节跳动": "https://jobs.bytedance.com/campus/position",
     "阶跃星辰": "https://app.mokahr.com/campus-recruitment/step/94905#/jobs",
     "B站": "https://jobs.bilibili.com/campus/positions?type=0&page=1",
+    "智平方": "https://ai2robotics.jobs.feishu.cn/",
+    "无问芯穹": "https://infinigence.jobs.feishu.cn/",
+    "星动纪元": "https://k0fqxcszc9.jobs.feishu.cn/",
+    "清程极智": "https://chitu-ai.jobs.feishu.cn/",
+
     "商汤科技": "https://hr-jobs.sensetime.com/edu/m/",
     "地平线机器人": "https://horizon-campus.hotjob.cn/",
     "蚂蚁集团": "https://talent.antgroup.com/campus/home",
@@ -91,6 +96,41 @@ if horizon.get("level", "todo") in ("todo", "partial"):
         "website": "https://horizon-campus.hotjob.cn/",
     })
 
+
+
+# New official employer directories are discoverable, but a source is not
+# "complete" until the current job-ID/page audit passes in cloud execution.
+new_ai_watch = {
+    "智平方": (
+        "具身智能软件平台；官网已列出北京日常产品实习（每周4–5天，≥3个月）；"
+        "已配置公开职位采集，待完成首次完整分页与唯一ID云端验收",
+        "https://ai2robotics.jobs.feishu.cn/",
+    ),
+    "无问芯穹": (
+        "官方职位目录可访问，包含北京及产品职能；当前可见产品岗以全职为主；"
+        "已配置采集，仅明确北京实习职位入库，首次全量验收待完成",
+        "https://infinigence.jobs.feishu.cn/",
+    ),
+    "星动纪元": (
+        "官方招聘目录可访问，北京机器人/技术产品方向以全职为主；"
+        "已配置采集，仅明确北京实习职位入库，首次全量验收待完成",
+        "https://k0fqxcszc9.jobs.feishu.cn/",
+    ),
+    "清程极智": (
+        "官网确认在北京招聘，并有飞书雇主招聘主页；"
+        "具体可分页职位目录和北京AI产品日常实习尚未核验，不自动采集",
+        "https://chitu-ai.jobs.feishu.cn/",
+    ),
+}
+for name, (description, website) in new_ai_watch.items():
+    info = coverage.setdefault(name, {})
+    if info.get("level") not in ("complete_api", "complete_public_html"):
+        info.update({
+            "source": "AI企业公开招聘官网（职位采集待核验）",
+            "level": "partial",
+            "coverage": "2026-10-16：" + description,
+            "website": website,
+        })
 
 # Use the current successful audit to replace stale human-written claims
 # about raw result counts. Do not overwrite a source's last good evidence
