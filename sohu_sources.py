@@ -20,6 +20,19 @@ CARD_SELECTOR='div[class*="results-"] > div[class*="jobs-"] a[href*="#/job/"]'
 JD_SELECTOR='div[class*="job-description-"]'
 LOCATION_LINE=re.compile(r"^(?:北京市|上海市|天津市|广州市|深圳市|杭州市|中国)$")
 DETAIL_WORTH=re.compile(r"产品|商业分析|用户研究|体验|评测|策略|AI|Agent|GEO|大模型|智能",re.I)
+# City is not printed inside this particular official Moka JD, but the
+# *same title and text* appears in a recent LinkedIn listing identifying
+# 搜狐网 · 海淀区. Never apply this evidence to any other UUID or future
+# different title/JD. Keep provenance visible instead of calling it official.
+CROSS_CHECKED_BEIJING={
+    "7e078123-8764-4b6c-8a21-905680360bd5":{
+        "title":"AI 产品实习生（评测方向）",
+        "must_contain":"参与评测集的筛选、构建与维护",
+        "location":"海淀区，北京",
+        "url":"https://cn.linkedin.com/jobs/view/ai-%E4%BA%A7%E5%93%81%E5%AE%9E%E4%B9%A0%E7%94%9F%EF%BC%88%E8%AF%84%E6%B5%8B%E6%96%B9%E5%90%91%EF%BC%89-at-sohu-com-4470906191",
+    }
+}
+
 AI_ROLE=re.compile(r"(?<![A-Za-z])AI(?![A-Za-z])|AIGC|Agent|LLM|MCP|"
                    r"大模型|生成式|智能体|模型评测|模型效果|Prompt|提示词|"
                    r"内容质量评测|AI能力|智能推荐",re.I)
@@ -47,6 +60,10 @@ def is_beijing(row):
     # preferred' is NOT an official work location.
     if city:
         return city=="北京市"
+    verification=CROSS_CHECKED_BEIJING.get(str(row.get("id") or ""))
+    if (verification and row.get("title")==verification["title"]
+            and verification["must_contain"] in text):
+        return True
     return bool(re.search(
         r"(?:工作地点|办公地点|工作城市|base)\s*[：:\n ]+\s*北京市?(?![^\n]{0,15}(?:或|/|、)(?:上海|广州|深圳))",
         text,re.I))
@@ -77,6 +94,10 @@ def normalize_sohu(rows,today):
         track=("AI评测/策略" if re.search(r"评测|评估|评测集",title+duty)
                else "AI数据产品" if "数据产品" in title
                else "AI应用/产品运营")
+        external_city=CROSS_CHECKED_BEIJING.get(row["id"]) if not row.get("official_city") else None
+        city_basis=("搜狐实习项目公开职位-城市" if row.get("official_city")
+                    else "同一职位JD和UUID匹配的LinkedIn地理信息，仅供交叉佐证"
+                    if external_city else "官方JD明确的工作地点")
         out.append({
             "id":"sohu-moka-"+row["id"],"company":"搜狐",
             "title":title,"link":row["url"],
@@ -90,12 +111,14 @@ def normalize_sohu(rows,today):
             "team":"搜狐 · "+((row.get("tags") or ["业务团队未披露"])[0]),
             "summary":duty[:2300],
             "requirements":duty[:2300],
-            "note":"工作地点依据搜狐官方实习项目公开城市标签或JD明确标注；AI职责来自官方详情",
+            "note":"工作地点核验："+city_basis+"；AI职责来自搜狐官方JD；具体HC待核",
             "source":"搜狐官方Moka日常实习项目",
             "graduation": "在校生日常实习（详情中无明确限届条件）",
             "graduation_restriction_confirmed":False,
             "checked":today(),"source_post_id":row["id"],
             "official_work_city":row.get("official_city",""),
+            "location_evidence":city_basis,
+            "location_evidence_url":external_city["url"] if external_city else "",
         })
     return out
 
@@ -154,6 +177,6 @@ def collect_sohu(session=None):
         "status":"搜狐官方独立日常实习Moka项目完整分页、唯一UUID及产品候选JD已对账",
         "scope":"仅搜狐官网实习生职位所指向的Moka 28313项目，非2027校招5682；北京AI产品再逐条筛选",
         "capture":"搜狐官方Moka独立实习项目（普通浏览器）",
-        "caveat":"官网独立实习项目不等于所有产品职位与HC；城市缺官方证据者不发布",
+        "caveat":"城市优先官网证据；评测岗位仅以同一官方JD的近期LinkedIn海淀区信息交叉佐证，显式保留出处；职位HC未确认",
         "location_labels_from_official_home":len(citymap),
     }
