@@ -57,7 +57,9 @@ def parse_public_listing(text):
                     next_boundary = max(index + 1, date_row - 1)
                     break
         else:
-            next_boundary = min(len(lines), index + 30)
+            # Do not truncate the last JD at an arbitrary line count.
+            # Eligibility restrictions can appear after a long duty section.
+            next_boundary = len(lines)
         duty = "\n".join(lines[index + 1:next_boundary])
         if len(duty) > 20000:
             raise ValueError("OPPO role description unexpectedly long; eligibility may be truncated")
