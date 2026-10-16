@@ -1,8 +1,8 @@
 {
   "kind": "offline_python_regression",
-  "source_sha": "8e5fae317a714ebb6bc8626e0be627ed709050f3",
-  "github_run_id": "38910211308",
-  "checked_at_utc": "2026-10-16T13:44:47+00:00",
+  "source_sha": "364155bb52d0147b8d1ec9b7e6d66c6739b667e5",
+  "github_run_id": "38910293544",
+  "checked_at_utc": "2026-10-16T13:45:21+00:00",
   "status": "failed",
   "github_step_outcome": "failure",
   "log_highlights": [
@@ -13,7 +13,7 @@
     "FAIL: test_grad_only_qualification_is_retained_beyond_ui_excerpt (test_first_batch_internships.TalOpPoTests.test_grad_only_qualification_is_retained_beyond_ui_excerpt)",
     "File \"/home/runner/work/ai-product-intern-radar/ai-product-intern-radar/tests/test_first_batch_internships.py\", line 59, in test_grad_only_qualification_is_retained_beyond_ui_excerpt",
     "AssertionError: 0 != 1",
-    "Ran 127 tests in 0.224s",
+    "Ran 127 tests in 0.206s",
     "FAILED (failures=2)",
     "FAIL: OPPO: ValueError: bad job record",
     "OPPO reported 1 unique 1 candidates 0 new 0",
