@@ -9853,6 +9853,40 @@
       "link_label": "官网职位详情",
       "link_check": "职位专属URL；实时可访问性及HC未逐条确认",
       "source_url": "https://app.mokahr.com/campus-recruitment/sohu/28313#/job/eb3be385-d651-4f30-9919-9e0e830f7eb6"
+    },
+    {
+      "id": "sohu-moka-7e078123-8764-4b6c-8a21-905680360bd5",
+      "company": "搜狐",
+      "title": "AI 产品实习生（评测方向）",
+      "link": "https://app.mokahr.com/campus-recruitment/sohu/28313#/job/7e078123-8764-4b6c-8a21-905680360bd5",
+      "posted": "",
+      "date_type": "未提供",
+      "group": "中型/行业科技",
+      "track": "AI评测/策略",
+      "fit": "优先关注",
+      "days": "未注明",
+      "duration": "未注明",
+      "verify": "搜狐官方Moka职位详情（剩余HC待核）",
+      "status": "官方日常实习项目仍在列表中，具体HC待核",
+      "team": "搜狐 · 产品技术中心",
+      "summary": "【岗位为AI产品评测方向，更多的是关注大模型策略与效果，做大模型的评测和效果调优，纯前端的功能设计工作较少，可以接受的小伙伴再来投递哦～】\n【岗位职责】\n1. 深入业务场景，针对不同内容场景设计内容标准，参与评测集的筛选、构建与维护。\n2. 参与 AIGC 内容质量评测工作，迭代人工评估的流程和标准，交付评测报告。\n3. 探索自动评估的思路和方法，搭建自动评估的体系，提升自动评估与人工评估的一致率和其他关键指标。\n4. 跟进领域AI、大模型应用发展情况，输出产品调研分析。\n【任职要求】\n1.  本科及以上在校生，有模型测评经验，熟悉AI领域或有AI产品实习经验优先；人工智能、计算机等专业优先。\n2. 具备良好的数据分析能力和结构化思维能力，能够识别洞察用户的需求和偏好。\n3. 拥有出色的逻辑思维和问题解决能力，沟通表达清晰，学习能力强，细心严谨，有责任心。\n4. 大模型重度用户优先。\n【岗位福利】\n1. 明星扫楼\n2. 节日活动",
+      "requirements": "【岗位为AI产品评测方向，更多的是关注大模型策略与效果，做大模型的评测和效果调优，纯前端的功能设计工作较少，可以接受的小伙伴再来投递哦～】\n【岗位职责】\n1. 深入业务场景，针对不同内容场景设计内容标准，参与评测集的筛选、构建与维护。\n2. 参与 AIGC 内容质量评测工作，迭代人工评估的流程和标准，交付评测报告。\n3. 探索自动评估的思路和方法，搭建自动评估的体系，提升自动评估与人工评估的一致率和其他关键指标。\n4. 跟进领域AI、大模型应用发展情况，输出产品调研分析。\n【任职要求】\n1.  本科及以上在校生，有模型测评经验，熟悉AI领域或有AI产品实习经验优先；人工智能、计算机等专业优先。\n2. 具备良好的数据分析能力和结构化思维能力，能够识别洞察用户的需求和偏好。\n3. 拥有出色的逻辑思维和问题解决能力，沟通表达清晰，学习能力强，细心严谨，有责任心。\n4. 大模型重度用户优先。\n【岗位福利】\n1. 明星扫楼\n2. 节日活动",
+      "note": "工作地点核验：同一职位JD和UUID匹配的LinkedIn地理信息，仅供交叉佐证；AI职责来自搜狐官方JD；具体HC待核",
+      "source": "搜狐官方Moka日常实习项目",
+      "graduation": "在校生日常实习（详情中无明确限届条件）",
+      "graduation_restriction_confirmed": false,
+      "checked": "2026-10-16",
+      "source_post_id": "7e078123-8764-4b6c-8a21-905680360bd5",
+      "official_work_city": "",
+      "location_evidence": "同一职位JD和UUID匹配的LinkedIn地理信息，仅供交叉佐证",
+      "location_evidence_url": "https://cn.linkedin.com/jobs/view/ai-%E4%BA%A7%E5%93%81%E5%AE%9E%E4%B9%A0%E7%94%9F%EF%BC%88%E8%AF%84%E6%B5%8B%E6%96%B9%E5%90%91%EF%BC%89-at-sohu-com-4470906191",
+      "first_seen": "2026-10-16",
+      "last_seen": "2026-10-16",
+      "official_detail_url": "https://app.mokahr.com/campus-recruitment/sohu/28313#/job/7e078123-8764-4b6c-8a21-905680360bd5",
+      "link_kind": "official_detail",
+      "link_label": "官网职位详情",
+      "link_check": "职位专属URL；实时可访问性及HC未逐条确认",
+      "source_url": "https://app.mokahr.com/campus-recruitment/sohu/28313#/job/7e078123-8764-4b6c-8a21-905680360bd5"
     }
   ],
   "company_coverage": {
@@ -10858,7 +10892,7 @@
       "status": "搜狐官方独立日常实习Moka项目完整分页、唯一UUID及产品候选JD已对账",
       "scope": "仅搜狐官网实习生职位所指向的Moka 28313项目，非2027校招5682；北京AI产品再逐条筛选",
       "capture": "搜狐官方Moka独立实习项目（普通浏览器）",
-      "caveat": "官网独立实习项目不等于所有产品职位与HC；城市缺官方证据者不发布",
+      "caveat": "城市优先官网证据；评测岗位仅以同一官方JD的近期LinkedIn海淀区信息交叉佐证，显式保留出处；职位HC未确认",
       "location_labels_from_official_home": 19,
       "last_checked": "2026-10-16"
     }
@@ -11021,9 +11055,9 @@
       "checked": "2026-10-16",
       "reported": 59,
       "unique_ids": 59,
-      "candidate_count": 2,
-      "eligible_candidate_count": 2,
-      "new_candidate_count": 2,
+      "candidate_count": 3,
+      "eligible_candidate_count": 3,
+      "new_candidate_count": 1,
       "candidate_count_definition": "candidate_count是来源初筛，eligible_candidate_count再排除明确届次限制；均非确认仍可申请的名额"
     }
   },
