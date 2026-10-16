@@ -10172,9 +10172,9 @@
     },
     "汽车之家": {
       "source": "雇主官方实习入口（未上线采集）",
-      "coverage": "2026-10-16：官网明确列出在校生日常实习项目；现有职位展示混合类型，日常实习专属列表/全量岗位ID及AI产品职责尚待核查",
+      "coverage": "2026-10-16：已定位官方职位目录，提供实习生、北京和产品类别筛选；搜索页目前混合校招/实习，尚未验证完整分页和职位专属ID，不将普通产品运营误标为AI产品",
       "level": "partial",
-      "website": "https://talent.autohome.com.cn/campus_index.html"
+      "website": "https://talent.autohome.com.cn/campus-recruit-list.html"
     },
     "好未来": {
       "source": "好未来新版招聘官网公开项目筛选及职位详情（无登录）",
