@@ -22,9 +22,12 @@ PORTALS = {
     "面壁智能": ("https://modelbest.jobs.feishu.cn", "/campus/m/position/list"),
     "深势科技": ("https://dptechnology.jobs.feishu.cn", "/index/position/list"),
     "商汤科技": ("https://hr-jobs.sensetime.com", "/edu/m/"),
+    "智平方": ("https://ai2robotics.jobs.feishu.cn", "/index/position/list"),
+    "无问芯穹": ("https://infinigence.jobs.feishu.cn", "/index/position/list"),
+    "星动纪元": ("https://k0fqxcszc9.jobs.feishu.cn", "/index/position/list"),
 }
 JOB_COUNT = re.compile(r"开启新的工作\s*[（(]\s*(\d+)\s*[）)]")
-COMPANY_CODES = {"零一万物":"zeroone","MiniMax":"minimax","智谱":"zhipu","RealAI":"realai","百川智能":"baichuan","爱奇艺":"iqiyi","生数科技":"shengshu","面壁智能":"modelbest","深势科技":"dptechnology","商汤科技":"sensetime"}
+COMPANY_CODES = {"零一万物":"zeroone","MiniMax":"minimax","智谱":"zhipu","RealAI":"realai","百川智能":"baichuan","爱奇艺":"iqiyi","生数科技":"shengshu","面壁智能":"modelbest","深势科技":"dptechnology","商汤科技":"sensetime","智平方":"ai2robotics","无问芯穹":"infinigence","星动纪元":"robotera"}
 MAX_PAGES = 50
 
 def list_url(company, page, page_size):
@@ -192,7 +195,10 @@ def normalize_feishu(company, records, today):
             continue
         if re.search(r"算法工程师|研发工程师|全栈.*工程|开发工程|招聘实习|销售运营", title):
             continue
-        strong = bool(re.search(r"AI|Agent|智能体|大模型|RAG|LLM|模型评测", title+" "+duty, re.I))
+        strong = bool(re.search(
+            r"AI|Agent|智能体|大模型|RAG|LLM|模型评测|具身智能|机器人软件平台|"
+            r"机器人云平台|机器人行业应用平台|模型推理平台|异构算力",
+            title + " " + duty, re.I))
         if not strong and company not in ("零一万物","智谱","MiniMax"):
             continue
         if company == "零一万物" and row["id"] == "7640037085303474458":
