@@ -21,9 +21,10 @@ PORTALS = {
     "生数科技": ("https://shengshu.jobs.feishu.cn", "/index/position/list"),
     "面壁智能": ("https://modelbest.jobs.feishu.cn", "/campus/m/position/list"),
     "深势科技": ("https://dptechnology.jobs.feishu.cn", "/index/position/list"),
+    "商汤科技": ("https://hr-jobs.sensetime.com", "/edu/m/"),
 }
 JOB_COUNT = re.compile(r"开启新的工作\s*[（(]\s*(\d+)\s*[）)]")
-COMPANY_CODES = {"零一万物":"zeroone","MiniMax":"minimax","智谱":"zhipu","RealAI":"realai","百川智能":"baichuan","爱奇艺":"iqiyi","生数科技":"shengshu","面壁智能":"modelbest","深势科技":"dptechnology"}
+COMPANY_CODES = {"零一万物":"zeroone","MiniMax":"minimax","智谱":"zhipu","RealAI":"realai","百川智能":"baichuan","爱奇艺":"iqiyi","生数科技":"shengshu","面壁智能":"modelbest","深势科技":"dptechnology","商汤科技":"sensetime"}
 MAX_PAGES = 50
 
 def list_url(company, page, page_size):
