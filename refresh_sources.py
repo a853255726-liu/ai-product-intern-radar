@@ -493,6 +493,11 @@ def main():
                 prefix = "tal-moka-" if company == "好未来" else "oppo-daily-"
                 current_by_id = {str(x["id"]): x for x in found}
                 current_ids = set(current_by_id)
+                # Raw listing IDs and scoped candidate IDs answer different
+                # questions: did the employer remove the position, or does
+                # it now fail our Beijing/AI/product/internship criteria?
+                raw_source_ids = {str(x.get("id") or "") for x in records
+                                  if isinstance(x, dict) and x.get("id")}
                 for existing_id, existing_job in all_jobs.items():
                     if (not existing_id.startswith(prefix)
                             or existing_job.get("company") != company
@@ -501,15 +506,23 @@ def main():
                     if existing_id in current_ids:
                         was_hidden = existing_job.pop("listing_inactive", False)
                         existing_job.pop("listing_missing_since", None)
+                        existing_job.pop("listing_missing_reason", None)
                         if was_hidden:
                             existing_job["status"] = current_by_id[existing_id].get(
                                 "status", "官方完整目录重新检出；具体资格及HC待核")
                     else:
+                        raw_id = str(existing_job.get("source_post_id") or
+                                     existing_id[len(prefix):])
+                        still_listed = raw_id in raw_source_ids
+                        reason = ("不再满足北京AI产品实习初筛" if still_listed
+                                  else "官网当前完整列表未检出")
+                        previous_reason = existing_job.get("listing_missing_reason")
+                        if previous_reason != reason:
+                            existing_job["listing_missing_since"] = TODAY()
                         existing_job["listing_inactive"] = True
-                        existing_job.setdefault("listing_missing_since", TODAY())
+                        existing_job["listing_missing_reason"] = reason
                         existing_job["status"] = (
-                            "该官方招聘渠道本次完整列表未检出，暂停公开展示；"
-                            "保留历史记录供核查"
+                            reason + "；暂停公开展示，保留原始记录供核查"
                         )
             # A successful source can legitimately yield zero Beijing AI PM
             # candidates; surface that separately from raw feed completeness.
