@@ -136,5 +136,42 @@ class AuditModeTests(unittest.TestCase):
             self.assertEqual(len(eligible_jobs(db["jobs"])), 1)
 
 
+    def test_out_of_scope_vs_removed_job_are_distinct(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            key = "oppo-daily-J251114000002"
+            original = {
+                "id": key, "company": "OPPO", "source_post_id": "J251114000002",
+                "first_seen": "2026-10-12", "title": "AI产品经理实习生",
+                "source": "OPPO官方日常实习官网",
+                "verify": "官网职位列表（专属详情链接待核）",
+            }
+            (root / "jobs.json").write_text(json.dumps({
+                "snapshot": "2026-10-12", "jobs": [original],
+                "source_attempts": {}, "source_audits": {},
+            }), encoding="utf-8")
+            meta = {"reported": 1, "raw_records": 1, "unique_ids": 1}
+            for raw_id, expected_reason in (
+                ("J251114000002", "不再满足北京AI产品实习初筛"),
+                ("J251114000003", "官网当前完整列表未检出"),
+            ):
+                with (
+                    patch.object(refresh_sources, "ROOT", root),
+                    patch.object(refresh_sources, "SOURCES",
+                                 {"OPPO": lambda session, rid=raw_id:
+                                  ([{"id": rid}], meta)}),
+                    patch.object(refresh_sources, "normalize", return_value=[]),
+                    patch("sys.argv",
+                          ["refresh_sources.py", "--sources", "oppo-daily"]),
+                ):
+                    refresh_sources.main()
+                db = json.loads((root / "jobs.json").read_text(encoding="utf-8"))
+                self.assertTrue(db["jobs"][0]["listing_inactive"])
+                self.assertEqual(
+                    db["jobs"][0]["listing_missing_reason"], expected_reason)
+                self.assertEqual(
+                    db["source_attempts"]["OPPO"]["eligible_candidate_count"], 0)
+
+
 if __name__ == "__main__":
     unittest.main()
