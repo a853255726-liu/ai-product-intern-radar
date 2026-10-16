@@ -2,6 +2,9 @@ name: Diagnose first-batch internship sources
 
 on:
   workflow_dispatch:
+  schedule:
+    # Daily independent audit: 03:47 UTC = 11:47 Beijing time
+    - cron: '47 3 * * *'
 
 permissions:
   contents: read
@@ -30,17 +33,30 @@ jobs:
       - name: Check collector syntax and contracts
         run: |
           python -m compileall -q tal_sources.py oppo_sources.py refresh_sources.py tests
-          python -m unittest discover -s tests -p 'test_first_batch_*.py' -v
+          python -m unittest discover -s tests -p 'test_first_batch_*.py' -v 2>&1 | tee test.log
       - name: Check source without writing job snapshots
         shell: bash
         run: |
           set -o pipefail
           python refresh_sources.py --audit-only --sources "${{ matrix.source }}" 2>&1 | tee audit.log
+      - name: Write concise independent audit summary
+        if: always()
+        shell: bash
+        run: |
+          echo "### ${{ matrix.employer }} daily-internship collector" >> "$GITHUB_STEP_SUMMARY"
+          if [ -f audit.log ]; then
+            echo "Collector was attempted; inspect attached audit.log for reported count, unique IDs and candidates." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Collector was not reached. Check setup and test.log first." >> "$GITHUB_STEP_SUMMARY"
+          fi
+          echo "This is a read-only audit, not evidence that Beijing AI product internships are currently open." >> "$GITHUB_STEP_SUMMARY"
       - name: Preserve diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: first-batch-${{ matrix.source }}
-          path: audit.log
-          if-no-files-found: ignore
+          path: |
+            test.log
+            audit.log
+          if-no-files-found: warn
           retention-days: 7
