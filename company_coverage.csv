@@ -1,67 +1,67 @@
 ﻿企业,来源,覆盖状态,检查结果,网址,候选数量,最近自动采集状态,最近自动采集日期
-360,官网及第三方职位列表,partial,第三方有AI产品运营；官网实习申请需复核,https://360campus.zhiye.com/,1,"无自动采集记录（可能仅登记官网入口）",""
-腾讯,官网职位API,good,2026-10-15 核验本入口 25 个唯一职位 ID；范围：仅北京日常实习项目 mapping=104，不包括应届实习/青云/部门直招；企业其他招聘项目仍可能存在遗漏,https://join.qq.com/post.html,4,"成功（当前接口）","2026-10-15"
-美团,官网职位API,good,2026-10-14 核验本入口 366 个唯一职位 ID；范围：官网校招实习类别，不代表其他渠道；企业其他招聘项目仍可能存在遗漏,https://zhaopin.meituan.com/web/campus,40,"失败；保留上次完整快照","2026-10-15"
-小红书,官网职位API,good,2026-10-15 核验本入口 495 个唯一职位 ID；范围：校园招聘混合目录，含非实习职位；企业其他招聘项目仍可能存在遗漏,https://job.xiaohongshu.com/campus/intern,23,"成功（当前接口）","2026-10-15"
-百度,招聘官网,partial,2026-10-15 核验本入口 186 个唯一职位 ID；范围：仅 INTERN，北京市 workPlace=1100，产品类别 postType=2；企业其他招聘项目仍可能存在遗漏,https://talent.baidu.com/jobs/list?recruitType=INTERN,101,"成功（当前接口）","2026-10-15"
-字节跳动,官方校园招聘入口 + 第三方逐条复核,partial,官网确有日常实习独立项目，职位列表需客户端渲染；本轮获1条日常实习的第三方转引，官方详情未独立核验,https://jobs.bytedance.com/campus/position,2,"失败；保留上次完整快照","2026-10-14"
-快手,官方校园招聘公开职位 API,complete_api,2026-10-15 核验本入口 228 个唯一职位 ID；范围：positionNatureCode=intern，实习类别全部城市；企业其他招聘项目仍可能存在遗漏,https://campus.kuaishou.cn/,6,"成功（当前接口）","2026-10-15"
-京东,官网校招 API,partial,2026-10-15 核验本入口 102 个唯一职位 ID；范围：京东官方 type=internship 实习类别（全城市），与正式校招类型不同；企业其他招聘项目仍可能存在遗漏,https://campus.jd.com/,6,"成功（当前接口）","2026-10-15"
-阿里巴巴,阿里巴巴官方匿名网页会话与职位列表 JSON,partial,2026-10-15 核验本入口 364 个唯一职位 ID；范围：阿里巴巴 campus-talent 官网官方日常实习生入口 batchId=100000560002，仅此招聘项目；其他实习渠道或业务集团不保证覆盖；企业其他招聘项目仍可能存在遗漏,https://campus-talent.alibaba.com/campus/position?batchId=100000560002&lang=zh,20,"成功（当前接口）","2026-10-15"
-B站,B站校园招聘官网匿名会话公开 JSON API,partial,2026-10-15 核验本入口 320 个唯一职位 ID；范围：哔哩哔哩官网 type=0 实习频道；目录可能混合岗位性质，逐条核实实习后再筛北京 AI 产品；企业其他招聘项目仍可能存在遗漏,https://jobs.bilibili.com/campus/positions?type=0&page=1,0,"成功（当前接口）","2026-10-15"
-滴滴,第三方岗位来源,partial,北京Agent岗位待官方复核,https://didiglobal.com/,3,"无自动采集记录（可能仅登记官网入口）",""
-知乎,第三方岗位来源,partial,北京平台产品线索待官方复核,https://www.zhihu.com/,1,"无自动采集记录（可能仅登记官网入口）",""
-贝壳,贝壳校招门户,partial,只拿到相邻交互岗位，未完成AI产品细分,https://ke.zhiye.com/jobs,0,"无自动采集记录（可能仅登记官网入口）",""
-同道猎聘,实习僧/猎聘转发,partial,有AI招聘和企业效率岗线索，待确认HC,https://www.liepin.com/,2,"无自动采集记录（可能仅登记官网入口）",""
-牛客,LinkedIn/猎聘转发,partial,有AI产品实习岗位线索，尚无官网职位ID,https://www.nowcoder.com/,1,"无自动采集记录（可能仅登记官网入口）",""
-智谱,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-14 核验本入口 222 个唯一职位 ID；范围：智谱 飞书官方招聘门户 /index/position/list，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://zhipu-ai.jobs.feishu.cn/index/position/list,12,"失败；保留上次完整快照","2026-10-15"
-MiniMax,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 198 个唯一职位 ID；范围：MiniMax 飞书官方招聘门户 /index/position/list，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://vrfi1sk8a0.jobs.feishu.cn/index/position/list,1,"成功（当前接口）","2026-10-15"
-阶跃星辰,阶跃星辰 Moka 校园招聘公开浏览器渲染,complete_public_html,2026-10-15 核验本入口 129 个唯一职位 ID；范围：阶跃星辰官网 campus/step/94905 校园招聘混合目录；需独立识别实习、北京与 AI 产品岗位；企业其他招聘项目仍可能存在遗漏,https://app.mokahr.com/campus-recruitment/step/94905#/jobs,1,"成功（当前接口）","2026-10-15"
-月之暗面,官网 Moka 招聘公开浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 94 个唯一职位 ID；范围：月之暗面 Moka 官方校园招聘全部职位；先筛实习再筛北京 AI 产品；企业其他招聘项目仍可能存在遗漏,https://app.mokahr.com/campus-recruitment/moonshot/148507#/jobs,23,"成功（当前接口）","2026-10-15"
-科大讯飞,北森招聘 API,partial,2026-10-13 实测 Category=3 的实习结果为0；其它入口仍未完全检索。,https://iflytek.zhiye.com/,0,"无自动采集记录（可能仅登记官网入口）",""
-商汤科技,商汤官方实习职位目录（采集器待验收）,partial,2026-10-16 已确认官方实习频道、北京与产品筛选；采集器已配置但完整分页及唯一ID仍需云端验证,https://hr-jobs.sensetime.com/edu/m/,0,"无自动采集记录（可能仅登记官网入口）",""
-第四范式,企业招聘渠道,todo,尚未核对北京AI产品实习,https://www.4paradigm.com/,0,"无自动采集记录（可能仅登记官网入口）",""
-得物,企业招聘渠道,todo,尚未核对北京AI产品实习,https://www.dewu.com/,0,"无自动采集记录（可能仅登记官网入口）",""
-作业帮,企业招聘渠道,todo,尚未核对北京AI学习产品实习,https://www.zuoyebang.com/,0,"无自动采集记录（可能仅登记官网入口）",""
-猿辅导,企业招聘渠道,todo,尚未核对北京AI学习产品实习,https://www.yuanfudao.com/,0,"无自动采集记录（可能仅登记官网入口）",""
-快看,企业招聘渠道,todo,尚未核对北京AI产品实习,https://www.kuaikanmanhua.com/,0,"无自动采集记录（可能仅登记官网入口）",""
-Keep,企业招聘渠道,todo,尚未核对北京AI健康产品实习,https://www.gotokeep.com/,0,"无自动采集记录（可能仅登记官网入口）",""
-Boss直聘,企业招聘渠道,todo,尚未核对北京AI招聘产品实习,https://www.zhipin.com/,0,"无自动采集记录（可能仅登记官网入口）",""
-地平线机器人,官方校园招聘入口（日常实习待核验）,partial,2026-10-16 确认有日常实习计划且北京在招聘城市范围；北京AI产品职位尚未全量核验,https://horizon-campus.hotjob.cn/,0,"无自动采集记录（可能仅登记官网入口）",""
-面壁智能,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 63 个唯一职位 ID；范围：面壁智能 飞书官方招聘门户 /campus/m/position/list，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://modelbest.jobs.feishu.cn/campus/m/position/list,2,"成功（当前接口）","2026-10-15"
-携程集团,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.ctrip.com,0,"无自动采集记录（可能仅登记官网入口）",""
-网易,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://hr.163.com,0,"无自动采集记录（可能仅登记官网入口）",""
-爱奇艺,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 98 个唯一职位 ID；范围：爱奇艺 飞书官方招聘门户 /intern/m/，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://iq.jobs.feishu.cn/intern/m/,9,"成功（当前接口）","2026-10-15"
-金山办公,招聘平台岗位与官网,partial,找到WPS Agent/Skills AI产品实习，但职位工作地为珠海，因北京限定未入库,https://www.wps.cn/,0,"无自动采集记录（可能仅登记官网入口）",""
-小米,小米官网招聘 API（官方已取全量，GitHub Actions自动请求受限）,partial,2026-10-13官方API北京实习type=3共334条4页、334唯一职位ID；27条2026年AI产品相关候选已截图式取源快照。云端GitHub Actions返回403，当前此来源为非自动更新，勿按实时招聘状态理解。,https://hr.xiaomi.com/website/opportunities.html,28,"失败；保留上次完整快照","2026-10-13"
-蚂蚁集团,官方日常实习招聘入口（职位接口待核验）,partial,2026-10-15 官网确认日常实习面向全体在校生且毕业时间不限；未核验北京AI产品职位全量分页与职位ID，不属于已成功自动采集,https://talent.antgroup.com/campus/home,0,"无自动采集记录（可能仅登记官网入口）",""
-美图,官网招聘详情,partial,已核验1个北京AI创作社区产品岗位；未完成全量实习项目/岗位枚举,https://hr.meitu.com/,1,"无自动采集记录（可能仅登记官网入口）",""
-昆仑万维,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.kunlun.com,0,"无自动采集记录（可能仅登记官网入口）",""
-百川智能,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 6 个唯一职位 ID；范围：百川智能 飞书官方招聘门户 /646926/，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://cq6qe6bvfr6.jobs.feishu.cn/646926/,1,"成功（当前接口）","2026-10-15"
-零一万物,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 52 个唯一职位 ID；范围：零一万物 飞书官方招聘门户 /index/position/list，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://01ai.jobs.feishu.cn/index/position/list,2,"成功（当前接口）","2026-10-15"
-硅基流动,牛客企业HR在招信息（官网未核实）,partial,发现北京AIGC产品体验实习，明确4天/周；公司招聘官方全量接口未核对,https://www.nowcoder.com/jobs/detail/456133,1,"无自动采集记录（可能仅登记官网入口）",""
-DeepSeek,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.deepseek.com,0,"无自动采集记录（可能仅登记官网入口）",""
-合合信息,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.intsig.com,0,"无自动采集记录（可能仅登记官网入口）",""
-出门问问,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.mobvoi.com,0,"无自动采集记录（可能仅登记官网入口）",""
-猎户星空,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.orionstar.com,0,"无自动采集记录（可能仅登记官网入口）",""
-云知声,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.unisound.com,0,"无自动采集记录（可能仅登记官网入口）",""
-金蝶,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.kingdee.com,0,"无自动采集记录（可能仅登记官网入口）",""
-用友,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.yonyou.com,0,"无自动采集记录（可能仅登记官网入口）",""
-明略科技,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.mininglamp.com,0,"无自动采集记录（可能仅登记官网入口）",""
-值得买,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.smzdm.com,0,"无自动采集记录（可能仅登记官网入口）",""
-联想,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.lenovo.com,0,"无自动采集记录（可能仅登记官网入口）",""
-神州数码,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.digitalchina.com,0,"无自动采集记录（可能仅登记官网入口）",""
-万兴科技,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.wondershare.cn,0,"无自动采集记录（可能仅登记官网入口）",""
-米哈游,官方 ATS 公开职位 API,complete_api,2026-10-15 核验本入口 268 个唯一职位 ID；范围：channelDetailIds=1、hireType=1；混合校招正式与实习；企业其他招聘项目仍可能存在遗漏,https://jobs.mihoyo.com/,0,"成功（当前接口）","2026-10-15"
-生数科技,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 109 个唯一职位 ID；范围：生数科技 飞书官方招聘门户 /index/position/list，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://shengshu.jobs.feishu.cn/index/position/list,6,"成功（当前接口）","2026-10-15"
-RealAI,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 11 个唯一职位 ID；范围：RealAI 飞书官方招聘门户 /272867/，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://realai.jobs.feishu.cn/272867/,1,"成功（当前接口）","2026-10-15"
-深势科技,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 239 个唯一职位 ID；范围：深势科技 飞书官方招聘门户 /index/position/list，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://dptechnology.jobs.feishu.cn/index/position/list,6,"成功（当前接口）","2026-10-15"
-智平方,AI企业公开招聘目录（自动采集待验收）,partial,2026-10-16官网发现北京具身智能软件平台产品日常实习（每周4至5天、至少3个月）；已配置官方采集器，待完整分页和唯一ID验收,https://ai2robotics.jobs.feishu.cn/,0,"无自动采集记录（可能仅登记官网入口）",""
-无问芯穹,AI基础设施官方招聘目录（自动采集待验收）,partial,2026-10-16官网职位列表含北京及产品类别；当前明确产品岗位以全职为主，仅合格实习岗位入库,https://infinigence.jobs.feishu.cn/,0,"无自动采集记录（可能仅登记官网入口）",""
-星动纪元,具身智能官方招聘目录（自动采集待验收）,partial,2026-10-16官网职位列表含北京产品方向；当前明确岗位主要为全职，不将其计作实习,https://k0fqxcszc9.jobs.feishu.cn/,0,"无自动采集记录（可能仅登记官网入口）",""
-清程极智,AI基础设施官方招聘主页（职位采集待核验）,partial,2026-10-16已确认官网列出北京岗位，但尚未确认可分页的北京AI产品实习目录,https://chitu-ai.jobs.feishu.cn/,0,"无自动采集记录（可能仅登记官网入口）",""
-华为,华为勇敢星实习招聘官网（未上线自动采集）,partial,2026-10-16确认官网实习生入口；尚未核验完整职位分页与北京AI产品岗位,https://career.huawei.com/reccampportal/portal5/campus-recruitment.html,0,"无自动采集记录（可能仅登记官网入口）",""
-OPPO,官网日常实习列表（采集器待云端验收）,partial,2026-10-16公开日常实习职位列表可查看；已配置数量与唯一职位ID校验，当前北京主要为算法实习,https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-RECRUITMENT,0,"无自动采集记录（可能仅登记官网入口）",""
-汽车之家,官网在校生日常实习入口（待核职位接口）,partial,2026-10-16官方校园页区分应届生招聘与在校生日常实习；尚未核验可分页的职位源,https://talent.autohome.com.cn/campus_index.html,0,"无自动采集记录（可能仅登记官网入口）",""
-好未来,官方Moka混合校招目录（采集器待云端验收）,partial,2026-10-16已配置Moka全量ID与北京AI产品实习JD校验；2027暑期项目有届次限制风险,https://app.mokahr.com/campus-recruitment/tal/95443#/jobs,0,"无自动采集记录（可能仅登记官网入口）",""
-搜狐,官网校园实习入口（待核职位接口）,partial,2026-10-16确认校园官网有在校生实习计划；2027应届秋招条件不能当成日常实习条件,https://campus.sohu.com/,0,"无自动采集记录（可能仅登记官网入口）",""
+360,官网及第三方职位列表,partial,第三方有AI产品运营；官网实习申请需复核,https://360campus.zhiye.com/,1,无自动采集记录（可能仅登记官网入口）,
+腾讯,官网职位API,good,2026-10-15 核验本入口 25 个唯一职位 ID；范围：仅北京日常实习项目 mapping=104，不包括应届实习/青云/部门直招；企业其他招聘项目仍可能存在遗漏,https://join.qq.com/post.html,4,成功（当前接口）,2026-10-15
+美团,官网职位API,good,2026-10-14 核验本入口 366 个唯一职位 ID；范围：官网校招实习类别，不代表其他渠道；企业其他招聘项目仍可能存在遗漏,https://zhaopin.meituan.com/web/campus,40,失败；保留上次完整快照,2026-10-15
+小红书,官网职位API,good,2026-10-15 核验本入口 495 个唯一职位 ID；范围：校园招聘混合目录，含非实习职位；企业其他招聘项目仍可能存在遗漏,https://job.xiaohongshu.com/campus/intern,23,成功（当前接口）,2026-10-15
+百度,招聘官网,partial,2026-10-15 核验本入口 186 个唯一职位 ID；范围：仅 INTERN，北京市 workPlace=1100，产品类别 postType=2；企业其他招聘项目仍可能存在遗漏,https://talent.baidu.com/jobs/list?recruitType=INTERN,101,成功（当前接口）,2026-10-15
+字节跳动,官方校园招聘入口 + 第三方逐条复核,partial,官网确有日常实习独立项目，职位列表需客户端渲染；本轮获1条日常实习的第三方转引，官方详情未独立核验,https://jobs.bytedance.com/campus/position,2,失败；保留上次完整快照,2026-10-14
+快手,官方校园招聘公开职位 API,complete_api,2026-10-15 核验本入口 228 个唯一职位 ID；范围：positionNatureCode=intern，实习类别全部城市；企业其他招聘项目仍可能存在遗漏,https://campus.kuaishou.cn/,6,成功（当前接口）,2026-10-15
+京东,官网校招 API,partial,2026-10-15 核验本入口 102 个唯一职位 ID；范围：京东官方 type=internship 实习类别（全城市），与正式校招类型不同；企业其他招聘项目仍可能存在遗漏,https://campus.jd.com/,6,成功（当前接口）,2026-10-15
+阿里巴巴,阿里巴巴官方匿名网页会话与职位列表 JSON,partial,2026-10-15 核验本入口 364 个唯一职位 ID；范围：阿里巴巴 campus-talent 官网官方日常实习生入口 batchId=100000560002，仅此招聘项目；其他实习渠道或业务集团不保证覆盖；企业其他招聘项目仍可能存在遗漏,https://campus-talent.alibaba.com/campus/position?batchId=100000560002&lang=zh,20,成功（当前接口）,2026-10-15
+B站,B站校园招聘官网匿名会话公开 JSON API,partial,2026-10-15 核验本入口 320 个唯一职位 ID；范围：哔哩哔哩官网 type=0 实习频道；目录可能混合岗位性质，逐条核实实习后再筛北京 AI 产品；企业其他招聘项目仍可能存在遗漏,https://jobs.bilibili.com/campus/positions?type=0&page=1,0,成功（当前接口）,2026-10-15
+滴滴,第三方岗位来源,partial,北京Agent岗位待官方复核,https://didiglobal.com/,3,无自动采集记录（可能仅登记官网入口）,
+知乎,第三方岗位来源,partial,北京平台产品线索待官方复核,https://www.zhihu.com/,1,无自动采集记录（可能仅登记官网入口）,
+贝壳,贝壳校招门户,partial,只拿到相邻交互岗位，未完成AI产品细分,https://ke.zhiye.com/jobs,0,无自动采集记录（可能仅登记官网入口）,
+同道猎聘,实习僧/猎聘转发,partial,有AI招聘和企业效率岗线索，待确认HC,https://www.liepin.com/,2,无自动采集记录（可能仅登记官网入口）,
+牛客,LinkedIn/猎聘转发,partial,有AI产品实习岗位线索，尚无官网职位ID,https://www.nowcoder.com/,1,无自动采集记录（可能仅登记官网入口）,
+智谱,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-14 核验本入口 222 个唯一职位 ID；范围：智谱 飞书官方招聘门户 /index/position/list，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://zhipu-ai.jobs.feishu.cn/index/position/list,12,失败；保留上次完整快照,2026-10-15
+MiniMax,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 198 个唯一职位 ID；范围：MiniMax 飞书官方招聘门户 /index/position/list，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://vrfi1sk8a0.jobs.feishu.cn/index/position/list,1,成功（当前接口）,2026-10-15
+阶跃星辰,阶跃星辰 Moka 校园招聘公开浏览器渲染,complete_public_html,2026-10-15 核验本入口 129 个唯一职位 ID；范围：阶跃星辰官网 campus/step/94905 校园招聘混合目录；需独立识别实习、北京与 AI 产品岗位；企业其他招聘项目仍可能存在遗漏,https://app.mokahr.com/campus-recruitment/step/94905#/jobs,1,成功（当前接口）,2026-10-15
+月之暗面,官网 Moka 招聘公开浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 94 个唯一职位 ID；范围：月之暗面 Moka 官方校园招聘全部职位；先筛实习再筛北京 AI 产品；企业其他招聘项目仍可能存在遗漏,https://app.mokahr.com/campus-recruitment/moonshot/148507#/jobs,23,成功（当前接口）,2026-10-15
+科大讯飞,北森招聘 API,partial,2026-10-13 实测 Category=3 的实习结果为0；其它入口仍未完全检索。,https://iflytek.zhiye.com/,0,无自动采集记录（可能仅登记官网入口）,
+商汤科技,商汤官方校园与实习职位目录（全量采集待验收）,partial,2026-10-16 确认官方实习频道面向在校生，官网职位目录可按北京/实习/产品筛选；自动分页及唯一职位ID仍须以 source_attempts 实际成功为准,https://hr-jobs.sensetime.com/edu/m/,0,无自动采集记录（可能仅登记官网入口）,
+第四范式,企业招聘渠道,todo,尚未核对北京AI产品实习,https://www.4paradigm.com/,0,无自动采集记录（可能仅登记官网入口）,
+得物,企业招聘渠道,todo,尚未核对北京AI产品实习,https://www.dewu.com/,0,无自动采集记录（可能仅登记官网入口）,
+作业帮,企业招聘渠道,todo,尚未核对北京AI学习产品实习,https://www.zuoyebang.com/,0,无自动采集记录（可能仅登记官网入口）,
+猿辅导,企业招聘渠道,todo,尚未核对北京AI学习产品实习,https://www.yuanfudao.com/,0,无自动采集记录（可能仅登记官网入口）,
+快看,企业招聘渠道,todo,尚未核对北京AI产品实习,https://www.kuaikanmanhua.com/,0,无自动采集记录（可能仅登记官网入口）,
+Keep,企业招聘渠道,todo,尚未核对北京AI健康产品实习,https://www.gotokeep.com/,0,无自动采集记录（可能仅登记官网入口）,
+Boss直聘,企业招聘渠道,todo,尚未核对北京AI招聘产品实习,https://www.zhipin.com/,0,无自动采集记录（可能仅登记官网入口）,
+地平线机器人,地平线官方校园招聘入口（日常实习职位待核验）,partial,2026-10-16 已确认官方校园招聘入口及日常实习计划，北京为招聘城市之一；未取得完整可稳定分页的北京AI产品实习记录,https://horizon-campus.hotjob.cn/,0,无自动采集记录（可能仅登记官网入口）,
+面壁智能,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 63 个唯一职位 ID；范围：面壁智能 飞书官方招聘门户 /campus/m/position/list，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://modelbest.jobs.feishu.cn/campus/m/position/list,2,成功（当前接口）,2026-10-15
+携程集团,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.ctrip.com,0,无自动采集记录（可能仅登记官网入口）,
+网易,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://hr.163.com,0,无自动采集记录（可能仅登记官网入口）,
+爱奇艺,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 98 个唯一职位 ID；范围：爱奇艺 飞书官方招聘门户 /intern/m/，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://iq.jobs.feishu.cn/intern/m/,9,成功（当前接口）,2026-10-15
+金山办公,招聘平台岗位与官网,partial,找到WPS Agent/Skills AI产品实习，但职位工作地为珠海，因北京限定未入库,https://www.wps.cn/,0,无自动采集记录（可能仅登记官网入口）,
+小米,小米官网招聘 API（官方已取全量，GitHub Actions自动请求受限）,partial,2026-10-13官方API北京实习type=3共334条4页、334唯一职位ID；27条2026年AI产品相关候选已截图式取源快照。云端GitHub Actions返回403，当前此来源为非自动更新，勿按实时招聘状态理解。,https://hr.xiaomi.com/website/opportunities.html,28,失败；保留上次完整快照,2026-10-13
+蚂蚁集团,蚂蚁集团官方日常实习入口（职位接口待核验）,partial,2026-10-15 官方校园招聘首页确认日常实习面向全体在校生、毕业时间不限；尚未取得可稳定分页的官方职位ID，不能宣称北京AI产品实习岗位已自动采集。,https://talent.antgroup.com/campus/home,0,无自动采集记录（可能仅登记官网入口）,
+美图,官网招聘详情,partial,已核验1个北京AI创作社区产品岗位；未完成全量实习项目/岗位枚举,https://hr.meitu.com/,1,无自动采集记录（可能仅登记官网入口）,
+昆仑万维,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.kunlun.com,0,无自动采集记录（可能仅登记官网入口）,
+百川智能,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 6 个唯一职位 ID；范围：百川智能 飞书官方招聘门户 /646926/，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://cq6qe6bvfr6.jobs.feishu.cn/646926/,1,成功（当前接口）,2026-10-15
+零一万物,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 52 个唯一职位 ID；范围：零一万物 飞书官方招聘门户 /index/position/list，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://01ai.jobs.feishu.cn/index/position/list,2,成功（当前接口）,2026-10-15
+硅基流动,牛客企业HR在招信息（官网未核实）,partial,发现北京AIGC产品体验实习，明确4天/周；公司招聘官方全量接口未核对,https://www.nowcoder.com/jobs/detail/456133,1,无自动采集记录（可能仅登记官网入口）,
+DeepSeek,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.deepseek.com,0,无自动采集记录（可能仅登记官网入口）,
+合合信息,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.intsig.com,0,无自动采集记录（可能仅登记官网入口）,
+出门问问,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.mobvoi.com,0,无自动采集记录（可能仅登记官网入口）,
+猎户星空,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.orionstar.com,0,无自动采集记录（可能仅登记官网入口）,
+云知声,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.unisound.com,0,无自动采集记录（可能仅登记官网入口）,
+金蝶,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.kingdee.com,0,无自动采集记录（可能仅登记官网入口）,
+用友,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.yonyou.com,0,无自动采集记录（可能仅登记官网入口）,
+明略科技,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.mininglamp.com,0,无自动采集记录（可能仅登记官网入口）,
+值得买,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.smzdm.com,0,无自动采集记录（可能仅登记官网入口）,
+联想,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.lenovo.com,0,无自动采集记录（可能仅登记官网入口）,
+神州数码,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.digitalchina.com,0,无自动采集记录（可能仅登记官网入口）,
+万兴科技,公司网站（招聘接口尚未定位）,todo,尚未核验北京AI产品实习岗位，也未完成官网招聘子系统检索,https://www.wondershare.cn,0,无自动采集记录（可能仅登记官网入口）,
+米哈游,官方 ATS 公开职位 API,complete_api,2026-10-15 核验本入口 268 个唯一职位 ID；范围：channelDetailIds=1、hireType=1；混合校招正式与实习；企业其他招聘项目仍可能存在遗漏,https://jobs.mihoyo.com/,0,成功（当前接口）,2026-10-15
+生数科技,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 109 个唯一职位 ID；范围：生数科技 飞书官方招聘门户 /index/position/list，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://shengshu.jobs.feishu.cn/index/position/list,6,成功（当前接口）,2026-10-15
+RealAI,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 11 个唯一职位 ID；范围：RealAI 飞书官方招聘门户 /272867/，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://realai.jobs.feishu.cn/272867/,1,成功（当前接口）,2026-10-15
+深势科技,官网公开职位页面标准浏览器渲染（无登录）,complete_public_html,2026-10-15 核验本入口 239 个唯一职位 ID；范围：深势科技 飞书官方招聘门户 /index/position/list，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏,https://dptechnology.jobs.feishu.cn/index/position/list,6,成功（当前接口）,2026-10-15
+智平方,AI企业公开招聘官网（职位采集待核验）,partial,2026-10-16：具身智能软件平台；官网已列出北京日常产品实习（每周4–5天，≥3个月）；已配置公开职位采集，待完成首次完整分页与唯一ID云端验收,https://ai2robotics.jobs.feishu.cn/,0,无自动采集记录（可能仅登记官网入口）,
+无问芯穹,AI企业公开招聘官网（职位采集待核验）,partial,2026-10-16：官方职位目录可访问，包含北京及产品职能；当前可见产品岗以全职为主；已配置采集，仅明确北京实习职位入库，首次全量验收待完成,https://infinigence.jobs.feishu.cn/,0,无自动采集记录（可能仅登记官网入口）,
+星动纪元,AI企业公开招聘官网（职位采集待核验）,partial,2026-10-16：官方招聘目录可访问，北京机器人/技术产品方向以全职为主；已配置采集，仅明确北京实习职位入库，首次全量验收待完成,https://k0fqxcszc9.jobs.feishu.cn/,0,无自动采集记录（可能仅登记官网入口）,
+清程极智,AI企业公开招聘官网（职位采集待核验）,partial,2026-10-16：官网确认在北京招聘，并有飞书雇主招聘主页；具体可分页职位目录和北京AI产品日常实习尚未核验，不自动采集,https://chitu-ai.jobs.feishu.cn/,0,无自动采集记录（可能仅登记官网入口）,
+华为,雇主官方实习入口（未上线采集）,partial,2026-10-16：华为勇敢星实习生计划与官网实习生职位搜索入口已核实；页面依赖客户端渲染，尚未定位可稳定复现完整分页的官方职位接口,https://career.huawei.com/reccampportal/portal5/campus-recruitment.html,0,无自动采集记录（可能仅登记官网入口）,
+OPPO,雇主官方实习入口（已配置采集器，待验收）,partial,2026-10-16：日常实习为独立公开职位列表（区别2027届寻梦项目）；已配置普通浏览器职位ID和公开记录总数校验，尚待云端首次验收；已查看的北京职位以算法类为主,https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-RECRUITMENT,0,无自动采集记录（可能仅登记官网入口）,
+汽车之家,雇主官方实习入口（未上线采集）,partial,2026-10-16：官网明确列出在校生日常实习项目；现有职位展示混合类型，日常实习专属列表/全量岗位ID及AI产品职责尚待核查,https://talent.autohome.com.cn/campus_index.html,0,无自动采集记录（可能仅登记官网入口）,
+好未来,雇主官方实习入口（已配置采集器，待验收）,partial,2026-10-16：官方Moka campus/tal/95443列表可访问，2027暑期实习和其他招聘项目混合；已配置完整分页、职位UUID及北京AI产品实习JD校验，尚待云端首次验收,https://app.mokahr.com/campus-recruitment/tal/95443#/jobs,0,无自动采集记录（可能仅登记官网入口）,
+搜狐,雇主官方实习入口（未上线采集）,partial,2026-10-16：官网校园招聘明确有面向在校生的实习项目，但2027秋招FAQ只对2026/2027届开放；独立日常实习职位详情和可分页接口尚未核实,https://campus.sohu.com/,0,无自动采集记录（可能仅登记官网入口）,
