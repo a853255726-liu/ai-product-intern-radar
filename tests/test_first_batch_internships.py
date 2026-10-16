@@ -60,6 +60,11 @@ class TalOpPoTests(unittest.TestCase):
         self.assertTrue(output[0]["graduation"].startswith("仅招2027届"))
         self.assertEqual(eligible_jobs(output), [])
         self.assertEqual(explicit_grad_only("2027届及以后均可报名"), "")
+        self.assertEqual(explicit_grad_only("仅招2027届及以后在校生"), "")
+        self.assertIn("仅招2027届", explicit_grad_only(
+            "仅招2027届毕业生。" + "其他业务条件。" * 100 +
+            "另一个岗位注明2028届及以后也可以申请。"
+        ))
 
     def test_oppo_full_visible_list_reconciles_job_ids(self):
         text = """岗位列表
