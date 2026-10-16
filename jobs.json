@@ -10903,7 +10903,7 @@
     "好未来": {
       "status": "失败；保留上次完整快照",
       "checked": "2026-10-16",
-      "error": "TAL public Moka job list did not render; evidence={\"page_index\": 1, \"url\": \"https://job.tal.com/campus/home#/jobs/?page=1\", \"title\": \"首页 - 好未来招聘官网｜校园招聘、实习生招聘、社会招聘\", \"job_anchors\": 0, \"body_preview\": \"首页\\n全部职位\\n了解好未来\\n人才计划\\n招聘动态\\n事业部招聘\\n登录\\n\\nMORE POSSIBILITIES, BETTER FUTURE\\n\\n选择你的加入方式\\n\\n从实习到正式校招，每一种身份都能在好未来找到清晰的成长路径"
+      "error": "TAL daily project list incomplete: reported=132, visible=20, max=20"
     },
     "OPPO": {
       "status": "成功（当前接口）",
