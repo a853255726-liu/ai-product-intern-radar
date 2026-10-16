@@ -41,6 +41,8 @@ official_directories = {
     "字节跳动": "https://jobs.bytedance.com/campus/position",
     "阶跃星辰": "https://app.mokahr.com/campus-recruitment/step/94905#/jobs",
     "B站": "https://jobs.bilibili.com/campus/positions?type=0&page=1",
+    "商汤科技": "https://hr-jobs.sensetime.com/edu/m/",
+    "地平线机器人": "https://horizon-campus.hotjob.cn/",
     "蚂蚁集团": "https://talent.antgroup.com/campus/home",
 }
 for name, url in official_directories.items():
@@ -67,6 +69,27 @@ if ant and ant.get("level") not in ("complete_api", "complete_public_html"):
         "毕业时间不限；尚未取得可稳定分页的官方职位ID，"
         "不能宣称北京AI产品实习岗位已自动采集。"
     )
+
+
+
+# Newly confirmed employer-operated recruiting directories. Discovery of an
+# official board does not imply a successful full pagination scan.
+sensetime = coverage.setdefault("商汤科技", {})
+if sensetime.get("level", "todo") in ("todo", "partial"):
+    sensetime.update({
+        "source": "商汤官方校园与实习职位目录（全量采集待验收）",
+        "level": "partial",
+        "coverage": "2026-10-16 确认官方实习频道面向在校生，官网职位目录可按北京/实习/产品筛选；自动分页及唯一职位ID仍须以 source_attempts 实际成功为准",
+        "website": "https://hr-jobs.sensetime.com/edu/m/",
+    })
+horizon = coverage.setdefault("地平线机器人", {})
+if horizon.get("level", "todo") in ("todo", "partial"):
+    horizon.update({
+        "source": "地平线官方校园招聘入口（日常实习职位待核验）",
+        "level": "partial",
+        "coverage": "2026-10-16 已确认官方校园招聘入口及日常实习计划，北京为招聘城市之一；未取得完整可稳定分页的北京AI产品实习记录",
+        "website": "https://horizon-campus.hotjob.cn/",
+    })
 
 
 # Use the current successful audit to replace stale human-written claims
