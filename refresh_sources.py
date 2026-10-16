@@ -466,6 +466,11 @@ def main():
                             for field in ("fit", "days", "duration",
                                           "internship_kind", "daily_evidence"):
                                 existing[field] = job.get(field, existing.get(field))
+            # A successful source can legitimately yield zero Beijing AI PM
+            # candidates; surface that separately from raw feed completeness.
+            attempts[company]["candidate_count"] = len(found)
+            attempts[company]["new_candidate_count"] = new
+            attempts[company]["candidate_count_definition"] = "来源初筛；非确认仍可申请的岗位数"
             print(company, "reported", meta["reported"], "unique", meta["unique_ids"],
                   "candidates", len(found), "new", new)
         except Exception as exc:
