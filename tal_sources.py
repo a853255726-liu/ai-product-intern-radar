@@ -52,7 +52,7 @@ def explicit_grad_only(text):
     that other current students are ineligible.
     """
     text = str(text or "")
-    if re.search(r"20\\d{2}届及以后|非应届(?:生)?也可|不限应届|应届(?:生)?优先", text):
+    if re.search(r"20\d{2}届及以后|非应届(?:生)?也可|不限应届|应届(?:生)?优先", text):
         return ""
     match = GRAD_ONLY.search(text)
     return match.group(0) if match else ""
