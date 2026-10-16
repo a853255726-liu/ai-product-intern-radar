@@ -10133,6 +10133,30 @@
       "level": "complete_public_html",
       "coverage": "2026-10-15 核验本入口 239 个唯一职位 ID；范围：深势科技 飞书官方招聘门户 /index/position/list，页面完整分页范围（需筛北京实习）；企业其他招聘项目仍可能存在遗漏",
       "website": "https://dptechnology.jobs.feishu.cn/index/position/list"
+    },
+    "智平方": {
+      "source": "AI企业官网公开招聘入口（职位源待验收）",
+      "level": "partial",
+      "coverage": "2026-10-16 官网确认北京具身智能软件平台产品日常实习，要求每周4–5天、至少3个月；已配置公开职位采集，尚未完成首次云端全分页和唯一ID对账",
+      "website": "https://ai2robotics.jobs.feishu.cn/"
+    },
+    "无问芯穹": {
+      "source": "AI企业官网公开招聘入口（职位源待验收）",
+      "level": "partial",
+      "coverage": "2026-10-16 官方招聘目录包含北京及产品职能，但已看到的产品岗位主要为全职；已配置采集，仅保留北京实习且AI产品职责匹配的职位，尚未云端验收",
+      "website": "https://infinigence.jobs.feishu.cn/"
+    },
+    "星动纪元": {
+      "source": "AI企业官网公开招聘入口（职位源待验收）",
+      "level": "partial",
+      "coverage": "2026-10-16 官方招聘目录包含北京技术产品方向，当前明确职位以全职为主；已配置采集，仅保留北京实习且产品职责匹配的职位，尚未云端验收",
+      "website": "https://k0fqxcszc9.jobs.feishu.cn/"
+    },
+    "清程极智": {
+      "source": "AI企业官网公开招聘入口（职位源待验收）",
+      "level": "partial",
+      "coverage": "2026-10-16 官方AI基础设施公司招聘主页确认北京招聘需求；尚未核实可稳定分页的北京AI产品日常实习职位接口，不自动采集",
+      "website": "https://chitu-ai.jobs.feishu.cn/"
     }
   },
   "quality": {
