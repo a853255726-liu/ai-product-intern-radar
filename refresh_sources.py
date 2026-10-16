@@ -375,6 +375,9 @@ def main():
         try:
             with requests.Session() as session:
                 records, meta = SOURCES[company](session)
+            # Normalize before recording a successful audit or raw snapshot.
+            # A parser error is a failed source, never a validated vacancy feed.
+            found, new = normalize(company, records), 0
             if not args.audit_only:
                 (rawdir / (company + "_latest.json")).write_text(
                     json.dumps({"checked": TODAY(), "records": records}, ensure_ascii=False), encoding="utf-8")
@@ -389,7 +392,6 @@ def main():
             attempts[company] = {"status": "成功（当前接口）", "checked": TODAY(),
                                  "reported": meta["reported"], "unique_ids": meta["unique_ids"]}
             successes += 1
-            found, new = normalize(company, records), 0
             if not args.audit_only:
                 for job in found:
                     ident = job["id"]
