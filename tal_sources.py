@@ -76,7 +76,20 @@ def collect_tal(session=None):
                 try:
                     page.locator(LIST_MARKER).first.wait_for(timeout=20000)
                 except BrowserTimeout as exc:
-                    raise ValueError("TAL campus job list did not render") from exc
+                    # Diagnose public client rendering without solving access
+                    # challenges, emitting any personal data or accepting a
+                    # partial listing.
+                    import json
+                    evidence = {
+                        "page_index": index, "url": page.url,
+                        "title": page.title(),
+                        "job_anchors": page.locator('a[href*="#/job/"]').count(),
+                        "body_preview": page.locator("body").inner_text()[:650],
+                    }
+                    raise ValueError(
+                        "TAL public Moka job list did not render; evidence="
+                        + json.dumps(evidence, ensure_ascii=False)
+                    ) from exc
                 total, found = parse_list_html(page.content(), base=BASE)
                 if expected is None:
                     expected = total
