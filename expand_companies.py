@@ -182,11 +182,18 @@ for name, audit in db.get("source_audits", {}).items():
 dbpath.write_text(json.dumps(db, ensure_ascii=False, indent=2), encoding="utf-8")
 with (ROOT / "company_coverage.csv").open("w", encoding="utf-8-sig", newline="") as stream:
     writer = csv.writer(stream)
-    writer.writerow(["企业", "来源", "覆盖状态", "检查结果", "网址", "候选数量"])
+    writer.writerow(["企业", "来源", "覆盖状态", "检查结果", "网址", "候选数量",
+                     "最近自动采集状态", "最近自动采集日期"])
     for name, info in coverage.items():
+        latest = attempts.get(name) or {}
+        # Source coverage is historical scope, while the last attempt is a
+        # separate freshness signal. A past complete scan must not disguise
+        # the fact that today's official source failed.
+        latest_status = latest.get("status") or "无自动采集记录（可能仅登记官网入口）"
         writer.writerow([name, info.get("source", ""), info.get("level", ""),
                          info.get("coverage", ""), info.get("website", ""),
-                         sum(row["company"] == name for row in eligible_jobs(db.get("jobs", [])))])
+                         sum(row["company"] == name for row in eligible_jobs(db.get("jobs", []))),
+                         latest_status, latest.get("checked", "")])
 with (ROOT / "jobs.csv").open("w", encoding="utf-8-sig", newline="") as stream:
     cols = ["company","title","group","track","fit","days","duration","posted",
             "date_type","verify","checked","team","summary","requirements",
