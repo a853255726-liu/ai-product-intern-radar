@@ -41,7 +41,7 @@ def is_ai_product(row):
     if not is_product_candidate(title, desc, " ".join(row.get("tags") or [])):
         return False
     return bool(re.search(
-        r"\bAI\b|Agent|智能体|大模型|AIGC|生成式|九章|学习智能|学而思智能|"
+        r"(?<![A-Za-z])AI(?![A-Za-z])|Agent|智能体|大模型|AIGC|生成式|九章|学习智能|学而思智能|"
         r"机器学习|智能教育|自适应学习|LLM|模型评测|教育大模型",
         title + " " + desc, re.I))
 
