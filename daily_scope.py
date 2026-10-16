@@ -48,6 +48,8 @@ def classify(job):
         qualifications.append(value)
     terms = title + " " + team + " " + " ".join(qualifications)
     company = str(job.get("company") or "")
+    if job.get("graduation_restriction_confirmed") is True:
+        return "graduate_only"
     if key in TENCENT_GRADUATING_COHORT_IDS or "（应届实习）" in title:
         return "graduate_only"
     # Avoid treating a negated phrase or preference as a strict restriction.
