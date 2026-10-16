@@ -10157,6 +10157,36 @@
       "level": "partial",
       "coverage": "2026-10-16 官方AI基础设施公司招聘主页确认北京招聘需求；尚未核实可稳定分页的北京AI产品日常实习职位接口，不自动采集",
       "website": "https://chitu-ai.jobs.feishu.cn/"
+    },
+    "华为": {
+      "source": "雇主官网勇敢星实习计划（未上线自动采集）",
+      "coverage": "2026-10-16 官网有实习生入口；公开职位列表依赖客户端渲染，未核实稳定完整分页、ID和北京AI产品候选",
+      "level": "partial",
+      "website": "https://career.huawei.com/reccampportal/portal5/campus-recruitment.html"
+    },
+    "OPPO": {
+      "source": "日常实习公开列表（采集器待云端验收）",
+      "coverage": "2026-10-16 已找到面向在校生的日常实习独立列表，并编写公开数量/职位代码校验；截至核对北京职位主要为算法，不能算北京AI产品实习",
+      "level": "partial",
+      "website": "https://career.oppo.com/official/oppo/recruitment/post?recruitType=OFFEN-RECRUITMENT"
+    },
+    "汽车之家": {
+      "source": "雇主官网在校生日常实习（未上线自动采集）",
+      "coverage": "2026-10-16 官方校园站区分2027届应届与在校生日常实习；尚未取得日常实习全量分页和唯一职位ID",
+      "level": "partial",
+      "website": "https://talent.autohome.com.cn/campus_index.html"
+    },
+    "好未来": {
+      "source": "官方Moka实习职位目录（采集器待云端验收）",
+      "coverage": "2026-10-16 招聘官网 tal/95443 含2027暑期实习及其他职位；已写公开浏览器全分页/职位UUID和北京AI产品筛选，尚无成功云端运行",
+      "level": "partial",
+      "website": "https://app.mokahr.com/campus-recruitment/tal/95443#/jobs"
+    },
+    "搜狐": {
+      "source": "雇主官网在校生实习项目（未上线自动采集）",
+      "coverage": "2026-10-16 校园官网确认面向在校生的实习项目；2027秋招的2026/2027届条件不能直接视为适用于实习；岗位列表ID与日常渠道待核",
+      "level": "partial",
+      "website": "https://campus.sohu.com/"
     }
   },
   "quality": {
