@@ -81,8 +81,21 @@ def collect_huawei(session=None):
                 target=page.locator('li[data-tag="pager-item-pager"]').filter(
                     has_text=re.compile(r"^"+str(number)+r"$"))
                 if target.count()!=1:
-                    raise ValueError(
-                        f"Huawei page {number} is not reachable by verified public pagination")
+                    # Huawei's compact pagination hides the final page number
+                    # near the end; use an ordinary public Next control only.
+                    # The response is STILL required to identify the exact
+                    # next page and reconcile a globally unique job ID set.
+                    next_controls=page.locator(
+                        'li[data-tag*="next"],li[aria-label*="Next"],'
+                        'button[aria-label*="Next"],[class*="pager-item-next"]'
+                    )
+                    if next_controls.count()!=1:
+                        pager=page.locator('li[data-tag]').evaluate_all(
+                            "(els)=>els.slice(-14).map(x=>x.outerHTML.slice(0,360))")
+                        raise ValueError(
+                            f"Huawei page {number} has no verified public next page; "
+                            f"pagerDOM={pager}")
+                    target=next_controls
                 try:
                     with page.expect_response(is_jobs,timeout=14000) as next_response:
                         target.first.click(timeout=7000)
