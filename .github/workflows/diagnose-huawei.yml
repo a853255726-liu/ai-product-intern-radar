@@ -1,0 +1,43 @@
+name: Diagnose Huawei public campus source
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - huawei_sources.py
+      - .github/workflows/diagnose-huawei.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source dependencies and browser
+        run: |
+          python -m pip install -r requirements.txt
+          python -m playwright install chromium --with-deps
+      - name: Validate code and source contract
+        run: |
+          python -m compileall -q huawei_sources.py refresh_sources.py
+          python -m unittest discover -s tests -p 'test_huawei_source.py' -v
+      - name: Collect default public Huawei campus catalogue in read-only mode
+        shell: bash
+        run: |
+          set -o pipefail
+          python refresh_sources.py --audit-only --sources huawei-browser 2>&1 | tee huawei-audit.log
+      - name: Save findings
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: huawei-default-campus-source-audit
+          path: huawei-audit.log
+          if-no-files-found: ignore
+          retention-days: 7
