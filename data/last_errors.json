@@ -1,4 +1,8 @@
 {
-  "date": "2026-10-16",
-  "errors": []
+  "date": "2026-10-17",
+  "errors": [
+    "智谱: ValueError: Feishu browser did not render a public position list",
+    "无问芯穹: ValueError: Feishu browser did not render a public position list",
+    "B站: ConnectTimeout: HTTPSConnectionPool(host='jobs.bilibili.com', port=443): Max retries exceeded with url: /api/auth/v1/csrf/token (Caused by ConnectTimeoutError(<HTTPSConnection(host='jobs.bilibili.com', port=443) at 0x7f05ccb7a950>, 'Connection to jobs.bilibili.com timed out. (connect timeout=22)'))"
+  ]
 }
