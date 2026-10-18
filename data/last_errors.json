@@ -1,8 +1,8 @@
 {
-  "date": "2026-10-17",
+  "date": "2026-10-18",
   "errors": [
+    "美团: ValueError: 美团 50-, 25- and 10-row pages failed integrity; 50-row=美团: reported=364 retrieved=364 unique=361; duplicate_id_diagnostics=[{\"job_id\":\"4346490662\",\"first_page\":4,\"again_page\":5,\"scope\":\"cross_page\",\"identical_payload\":true},{\"job_id\":\"4347512368\",\"first_page\":4,\"again_page\":5,\"scope\":\"cross_page\",\"identical_payload\":true},{\"job_id\":\"3153665236\",\"first_page\":7,\"again_page\":8,\"scope\":\"cross_page\",\"identical_payload\":true}]; 25-row=美团: reported=364 retrieved=364 unique=363; duplicate_id_diagnostics=[{\"job_id\":\"4347049935\",\"first_page\":9,\"again_page\":10,\"scope\":\"cross_page\",\"identical_payload\":true}]; 10-row=美团: reported=364 retrieved=364 unique=360; duplicate_id_diagnostics=[{\"job_id\":\"4600034270\",\"first_page\":14,\"again_page\":15,\"scope\":\"cross_page\",\"identical_payload\":true},{\"job_id\":\"4347049317\",\"first_page\":20,\"again_page\":21,\"scope\":\"cross_page\",\"identical_payload\":true},{\"job_id\":\"3155408656\",\"first_page\":33,\"again_page\":34,\"scope\":\"cross_page\",\"identical_payload\":true},{\"job_id\":\"3155414459\",\"first_page\":33,\"again_page\":34,\"scope\":\"cross_page\",\"identical_payload\":true}]",
     "智谱: ValueError: Feishu browser did not render a public position list",
-    "无问芯穹: ValueError: Feishu browser did not render a public position list",
-    "B站: ConnectTimeout: HTTPSConnectionPool(host='jobs.bilibili.com', port=443): Max retries exceeded with url: /api/auth/v1/csrf/token (Caused by ConnectTimeoutError(<HTTPSConnection(host='jobs.bilibili.com', port=443) at 0x7f05ccb7a950>, 'Connection to jobs.bilibili.com timed out. (connect timeout=22)'))"
+    "无问芯穹: ValueError: Feishu browser did not render a public position list"
   ]
 }
