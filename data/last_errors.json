@@ -1,10 +1,8 @@
 {
-  "date": "2026-10-23",
+  "date": "2026-10-24",
   "errors": [
-    "美团: ValueError: 美团 50-, 25- and 10-row pages failed integrity; 50-row=美团: reported=376 retrieved=376 unique=375; duplicate_id_diagnostics=[{\"job_id\":\"3153873006\",\"first_page\":7,\"again_page\":8,\"scope\":\"cross_page\",\"identical_payload\":true}]; 25-row=美团: reported=376 retrieved=376 unique=375; duplicate_id_diagnostics=[{\"job_id\":\"4348820765\",\"first_page\":9,\"again_page\":10,\"scope\":\"cross_page\",\"identical_payload\":true}]; 10-row=美团: reported=376 retrieved=376 unique=373; duplicate_id_diagnostics=[{\"job_id\":\"4177333359\",\"first_page\":28,\"again_page\":29,\"scope\":\"cross_page\",\"identical_payload\":true},{\"job_id\":\"3153872809\",\"first_page\":35,\"again_page\":36,\"scope\":\"cross_page\",\"identical_payload\":true},{\"job_id\":\"3153792897\",\"first_page\":36,\"again_page\":37,\"scope\":\"cross_page\",\"identical_payload\":true}]",
     "智谱: ValueError: Feishu browser did not render a public position list",
     "无问芯穹: ValueError: Feishu browser did not render a public position list",
-    "好未来: ValueError: TAL official job UUID detail did not render: 产品实习生",
     "OPPO: ValueError: OPPO listing has additional uncollected pages"
   ]
 }
